@@ -5,789 +5,200 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PTE 練習系統 - 儀表板</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --primary: #667eea;
-            --secondary: #764ba2;
-            --success: #10b981;
-            --warning: #f59e0b;
-            --danger: #ef4444;
-            --gray: #6b7280;
-        }
-
-        body {
-            font-family: 'Segoe UI', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
-            background: #f5f7fa;
-            min-height: 100vh;
-        }
-
-        /* Header */
-        .header {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            color: white;
-            padding: 20px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        .header h1 {
-            font-size: 24px;
-        }
-
-        .header .user-info {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .header .logout-btn {
-            background: rgba(255,255,255,0.2);
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 8px;
-            cursor: pointer;
-        }
-
-        /* Main Content */
-        .container {
-            max-width: 1200px;
-            margin: 30px auto;
-            padding: 0 20px;
-        }
-
-        /* Stats Cards */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-
-        .stat-card {
-            background: white;
-            border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            text-align: center;
-        }
-
-        .stat-card .number {
-            font-size: 36px;
-            font-weight: bold;
-            color: var(--primary);
-        }
-
-        .stat-card .label {
-            color: var(--gray);
-            font-size: 14px;
-            margin-top: 5px;
-        }
-
-        /* Practice Types */
-        .practice-section {
-            background: white;
-            border-radius: 15px;
-            padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
-
-        .practice-section h2 {
-            color: #333;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .question-types {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
-        }
-
-        .question-type-card {
-            border: 2px solid #e5e7eb;
-            border-radius: 12px;
-            padding: 20px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .question-type-card:hover {
-            border-color: var(--primary);
-            transform: translateY(-3px);
-            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.2);
-        }
-
-        .question-type-card .icon {
-            font-size: 32px;
-            margin-bottom: 10px;
-        }
-
-        .question-type-card .name {
-            font-weight: 600;
-            color: #333;
-        }
-
-        .question-type-card .desc {
-            font-size: 12px;
-            color: var(--gray);
-            margin-top: 5px;
-        }
-
-        /* Question Area */
-        .question-area {
-            display: none;
-            background: white;
-            border-radius: 15px;
-            padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
-
-        .question-area.active {
-            display: block;
-        }
-
-        .question-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid #e5e7eb;
-        }
-
-        .question-type-badge {
-            background: var(--primary);
-            color: white;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 14px;
-        }
-
-        .question-timer {
-            color: var(--warning);
-            font-weight: 600;
-        }
-
-        .question-content {
-            font-size: 18px;
-            line-height: 1.8;
-            margin-bottom: 25px;
-            padding: 20px;
-            background: #f9fafb;
-            border-radius: 10px;
-        }
-
-        .options-grid {
-            display: grid;
-            gap: 12px;
-            margin-bottom: 25px;
-        }
-
-        .option-btn {
-            padding: 15px 20px;
-            border: 2px solid #e5e7eb;
-            border-radius: 10px;
-            background: white;
-            cursor: pointer;
-            font-size: 16px;
-            text-align: left;
-            transition: all 0.2s;
-        }
-
-        .option-btn:hover {
-            border-color: var(--primary);
-        }
-
-        .option-btn.selected {
-            border-color: var(--primary);
-            background: #eef2ff;
-        }
-
-        .option-btn.correct {
-            border-color: var(--success);
-            background: #d1fae5;
-        }
-
-        .option-btn.wrong {
-            border-color: var(--danger);
-            background: #fee2e2;
-        }
-
-        .answer-input {
-            width: 100%;
-            padding: 15px;
-            border: 2px solid #e5e7eb;
-            border-radius: 10px;
-            font-size: 16px;
-            margin-bottom: 20px;
-        }
-
-        .answer-input:focus {
-            outline: none;
-            border-color: var(--primary);
-        }
-
-        .btn-group {
-            display: flex;
-            gap: 15px;
-        }
-
-        .btn {
-            padding: 12px 30px;
-            border: none;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            color: white;
-        }
-
-        .btn-secondary {
-            background: #e5e7eb;
-            color: #333;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-
-        /* Result Modal */
-        .result-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-        }
-
-        .result-modal.active {
-            display: flex;
-        }
-
-        .result-content {
-            background: white;
-            border-radius: 20px;
-            padding: 40px;
-            text-align: center;
-            max-width: 400px;
-            animation: slideUp 0.3s ease-out;
-        }
-
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .result-icon {
-            font-size: 60px;
-            margin-bottom: 20px;
-        }
-
-        .result-title {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 15px;
-        }
-
-        .result-explanation {
-            color: var(--gray);
-            margin-bottom: 25px;
-            line-height: 1.6;
-        }
-
-        /* RO Drag */
-        .ro-sentences {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .ro-sentence {
-            padding: 15px 20px;
-            background: #f3f4f6;
-            border: 2px solid #e5e7eb;
-            border-radius: 10px;
-            cursor: grab;
-            transition: all 0.2s;
-        }
-
-        .ro-sentence:hover {
-            border-color: var(--primary);
-        }
-
-        .ro-sentence.dragging {
-            opacity: 0.5;
-        }
-
-        /* WFD Audio */
-        .audio-player {
-            background: #f3f4f6;
-            padding: 30px;
-            border-radius: 15px;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .audio-btn {
-            font-size: 48px;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-
-        .audio-btn:hover {
-            transform: scale(1.1);
-        }
-
-        /* RA Record */
-        .ra-record {
-            background: #f3f4f6;
-            padding: 30px;
-            border-radius: 15px;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .record-btn {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background: var(--danger);
-            border: none;
-            cursor: pointer;
-            font-size: 32px;
-            color: white;
-            transition: all 0.2s;
-        }
-
-        .record-btn:hover {
-            transform: scale(1.1);
-        }
-
-        .record-btn.recording {
-            animation: pulse 1s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
-
-        .hidden {
-            display: none !important;
-        }
+        *{margin:0;padding:0;box-sizing:border-box}
+        :root{--pri:#667eea;--sec:#764ba2;--ok:#10b981;--warn:#f59e0b;--err:#ef4444;--gray:#6b7280}
+        body{font-family:'Segoe UI',sans-serif;background:#f5f7fa;min-height:100vh}
+        .header{background:linear-gradient(135deg,var(--pri),var(--sec));color:#fff;padding:20px 30px;display:flex;justify-content:space-between;align-items:center}
+        .header h1{font-size:22px}
+        .header a{color:#fff;text-decoration:none;background:rgba(255,255,255,.2);padding:8px 16px;border-radius:8px}
+        .container{max-width:1000px;margin:30px auto;padding:0 20px}
+        .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:15px;margin-bottom:30px}
+        .stat{background:#fff;border-radius:15px;padding:20px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+        .stat .num{font-size:32px;font-weight:bold;color:var(--pri)}
+        .stat .lbl{color:var(--gray);font-size:13px;margin-top:5px}
+        .card{background:#fff;border-radius:15px;padding:25px;margin-bottom:25px;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+        .card h2{margin-bottom:15px;display:flex;align-items:center;gap:10px}
+        textarea{width:100%;min-height:150px;padding:12px;border:2px solid #e5e7eb;border-radius:10px;font-size:14px;font-family:inherit;resize:vertical}
+        textarea:focus{outline:none;border-color:var(--pri)}
+        input[type=text]{width:100%;padding:12px;border:2px solid #e5e7eb;border-radius:10px;font-size:15px;margin-bottom:12px}
+        input[type=text]:focus{outline:none;border-color:var(--pri)}
+        .btn{padding:12px 30px;border:none;border-radius:10px;font-size:15px;font-weight:600;cursor:pointer;transition:all .2s}
+        .btn-pri{background:linear-gradient(135deg,var(--pri),var(--sec));color:#fff}
+        .btn-sec{background:#e5e7eb;color:#333}
+        .btn:hover{transform:translateY(-2px);box-shadow:0 5px 15px rgba(0,0,0,.15)}
+        .btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+        .article-list{display:grid;gap:12px}
+        .article-item{border:2px solid #e5e7eb;border-radius:12px;padding:15px;cursor:pointer;transition:all .2s;display:flex;justify-content:space-between;align-items:center}
+        .article-item:hover{border-color:var(--pri);transform:translateY(-2px)}
+        .article-item .info h3{font-size:15px;margin-bottom:4px}
+        .article-item .info .meta{font-size:12px;color:var(--gray)}
+        .article-item .badge{background:var(--pri);color:#fff;padding:4px 12px;border-radius:20px;font-size:12px;white-space:nowrap}
+        .article-item .del{background:var(--err);color:#fff;border:none;padding:6px 12px;border-radius:8px;cursor:pointer;font-size:12px;margin-left:8px}
+        .loading{display:none;text-align:center;padding:20px;color:var(--gray)}
+        .loading.active{display:block}
+        .spinner{display:inline-block;width:30px;height:30px;border:3px solid #e5e7eb;border-top-color:var(--pri);border-radius:50%;animation:spin .8s linear infinite}
+        @keyframes spin{to{transform:rotate(360deg)}}
+        .tabs{display:flex;gap:10px;margin-bottom:20px}
+        .tab{padding:10px 20px;border:2px solid #e5e7eb;border-radius:10px;cursor:pointer;font-weight:500;transition:all .2s}
+        .tab.active{border-color:var(--pri);background:var(--pri);color:#fff}
     </style>
 </head>
 <body>
     <div class="header">
         <h1>📚 PTE 練習系統</h1>
-        <div class="user-info">
-            <span>歡迎，<span id="username">Admin</span></span>
-            <button class="logout-btn" onclick="logout()">登出</button>
-        </div>
+        <a href="/api/logout">登出</a>
     </div>
 
     <div class="container">
         <!-- Stats -->
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="number" id="totalQuestions">0</div>
-                <div class="label">總答題數</div>
-            </div>
-            <div class="stat-card">
-                <div class="number" id="correctRate">0%</div>
-                <div class="label">正確率</div>
-            </div>
-            <div class="stat-card">
-                <div class="number" id="streakDays">0</div>
-                <div class="label">連續天數</div>
-            </div>
-            <div class="stat-card">
-                <div class="number" id="todayQuestions">0</div>
-                <div class="label">今日答題</div>
+        <div class="stats">
+            <div class="stat"><div class="num" id="articleCount">0</div><div class="lbl">文章數</div></div>
+            <div class="stat"><div class="num" id="totalQ">0</div><div class="lbl">總答題</div></div>
+            <div class="stat"><div class="num" id="rate">0%</div><div class="lbl">正確率</div></div>
+            <div class="stat"><div class="num" id="todayQ">0</div><div class="lbl">今日答題</div></div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <div class="tab active" onclick="showTab('upload')">📤 上傳文章</div>
+            <div class="tab" onclick="showTab('articles')">📋 文章列表</div>
+        </div>
+
+        <!-- Upload Article -->
+        <div class="card" id="uploadTab">
+            <h2>📤 上傳今日文章</h2>
+            <form id="uploadForm">
+                <input type="text" id="articleTitle" placeholder="文章標題（例：The Future of AI）" required>
+                <textarea id="articleContent" placeholder="貼上文章內容...&#10;&#10;可以直接從經濟學人複製貼上" required></textarea>
+                <div style="margin-top:15px;display:flex;gap:10px;align-items:center">
+                    <button type="submit" class="btn btn-pri" id="uploadBtn">📤 上傳並生成題目</button>
+                    <span id="uploadStatus" style="color:var(--gray);font-size:13px"></span>
+                </div>
+            </form>
+            <div class="loading" id="uploadLoading">
+                <div class="spinner"></div>
+                <p style="margin-top:10px">🤖 AI 正在從文章中生成 PTE 題目...</p>
             </div>
         </div>
 
-        <!-- Question Types -->
-        <div class="practice-section">
-            <h2>🎯 選擇題型開始練習</h2>
-            <div class="question-types">
-                <div class="question-type-card" onclick="startPractice('RA')">
-                    <div class="icon">📖</div>
-                    <div class="name">Read Aloud</div>
-                    <div class="desc">朗讀句子</div>
-                </div>
-                <div class="question-type-card" onclick="startPractice('RS')">
-                    <div class="icon">🔊</div>
-                    <div class="name">Repeat Sentence</div>
-                    <div class="desc">複誦句子</div>
-                </div>
-                <div class="question-type-card" onclick="startPractice('FIB')">
-                    <div class="icon">✏️</div>
-                    <div class="name">Fill in Blanks</div>
-                    <div class="desc">填空題</div>
-                </div>
-                <div class="question-type-card" onclick="startPractice('RO')">
-                    <div class="icon">🔢</div>
-                    <div class="name">Re-order</div>
-                    <div class="desc">排序題</div>
-                </div>
-                <div class="question-type-card" onclick="startPractice('MC')">
-                    <div class="icon">✅</div>
-                    <div class="name">Multiple Choice</div>
-                    <div class="desc">選擇題</div>
-                </div>
-                <div class="question-type-card" onclick="startPractice('WFD')">
-                    <div class="icon">⌨️</div>
-                    <div class="name">Write from Dictation</div>
-                    <div class="desc">聽寫題</div>
-                </div>
+        <!-- Article List -->
+        <div class="card" id="articlesTab" style="display:none">
+            <h2>📋 已上傳文章</h2>
+            <div class="article-list" id="articleList">
+                <p style="color:var(--gray);text-align:center">載入中...</p>
             </div>
-        </div>
-
-        <!-- Question Area -->
-        <div class="question-area" id="questionArea">
-            <div class="question-header">
-                <span class="question-type-badge" id="questionType">FIB</span>
-                <span class="question-timer" id="timer">⏱️ 00:00</span>
-            </div>
-
-            <div class="question-content" id="questionContent">
-                Loading...
-            </div>
-
-            <!-- FIB / MC Options -->
-            <div class="options-grid" id="optionsArea"></div>
-
-            <!-- RO - Reorder -->
-            <div class="ro-sentences hidden" id="roArea"></div>
-
-            <!-- WFD - Audio -->
-            <div class="audio-player hidden" id="wfdArea">
-                <div class="audio-btn" onclick="playAudio()">▶️</div>
-                <p style="margin-top: 10px; color: #666;">點擊播放音頻</p>
-            </div>
-
-            <!-- RA - Record -->
-            <div class="ra-record hidden" id="raArea">
-                <button class="record-btn" id="recordBtn" onclick="toggleRecord()">🎤</button>
-                <p style="margin-top: 10px; color: #666;">點擊開始錄音</p>
-            </div>
-
-            <!-- WFD Input -->
-            <input type="text" class="answer-input hidden" id="wfdInput" placeholder="請輸入聽到的句子...">
-
-            <div class="btn-group">
-                <button class="btn btn-primary" onclick="submitAnswer()">提交答案</button>
-                <button class="btn btn-secondary" onclick="skipQuestion()">跳過</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Result Modal -->
-    <div class="result-modal" id="resultModal">
-        <div class="result-content">
-            <div class="result-icon" id="resultIcon">✅</div>
-            <div class="result-title" id="resultTitle">正確!</div>
-            <div class="result-explanation" id="resultExplanation">
-                很好! 繼續加油!
-            </div>
-            <button class="btn btn-primary" onclick="nextQuestion()">下一題</button>
         </div>
     </div>
 
     <script>
-        // State
-        let currentType = '';
-        let currentQuestion = null;
-        let questions = [];
-        let questionIndex = 0;
-        let timerInterval;
-        let seconds = 0;
-        let mediaRecorder;
-        let audioChunks = [];
+    // Tab switching
+    function showTab(tab) {
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        event.target.classList.add('active');
+        document.getElementById('uploadTab').style.display = tab === 'upload' ? 'block' : 'none';
+        document.getElementById('articlesTab').style.display = tab === 'articles' ? 'block' : 'none';
+        if (tab === 'articles') loadArticles();
+    }
 
-        // Sample questions
-        const sampleQuestions = {
-            FIB: [
-                {
-                    content: 'Artificial intelligence is transforming how students ____.',
-                    options: ['learn', 'learns', 'learning', 'learned'],
-                    answer: 'learn',
-                    explanation: 'In this context, the base form of verb is used after "how students".'
-                },
-                {
-                    content: 'With personalized tutoring systems, ____ becomes more accessible.',
-                    options: ['education', 'educational', 'educate', 'educating'],
-                    answer: 'education',
-                    explanation: 'Education as a noun is needed here.'
-                }
-            ],
-            MC: [
-                {
-                    content: 'What is the main topic of this article?',
-                    options: ['Sports', 'AI in Education', 'Climate Change', 'Politics'],
-                    answer: 'AI in Education',
-                    explanation: 'The article discusses how AI is transforming education.'
-                },
-                {
-                    content: 'According to the passage, what is a benefit of AI in learning?',
-                    options: ['It makes learning more expensive', 'It provides personalized learning', 'It replaces teachers', 'It reduces student motivation'],
-                    answer: 'It provides personalized learning',
-                    explanation: 'The article mentions personalized tutoring systems.'
-                }
-            ],
-            RO: [
-                {
-                    sentences: [
-                        'Education becomes more accessible than ever before.',
-                        'With personalized tutoring systems.',
-                        'Artificial intelligence is transforming education.',
-                        'And adaptive learning platforms.'
-                    ],
-                    answer: '3,2,4,1',
-                    explanation: 'The logical flow: Main topic → How → Additional detail → Result'
-                }
-            ],
-            WFD: [
-                {
-                    audio: 'sample1',
-                    answer: 'Education becomes more accessible than ever before.',
-                    explanation: 'Listen carefully and type the exact sentence.'
-                },
-                {
-                    audio: 'sample2',
-                    answer: 'Personalized learning is the future of education.',
-                    explanation: 'Pay attention to every word.'
-                }
-            ],
-            RA: [
-                {
-                    text: 'Artificial intelligence is transforming how students learn with personalized tutoring systems.',
-                    explanation: 'Read this sentence clearly and fluently.'
-                },
-                {
-                    text: 'Education becomes more accessible than ever before through technology.',
-                    explanation: 'Maintain proper pace and pronunciation.'
-                }
-            ],
-            RS: [
-                {
-                    audio: 'sample1',
-                    answer: 'The future of learning is personalized.',
-                    explanation: 'Listen and repeat exactly what you hear.'
-                }
-            ]
-        };
+    // Load stats
+    async function loadStats() {
+        try {
+            const r = await fetch('/api/stats');
+            const d = await r.json();
+            document.getElementById('articleCount').textContent = d.articleCount || 0;
+            document.getElementById('totalQ').textContent = d.total || 0;
+            document.getElementById('rate').textContent = (d.rate || 0) + '%';
+            document.getElementById('todayQ').textContent = d.todayTotal || 0;
+        } catch(e) {}
+    }
 
-        // Load questions for a type
-        function startPractice(type) {
-            currentType = type;
-            questions = sampleQuestions[type] || [];
-            questionIndex = 0;
-
-            document.getElementById('questionArea').classList.add('active');
-            showQuestion();
-        }
-
-        function showQuestion() {
-            if (questionIndex >= questions.length) {
-                questionIndex = 0;
+    // Load articles
+    async function loadArticles() {
+        const list = document.getElementById('articleList');
+        try {
+            const r = await fetch('/api/articles');
+            const articles = await r.json();
+            if (articles.length === 0) {
+                list.innerHTML = '<p style="color:var(--gray);text-align:center">還沒有上傳文章</p>';
+                return;
             }
-
-            currentQuestion = questions[questionIndex];
-            document.getElementById('questionType').textContent = currentType;
-
-            // Reset timer
-            clearInterval(timerInterval);
-            seconds = 0;
-            updateTimer();
-
-            // Show different areas based on type
-            const optionsArea = document.getElementById('optionsArea');
-            const roArea = document.getElementById('roArea');
-            const wfdArea = document.getElementById('wfdArea');
-            const raArea = document.getElementById('raArea');
-            const wfdInput = document.getElementById('wfdInput');
-
-            optionsArea.classList.add('hidden');
-            roArea.classList.add('hidden');
-            wfdArea.classList.add('hidden');
-            raArea.classList.add('hidden');
-            wfdInput.classList.add('hidden');
-
-            if (currentType === 'FIB' || currentType === 'MC') {
-                document.getElementById('questionContent').textContent = currentQuestion.content;
-                optionsArea.innerHTML = currentQuestion.options.map((opt, i) => 
-                    `<button class="option-btn" onclick="selectOption(this)">${opt}</button>`
-                ).join('');
-                optionsArea.classList.remove('hidden');
-            } else if (currentType === 'RO') {
-                const shuffled = [...currentQuestion.sentences].sort(() => Math.random() - 0.5);
-                roArea.innerHTML = shuffled.map((s, i) => 
-                    `<div class="ro-sentence" draggable="true">${s}</div>`
-                ).join('');
-                setupDragAndDrop();
-                roArea.classList.remove('hidden');
-            } else if (currentType === 'WFD') {
-                wfdArea.classList.remove('hidden');
-                wfdInput.classList.remove('hidden');
-                wfdInput.value = '';
-            } else if (currentType === 'RA') {
-                document.getElementById('questionContent').textContent = currentQuestion.text;
-                raArea.classList.remove('hidden');
-            } else if (currentType === 'RS') {
-                document.getElementById('questionContent').textContent = '播放句子然後複誦';
-                wfdArea.classList.remove('hidden');
-            }
+            list.innerHTML = articles.map(a => `
+                <div class="article-item">
+                    <div class="info" onclick="location.href='/practice?id=${a.id}'">
+                        <h3>${a.title}</h3>
+                        <div class="meta">${a.date} · ${(a.questions||[]).length} 題</div>
+                    </div>
+                    <div>
+                        <span class="badge" onclick="location.href='/practice?id=${a.id}'">${(a.questions||[]).length} 題</span>
+                        <button class="del" onclick="deleteArticle(${a.id})">刪除</button>
+                    </div>
+                </div>
+            `).reverse().join('');
+        } catch(e) {
+            list.innerHTML = '<p style="color:var(--err)">載入失敗</p>';
         }
+    }
 
-        function selectOption(btn) {
-            document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
-            btn.classList.add('selected');
-        }
+    // Upload article
+    document.getElementById('uploadForm').onsubmit = async (e) => {
+        e.preventDefault();
+        const title = document.getElementById('articleTitle').value.trim();
+        const content = document.getElementById('articleContent').value.trim();
+        if (!title || !content) return;
 
-        function setupDragAndDrop() {
-            const sentences = document.querySelectorAll('.ro-sentence');
-            sentences.forEach(s => {
-                s.addEventListener('dragstart', e => {
-                    e.target.classList.add('dragging');
-                });
-                s.addEventListener('dragend', e => {
-                    e.target.classList.remove('dragging');
-                });
+        const btn = document.getElementById('uploadBtn');
+        const loading = document.getElementById('uploadLoading');
+        const status = document.getElementById('uploadStatus');
+
+        btn.disabled = true;
+        loading.classList.add('active');
+        status.textContent = '';
+
+        try {
+            const r = await fetch('/api/articles', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ title, content })
             });
-        }
+            const d = await r.json();
 
-        function playAudio() {
-            alert('音頻播放功能需要實際音頻文件');
-        }
+            if (d.success) {
+                const qCount = (d.article.questions || []).length;
+                status.textContent = `✅ 已生成 ${qCount} 道題目！`;
+                status.style.color = 'var(--ok)';
+                document.getElementById('articleTitle').value = '';
+                document.getElementById('articleContent').value = '';
+                loadStats();
 
-        function toggleRecord() {
-            const btn = document.getElementById('recordBtn');
-            if (btn.classList.contains('recording')) {
-                btn.classList.remove('recording');
-                alert('錄音完成！');
+                // Auto redirect to practice
+                setTimeout(() => {
+                    if (confirm(`已生成 ${qCount} 道 PTE 題目！\n要現在開始練習嗎？`)) {
+                        location.href = '/practice?id=' + d.article.id;
+                    }
+                }, 500);
             } else {
-                btn.classList.add('recording');
+                status.textContent = '❌ ' + (d.error || '上傳失敗');
+                status.style.color = 'var(--err)';
             }
+        } catch(e) {
+            status.textContent = '❌ 網路錯誤';
+            status.style.color = 'var(--err)';
         }
 
-        async function submitAnswer() {
-            let userAnswer = '';
-            let isCorrect = false;
+        btn.disabled = false;
+        loading.classList.remove('active');
+    };
 
-            if (currentType === 'FIB' || currentType === 'MC') {
-                const selected = document.querySelector('.option-btn.selected');
-                if (!selected) {
-                    alert('請選擇一個答案');
-                    return;
-                }
-                userAnswer = selected.textContent;
-                isCorrect = userAnswer === currentQuestion.answer;
-            } else if (currentType === 'WFD') {
-                userAnswer = document.getElementById('wfdInput').value;
-                isCorrect = userAnswer.toLowerCase() === currentQuestion.answer.toLowerCase();
-            } else if (currentType === 'RA' || currentType === 'RS') {
-                isCorrect = true; // Simplified for demo
-                userAnswer = 'recorded';
-            } else if (currentType === 'RO') {
-                isCorrect = true; // Simplified
-                userAnswer = 'reordered';
-            }
+    // Delete article
+    async function deleteArticle(id) {
+        if (!confirm('確定要刪除這篇文章嗎？')) return;
+        await fetch('/api/articles/' + id, { method: 'DELETE' });
+        loadArticles();
+        loadStats();
+    }
 
-            // Show result
-            const modal = document.getElementById('resultModal');
-            const icon = document.getElementById('resultIcon');
-            const title = document.getElementById('resultTitle');
-            const explanation = document.getElementById('resultExplanation');
-
-            if (isCorrect) {
-                icon.textContent = '✅';
-                title.textContent = '正確!';
-                title.style.color = '#10b981';
-            } else {
-                icon.textContent = '❌';
-                title.textContent = '錯誤';
-                title.style.color = '#ef4444';
-            }
-
-            explanation.textContent = currentQuestion.explanation;
-            modal.classList.add('active');
-
-            // Update stats
-            updateStats(isCorrect);
-        }
-
-        function nextQuestion() {
-            document.getElementById('resultModal').classList.remove('active');
-            questionIndex++;
-            showQuestion();
-        }
-
-        function skipQuestion() {
-            questionIndex++;
-            showQuestion();
-        }
-
-        function updateTimer() {
-            timerInterval = setInterval(() => {
-                seconds++;
-                const mins = Math.floor(seconds / 60).toString().padStart(2, '0');
-                const secs = (seconds % 60).toString().padStart(2, '0');
-                document.getElementById('timer').textContent = `⏱️ ${mins}:${secs}`;
-            }, 1000);
-        }
-
-        function updateStats(isCorrect) {
-            const total = parseInt(document.getElementById('totalQuestions').textContent) + 1;
-            const correct = parseInt(document.getElementById('totalQuestions').textContent) + (isCorrect ? 1 : 0);
-            const rate = Math.round((correct / total) * 100);
-
-            document.getElementById('totalQuestions').textContent = total;
-            document.getElementById('correctRate').textContent = rate + '%';
-            document.getElementById('todayQuestions').textContent = 
-                parseInt(document.getElementById('todayQuestions').textContent) + 1;
-        }
-
-        function logout() {
-            window.location.href = '/api/logout';
-        }
-
-        // Initialize
-        document.getElementById('totalQuestions').textContent = Math.floor(Math.random() * 50);
-        document.getElementById('correctRate').textContent = Math.floor(Math.random() * 30 + 70) + '%';
-        document.getElementById('streakDays').textContent = Math.floor(Math.random() * 10 + 1);
+    // Init
+    loadStats();
     </script>
 </body>
 </html>

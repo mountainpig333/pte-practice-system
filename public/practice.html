@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PTE 練習</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        :root{--pri:#667eea;--sec:#764ba2;--ok:#10b981;--err:#ef4444;--gray:#6b7280}
+        body{font-family:'Segoe UI',sans-serif;background:#f5f7fa;min-height:100vh}
+        .header{background:linear-gradient(135deg,var(--pri),var(--sec));color:#fff;padding:15px 25px;display:flex;justify-content:space-between;align-items:center}
+        .header a{color:#fff;text-decoration:none;font-size:14px}
+        .container{max-width:800px;margin:30px auto;padding:0 20px}
+        .card{background:#fff;border-radius:15px;padding:25px;margin-bottom:20px;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+        .progress{display:flex;align-items:center;gap:15px;margin-bottom:25px}
+        .progress-bar{flex:1;height:8px;background:#e5e7eb;border-radius:4px;overflow:hidden}
+        .progress-fill{height:100%;background:linear-gradient(90deg,var(--pri),var(--sec));transition:width .3s;border-radius:4px}
+        .progress-text{font-size:14px;color:var(--gray);white-space:nowrap}
+        .q-type{display:inline-block;background:var(--pri);color:#fff;padding:4px 14px;border-radius:20px;font-size:13px;margin-bottom:15px}
+        .q-text{font-size:17px;line-height:1.8;margin-bottom:20px;padding:15px;background:#f9fafb;border-radius:10px}
+        .q-text .blank{display:inline-block;min-width:100px;border-bottom:2px solid var(--pri);margin:0 4px;text-align:center;color:var(--pri);font-weight:600}
+        .options{display:grid;gap:10px;margin-bottom:20px}
+        .opt{padding:14px 18px;border:2px solid #e5e7eb;border-radius:10px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;background:#fff}
+        .opt:hover{border-color:var(--pri)}
+        .opt.selected{border-color:var(--pri);background:#eef2ff}
+        .opt.correct{border-color:var(--ok);background:#d1fae5}
+        .opt.wrong{border-color:var(--err);background:#fee2e2}
+        .opt.disabled{pointer-events:none}
+        .ro-list{display:flex;flex-direction:column;gap:8px;margin-bottom:20px}
+        .ro-item{padding:14px;background:#f3f4f6;border:2px solid #e5e7eb;border-radius:10px;cursor:grab;display:flex;align-items:center;gap:10px;transition:all .2s}
+        .ro-item:hover{border-color:var(--pri)}
+        .ro-item .num{background:var(--pri);color:#fff;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600}
+        .ro-item.dragging{opacity:.4}
+        .wfd-input{width:100%;padding:14px;border:2px solid #e5e7eb;border-radius:10px;font-size:16px;margin-bottom:15px}
+        .wfd-input:focus{outline:none;border-color:var(--pri)}
+        .btn{padding:12px 28px;border:none;border-radius:10px;font-size:15px;font-weight:600;cursor:pointer;transition:all .2s}
+        .btn-pri{background:linear-gradient(135deg,var(--pri),var(--sec));color:#fff}
+        .btn-sec{background:#e5e7eb;color:#333}
+        .btn-ok{background:var(--ok);color:#fff}
+        .btn:hover{transform:translateY(-2px);box-shadow:0 5px 15px rgba(0,0,0,.15)}
+        .btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+        .btns{display:flex;gap:12px;justify-content:center}
+        .feedback{padding:15px;border-radius:10px;margin-top:15px;display:none}
+        .feedback.show{display:block}
+        .feedback.correct{background:#d1fae5;border:1px solid var(--ok)}
+        .feedback.wrong{background:#fee2e2;border:1px solid var(--err)}
+        .feedback .fb-title{font-weight:600;margin-bottom:5px}
+        .score-card{text-align:center;padding:40px}
+        .score-card .big{font-size:64px;font-weight:bold;color:var(--pri);margin-bottom:10px}
+        .score-card .sub{color:var(--gray);margin-bottom:25px}
+        .rwfib-blank{display:inline-block;margin:0 4px}
+        .rwfib-blank select{padding:6px 12px;border:2px solid #e5e7eb;border-radius:8px;font-size:14px;cursor:pointer}
+        .rwfib-blank select:focus{border-color:var(--pri);outline:none}
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1 id="articleTitle">📚 PTE 練習</h1>
+        <a href="/dashboard">← 返回</a>
+    </div>
+
+    <div class="container">
+        <!-- Progress -->
+        <div class="progress">
+            <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+            <div class="progress-text" id="progressText">0/0</div>
+        </div>
+
+        <!-- Question Card -->
+        <div class="card" id="questionCard">
+            <div class="q-type" id="qType">Loading...</div>
+            <div class="q-text" id="qText"></div>
+            <div id="qBody"></div>
+            <div class="feedback" id="feedback">
+                <div class="fb-title" id="fbTitle"></div>
+                <div id="fbText"></div>
+            </div>
+            <div class="btns" style="margin-top:20px">
+                <button class="btn btn-pri" id="submitBtn" onclick="submitAnswer()">提交答案</button>
+                <button class="btn btn-ok" id="nextBtn" onclick="nextQuestion()" style="display:none">下一題 →</button>
+            </div>
+        </div>
+
+        <!-- Score Card -->
+        <div class="card score-card" id="scoreCard" style="display:none">
+            <div class="big" id="finalScore">0%</div>
+            <div class="sub" id="finalDetail">0/0 正確</div>
+            <div class="btns">
+                <button class="btn btn-pri" onclick="location.reload()">重新練習</button>
+                <button class="btn btn-sec" onclick="location.href='/dashboard'">返回儀表板</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    let questions = [];
+    let currentIndex = 0;
+    let score = 0;
+    let selectedAnswer = null;
+
+    // Get article ID from URL
+    const params = new URLSearchParams(location.search);
+    const articleId = params.get('id');
+
+    async function loadArticle() {
+        if (!articleId) {
+            document.getElementById('qText').textContent = '請從儀表板選擇文章';
+            return;
+        }
+        try {
+            const r = await fetch('/api/articles/' + articleId);
+            const article = await r.json();
+            if (article.error) {
+                document.getElementById('qText').textContent = '找不到文章';
+                return;
+            }
+            document.getElementById('articleTitle').textContent = '📚 ' + article.title;
+            questions = article.questions || [];
+            if (questions.length === 0) {
+                document.getElementById('qText').textContent = '這篇文章還沒有題目';
+                return;
+            }
+            showQuestion();
+        } catch(e) {
+            document.getElementById('qText').textContent = '載入失敗';
+        }
+    }
+
+    function showQuestion() {
+        if (currentIndex >= questions.length) {
+            showScore();
+            return;
+        }
+
+        const q = questions[currentIndex];
+        selectedAnswer = null;
+
+        // Update progress
+        document.getElementById('progressFill').style.width = ((currentIndex / questions.length) * 100) + '%';
+        document.getElementById('progressText').textContent = `${currentIndex + 1}/${questions.length}`;
+
+        // Type badge
+        const typeLabels = {
+            'FIB': '📝 Fill in the Blanks',
+            'MC': '✅ Multiple Choice',
+            'RO': '🔢 Re-order Paragraphs',
+            'WFD': '⌨️ Write from Dictation',
+            'RWFIB': '📝 Reading & Writing FIB'
+        };
+        document.getElementById('qType').textContent = typeLabels[q.type] || q.type;
+
+        // Question text
+        document.getElementById('qText').textContent = q.question || '';
+
+        // Body
+        const body = document.getElementById('qBody');
+        body.innerHTML = '';
+
+        // Hide feedback
+        document.getElementById('feedback').className = 'feedback';
+        document.getElementById('submitBtn').style.display = '';
+        document.getElementById('nextBtn').style.display = 'none';
+        document.getElementById('submitBtn').disabled = false;
+
+        if (q.type === 'FIB' || q.type === 'MC') {
+            renderOptions(q, body);
+        } else if (q.type === 'RO') {
+            renderReorder(q, body);
+        } else if (q.type === 'WFD') {
+            renderWFD(q, body);
+        } else if (q.type === 'RWFIB') {
+            renderRWFIB(q, body);
+        }
+    }
+
+    function renderOptions(q, container) {
+        const div = document.createElement('div');
+        div.className = 'options';
+        (q.options || []).forEach((opt, i) => {
+            const btn = document.createElement('button');
+            btn.className = 'opt';
+            btn.textContent = opt;
+            btn.onclick = () => {
+                div.querySelectorAll('.opt').forEach(o => o.classList.remove('selected'));
+                btn.classList.add('selected');
+                selectedAnswer = opt;
+            };
+            div.appendChild(btn);
+        });
+        container.appendChild(div);
+    }
+
+    function renderReorder(q, container) {
+        const sentences = [...(q.sentences || [])];
+        // Shuffle
+        for (let i = sentences.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [sentences[i], sentences[j]] = [sentences[j], sentences[i]];
+        }
+
+        const list = document.createElement('div');
+        list.className = 'ro-list';
+        list.id = 'roList';
+
+        sentences.forEach((s, i) => {
+            const item = document.createElement('div');
+            item.className = 'ro-item';
+            item.draggable = true;
+            item.innerHTML = `<div class="num">${i + 1}</div><span>${s}</span>`;
+            item.dataset.text = s;
+
+            item.ondragstart = (e) => {
+                e.dataTransfer.setData('text', i.toString());
+                item.classList.add('dragging');
+            };
+            item.ondragend = () => item.classList.remove('dragging');
+            item.ondragover = (e) => e.preventDefault();
+            item.ondrop = (e) => {
+                e.preventDefault();
+                const fromIdx = parseInt(e.dataTransfer.getData('text'));
+                const items = list.querySelectorAll('.ro-item');
+                const fromItem = items[fromIdx];
+                if (fromItem && fromItem !== item) {
+                    list.insertBefore(fromItem, item);
+                    updateRONumbers();
+                }
+            };
+
+            list.appendChild(item);
+        });
+
+        container.appendChild(list);
+        selectedAnswer = 'ro';
+    }
+
+    function updateRONumbers() {
+        const items = document.querySelectorAll('#roList .ro-item');
+        items.forEach((item, i) => {
+            item.querySelector('.num').textContent = i + 1;
+        });
+    }
+
+    function renderWFD(q, container) {
+        document.getElementById('qText').textContent = '請打出以下句子（測試你的記憶力）：';
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.className = 'wfd-input';
+        input.placeholder = '在此輸入句子...';
+        input.id = 'wfdInput';
+        container.appendChild(input);
+        selectedAnswer = 'wfd';
+    }
+
+    function renderRWFIB(q, container) {
+        const blanks = q.blanks || [];
+        let html = q.question || '';
+
+        blanks.forEach((b, i) => {
+            const options = (b.options || []).map(o => `<option value="${o}">${o}</option>`).join('');
+            html = html.replace(`___${i+1}___`, `<span class="rwfib-blank"><select id="rwfib${i}"><option value="">-- 選擇 --</option>${options}</select></span>`);
+        });
+
+        document.getElementById('qText').innerHTML = html;
+        selectedAnswer = 'rwfib';
+    }
+
+    function submitAnswer() {
+        const q = questions[currentIndex];
+        let isCorrect = false;
+        let userAnswer = '';
+
+        if (q.type === 'FIB' || q.type === 'MC') {
+            if (!selectedAnswer) { alert('請選擇一個答案'); return; }
+            userAnswer = selectedAnswer;
+            isCorrect = selectedAnswer.trim().toLowerCase() === (q.answer || '').trim().toLowerCase();
+
+            // Highlight correct/wrong
+            document.querySelectorAll('.opt').forEach(o => {
+                o.classList.add('disabled');
+                if (o.textContent.trim().toLowerCase() === (q.answer || '').trim().toLowerCase()) {
+                    o.classList.add('correct');
+                } else if (o.classList.contains('selected')) {
+                    o.classList.add('wrong');
+                }
+            });
+
+        } else if (q.type === 'RO') {
+            const items = document.querySelectorAll('#roList .ro-item');
+            const userOrder = Array.from(items).map(i => i.dataset.text);
+            const correctOrder = q.sentences || [];
+            isCorrect = JSON.stringify(userOrder) === JSON.stringify(correctOrder);
+            userAnswer = userOrder.join(' | ');
+
+        } else if (q.type === 'WFD') {
+            const input = document.getElementById('wfdInput');
+            userAnswer = (input ? input.value : '').trim();
+            isCorrect = userAnswer.toLowerCase() === (q.answer || '').toLowerCase();
+
+        } else if (q.type === 'RWFIB') {
+            const blanks = q.blanks || [];
+            let allCorrect = true;
+            blanks.forEach((b, i) => {
+                const sel = document.getElementById('rwfib' + i);
+                if (sel && sel.value !== b.answer) allCorrect = false;
+            });
+            isCorrect = allCorrect;
+        }
+
+        if (isCorrect) score++;
+
+        // Show feedback
+        const fb = document.getElementById('feedback');
+        const fbTitle = document.getElementById('fbTitle');
+        const fbText = document.getElementById('fbText');
+
+        fb.className = 'feedback show ' + (isCorrect ? 'correct' : 'wrong');
+        fbTitle.textContent = isCorrect ? '✅ 正確！' : '❌ 錯誤';
+        fbText.textContent = q.explanation || (isCorrect ? '做得好！' : `正確答案：${q.answer}`);
+
+        // Save result
+        fetch('/api/submit', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                articleId, questionIndex: currentIndex,
+                type: q.type, correct: isCorrect,
+                userAnswer
+            })
+        });
+
+        document.getElementById('submitBtn').style.display = 'none';
+        document.getElementById('nextBtn').style.display = '';
+    }
+
+    function nextQuestion() {
+        currentIndex++;
+        showQuestion();
+    }
+
+    function showScore() {
+        document.getElementById('questionCard').style.display = 'none';
+        document.getElementById('scoreCard').style.display = 'block';
+        const pct = questions.length ? Math.round(score / questions.length * 100) : 0;
+        document.getElementById('finalScore').textContent = pct + '%';
+        document.getElementById('finalDetail').textContent = `${score}/${questions.length} 正確`;
+        document.getElementById('progressFill').style.width = '100%';
+    }
+
+    // Init
+    loadArticle();
+    </script>
+</body>
+</html>

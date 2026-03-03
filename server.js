@@ -357,6 +357,53 @@ function shuffle(arr) {
     return a;
 }
 
+// ============ QUESTION BANK ============
+const BANK_FILE = path.join(__dirname, 'question-bank.json');
+
+function loadBank() {
+    if (fs.existsSync(BANK_FILE)) {
+        try { return JSON.parse(fs.readFileSync(BANK_FILE, 'utf-8')); } catch(e) {}
+    }
+    return {};
+}
+
+// Get random questions from bank
+app.get('/api/bank/practice', requireAuth, (req, res) => {
+    const bank = loadBank();
+    const type = req.query.type;
+    const count = parseInt(req.query.count) || 10;
+    
+    if (type && bank[type]) {
+        const shuffled = [...bank[type]].sort(() => Math.random() - 0.5);
+        return res.json({ questions: shuffled.slice(0, count), type, total: bank[type].length });
+    }
+    
+    // Mixed practice: pick from all types
+    const allQ = [];
+    for (const [t, qs] of Object.entries(bank)) {
+        if (Array.isArray(qs) && qs.length > 0) {
+            const shuffled = [...qs].sort(() => Math.random() - 0.5);
+            allQ.push(...shuffled.slice(0, Math.ceil(count / Object.keys(bank).length)));
+        }
+    }
+    const mixed = allQ.sort(() => Math.random() - 0.5).slice(0, count);
+    res.json({ questions: mixed, type: 'mixed', total: mixed.length });
+});
+
+// Get bank stats
+app.get('/api/bank/stats', requireAuth, (req, res) => {
+    const bank = loadBank();
+    const stats = {};
+    let total = 0;
+    for (const [type, qs] of Object.entries(bank)) {
+        if (Array.isArray(qs)) {
+            stats[type] = qs.length;
+            total += qs.length;
+        }
+    }
+    res.json({ stats, total });
+});
+
 // Health check
 app.get('/health', (req, res) => res.json({ status: 'ok' }));
 

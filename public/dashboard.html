@@ -60,8 +60,28 @@
 
         <!-- Tabs -->
         <div class="tabs">
-            <div class="tab active" onclick="showTab('upload')">📤 上傳文章</div>
+            <div class="tab active" onclick="showTab('bank')">🎯 題庫練習</div>
+            <div class="tab" onclick="showTab('upload')">📤 上傳文章</div>
             <div class="tab" onclick="showTab('articles')">📋 文章列表</div>
+        </div>
+
+        <!-- Question Bank Practice -->
+        <div class="card" id="bankTab">
+            <h2>🎯 題庫練習</h2>
+            <p style="color:var(--gray);margin-bottom:20px">從題庫中隨機選題練習，每種題型 300+ 題</p>
+            <div id="bankTypes" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px">
+                <p style="color:var(--gray)">載入中...</p>
+            </div>
+            <div style="margin-top:20px;padding-top:15px;border-top:1px solid #e5e7eb;display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+                <label style="font-weight:500">題數：</label>
+                <select id="bankCount" style="padding:8px 12px;border:2px solid #e5e7eb;border-radius:8px;font-size:14px">
+                    <option value="10">10 題</option>
+                    <option value="20" selected>20 題</option>
+                    <option value="30">30 題</option>
+                    <option value="50">50 題</option>
+                </select>
+                <button class="btn btn-pri" onclick="startBankPractice('mixed')">🔀 綜合練習</button>
+            </div>
         </div>
 
         <!-- Upload Article -->
@@ -91,13 +111,63 @@
     </div>
 
     <script>
+    const TYPE_LABELS = {
+        FIB: {icon:'📝',name:'Fill in the Blanks',cat:'Reading'},
+        MCSA: {icon:'✅',name:'Multiple Choice (Single)',cat:'Reading'},
+        MCMA: {icon:'☑️',name:'Multiple Choice (Multi)',cat:'Reading'},
+        RO: {icon:'🔢',name:'Re-order Paragraphs',cat:'Reading'},
+        RWFIB: {icon:'📝',name:'R&W Fill in Blanks',cat:'Reading'},
+        SWT: {icon:'✍️',name:'Summarize Written Text',cat:'Writing'},
+        WFD: {icon:'⌨️',name:'Write from Dictation',cat:'Listening'},
+        HCS: {icon:'🔍',name:'Highlight Correct Summary',cat:'Listening'},
+        HIW: {icon:'🚫',name:'Highlight Incorrect Words',cat:'Listening'},
+        VOCAB: {icon:'📗',name:'Vocabulary in Context',cat:'Vocab'}
+    };
+
     // Tab switching
     function showTab(tab) {
         document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
         event.target.classList.add('active');
+        document.getElementById('bankTab').style.display = tab === 'bank' ? 'block' : 'none';
         document.getElementById('uploadTab').style.display = tab === 'upload' ? 'block' : 'none';
         document.getElementById('articlesTab').style.display = tab === 'articles' ? 'block' : 'none';
         if (tab === 'articles') loadArticles();
+        if (tab === 'bank') loadBankStats();
+    }
+
+    // Bank
+    async function loadBankStats() {
+        try {
+            const r = await fetch('/api/bank/stats');
+            const d = await r.json();
+            const div = document.getElementById('bankTypes');
+            if (d.total === 0) {
+                div.innerHTML = '<p style="color:var(--gray);grid-column:1/-1">題庫尚未建立，請先上傳文章或等待題庫生成</p>';
+                return;
+            }
+            let html = '';
+            for (const [type, count] of Object.entries(d.stats)) {
+                const info = TYPE_LABELS[type] || {icon:'❓',name:type,cat:'Other'};
+                html += `<div style="border:2px solid #e5e7eb;border-radius:12px;padding:15px;cursor:pointer;transition:all .2s;text-align:center" onclick="startBankPractice('${type}')" onmouseover="this.style.borderColor='var(--pri)'" onmouseout="this.style.borderColor='#e5e7eb'">
+                    <div style="font-size:28px;margin-bottom:6px">${info.icon}</div>
+                    <div style="font-weight:600;font-size:13px">${info.name}</div>
+                    <div style="font-size:12px;color:var(--gray)">${count} 題</div>
+                </div>`;
+            }
+            html += `<div style="border:2px solid var(--pri);border-radius:12px;padding:15px;text-align:center;background:#eef2ff">
+                <div style="font-size:28px;margin-bottom:6px">📊</div>
+                <div style="font-weight:600;font-size:13px">題庫總計</div>
+                <div style="font-size:18px;color:var(--pri);font-weight:bold">${d.total} 題</div>
+            </div>`;
+            div.innerHTML = html;
+        } catch(e) {
+            document.getElementById('bankTypes').innerHTML = '<p style="color:var(--err)">載入失敗</p>';
+        }
+    }
+
+    function startBankPractice(type) {
+        const count = document.getElementById('bankCount').value;
+        location.href = `/practice?bank=${type}&count=${count}`;
     }
 
     // Load stats

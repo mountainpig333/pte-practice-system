@@ -100,7 +100,7 @@
     </div>
 <script>
 let questions=[], currentIndex=0, score=0, selectedAnswer=null, typeScores={};
-const params=new URLSearchParams(location.search), articleId=params.get('id');
+const params=new URLSearchParams(location.search), articleId=params.get('id'), bankType=params.get('bank'), bankCount=params.get('count')||20;
 
 const TYPE_INFO={
     FIB:{label:'Reading: Fill in the Blanks',cat:'reading',desc:'選擇正確的單字填入空格'},
@@ -117,6 +117,21 @@ const TYPE_INFO={
 };
 
 async function loadArticle(){
+    // Bank mode
+    if(bankType){
+        try{
+            const url=bankType==='mixed'?`/api/bank/practice?count=${bankCount}`:`/api/bank/practice?type=${bankType}&count=${bankCount}`;
+            const r=await fetch(url);
+            const d=await r.json();
+            const typeLabel=bankType==='mixed'?'綜合練習':(TYPE_INFO[bankType]||{label:bankType}).label;
+            document.getElementById('articleTitle').textContent='🎯 '+typeLabel;
+            questions=d.questions||[];
+            if(!questions.length){document.getElementById('qText').textContent='題庫中沒有題目';return}
+            showQuestion();
+            return;
+        }catch(e){document.getElementById('qText').textContent='載入失敗';return}
+    }
+    // Article mode
     if(!articleId){document.getElementById('qText').textContent='請從儀表板選擇文章';return}
     try{
         const r=await fetch('/api/articles/'+articleId);

@@ -146,8 +146,8 @@ async function generateAll() {
     const bank = loadBank();
     const types = ['FIB', 'MCSA', 'MCMA', 'RO', 'RWFIB', 'SWT', 'WFD', 'HCS', 'HIW', 'VOCAB'];
     const TARGET = 350; // target per type
-    const BATCH = 25;   // questions per API call
-    const TOPIC_BATCH = 5; // topics per batch
+    const BATCH = 10;   // questions per API call (smaller = more reliable)
+    const TOPIC_BATCH = 3; // topics per batch
 
     for (const type of types) {
         const existing = (bank[type] || []).length;

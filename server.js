@@ -404,6 +404,128 @@ app.get('/api/bank/stats', requireAuth, (req, res) => {
     res.json({ stats, total });
 });
 
+// ============ BANK GENERATOR (runs on server) ============
+app.post('/api/bank/generate', requireAuth, async (req, res) => {
+    if (!GEMINI_API_KEY) return res.json({ error: 'No Gemini API key configured' });
+
+    const { type, count } = req.body;
+    const batchCount = Math.min(count || 10, 15);
+    const TOPICS = [
+        'global economics and trade', 'climate change and environment', 'artificial intelligence and technology',
+        'healthcare and medicine', 'education reform', 'political systems and democracy',
+        'urbanization and city planning', 'renewable energy', 'social media impact',
+        'globalization', 'financial markets', 'space exploration', 'biotechnology',
+        'income inequality', 'immigration policy', 'food security', 'cybersecurity',
+        'mental health', 'automation and employment', 'cultural diversity',
+        'sustainable development', 'international relations', 'public transportation',
+        'water scarcity', 'digital privacy', 'aging population', 'startup ecosystems',
+        'supply chain management', 'cryptocurrency', 'ocean conservation'
+    ];
+    const shuffled = [...TOPICS].sort(() => Math.random() - 0.5);
+    const topicStr = shuffled.slice(0, 3).join(', ');
+
+    const prompts = {
+        FIB: `Generate ${batchCount} PTE "Fill in the Blanks" questions about ${topicStr}. Each: academic sentence with one blank (______), 4 options. Return ONLY JSON array: [{"type":"FIB","question":"...______...","options":["a","b","c","d"],"answer":"correct","explanation":"繁體中文"}]`,
+        MCSA: `Generate ${batchCount} PTE reading comprehension questions about ${topicStr}. Each: short passage (2-3 sentences) + question + 4 options. Return ONLY JSON array: [{"type":"MCSA","passage":"...","question":"?","options":["a","b","c","d"],"answer":"correct","explanation":"繁體中文"}]`,
+        MCMA: `Generate ${batchCount} PTE multiple-select questions about ${topicStr}. Each: passage + question + 5 options (2-3 correct). Return ONLY JSON array: [{"type":"MCMA","passage":"...","question":"?","options":["a","b","c","d","e"],"answers":["c1","c2"],"explanation":"繁體中文"}]`,
+        RO: `Generate ${batchCount} PTE re-order paragraph questions about ${topicStr}. Each: 4 sentences in CORRECT order. Return ONLY JSON array: [{"type":"RO","sentences":["1","2","3","4"],"answer":"correct","explanation":"繁體中文"}]`,
+        RWFIB: `Generate ${batchCount} PTE reading-writing fill-in-blanks about ${topicStr}. Each: paragraph with ___1___, ___2___, ___3___, each blank has 4 options. Return ONLY JSON array: [{"type":"RWFIB","question":"...___1___...___2___...___3___","blanks":[{"options":["a","b","c","d"],"answer":"x"},{"options":["a","b","c","d"],"answer":"x"},{"options":["a","b","c","d"],"answer":"x"}],"explanation":"繁體中文"}]`,
+        SWT: `Generate ${batchCount} PTE summarize-written-text questions about ${topicStr}. Each: 80-120 word passage + model 1-sentence summary. Return ONLY JSON array: [{"type":"SWT","question":"Summarize in one sentence:","passage":"...","modelAnswer":"...","explanation":"繁體中文"}]`,
+        WFD: `Generate ${batchCount} PTE write-from-dictation sentences about ${topicStr}. Each: academic sentence 8-16 words. Return ONLY JSON array: [{"type":"WFD","question":"Type from memory:","answer":"sentence","explanation":"繁體中文翻譯"}]`,
+        HCS: `Generate ${batchCount} PTE highlight-correct-summary questions about ${topicStr}. Each: passage + 4 summaries (1 correct). Return ONLY JSON array: [{"type":"HCS","passage":"...","question":"Best summary?","options":["s1","s2","s3","s4"],"answer":"correct","explanation":"繁體中文"}]`,
+        HIW: `Generate ${batchCount} PTE highlight-incorrect-words questions about ${topicStr}. Each: original sentence + modified version with 2-3 wrong words. Return ONLY JSON array: [{"type":"HIW","question":"Find wrong words:","original":"correct","modified":"with errors","wrongWords":["w1","w2"],"explanation":"繁體中文"}]`,
+        VOCAB: `Generate ${batchCount} PTE vocabulary questions about ${topicStr}. Each: sentence with advanced word, ask meaning, 4 options. Return ONLY JSON array: [{"type":"VOCAB","question":"What does 'X' mean in: '...'","options":["a","b","c","d"],"answer":"correct","explanation":"繁體中文"}]`
+    };
+
+    const prompt = prompts[type];
+    if (!prompt) return res.json({ error: 'Invalid type' });
+
+    try {
+        const response = await fetch(
+            `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`,
+            {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    contents: [{ parts: [{ text: prompt }] }],
+                    generationConfig: { temperature: 0.85, maxOutputTokens: 4096 }
+                })
+            }
+        );
+        const result = await response.json();
+        const text = result.candidates?.[0]?.content?.parts?.[0]?.text || '';
+        const cleaned = text.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
+        const questions = JSON.parse(cleaned);
+
+        // Save to bank
+        const bank = loadBank();
+        if (!bank[type]) bank[type] = [];
+        bank[type].push(...questions);
+        fs.writeFileSync(BANK_FILE, JSON.stringify(bank));
+
+        res.json({ success: true, generated: questions.length, total: bank[type].length });
+    } catch (e) {
+        res.json({ error: e.message });
+    }
+});
+
+// Bulk generate endpoint
+app.post('/api/bank/bulk-generate', requireAuth, async (req, res) => {
+    if (!GEMINI_API_KEY) return res.json({ error: 'No Gemini API key' });
+    
+    res.json({ success: true, message: 'Generation started in background' });
+
+    // Run in background
+    const types = ['FIB','MCSA','MCMA','RO','RWFIB','SWT','WFD','HCS','HIW','VOCAB'];
+    const bank = loadBank();
+    
+    for (const type of types) {
+        const existing = (bank[type] || []).length;
+        if (existing >= 300) continue;
+        
+        const rounds = Math.ceil((300 - existing) / 10);
+        for (let i = 0; i < rounds; i++) {
+            try {
+                // Call our own generate endpoint logic
+                const TOPICS = ['economics','technology','environment','healthcare','education','politics','energy','social media','globalization','finance'];
+                const topic = TOPICS.sort(() => Math.random() - 0.5).slice(0,3).join(', ');
+                
+                const prompts = {
+                    FIB: `Generate 10 PTE "Fill in the Blanks" about ${topic}. Return ONLY JSON: [{"type":"FIB","question":"...______...","options":["a","b","c","d"],"answer":"x","explanation":"繁體中文"}]`,
+                    MCSA: `Generate 10 PTE reading comprehension about ${topic}. Return ONLY JSON: [{"type":"MCSA","passage":"...","question":"?","options":["a","b","c","d"],"answer":"x","explanation":"繁體中文"}]`,
+                    MCMA: `Generate 10 PTE multi-select about ${topic}. Return ONLY JSON: [{"type":"MCMA","passage":"...","question":"?","options":["a","b","c","d","e"],"answers":["x","y"],"explanation":"繁體中文"}]`,
+                    RO: `Generate 10 PTE reorder about ${topic}. Return ONLY JSON: [{"type":"RO","sentences":["1","2","3","4"],"answer":"correct","explanation":"繁體中文"}]`,
+                    RWFIB: `Generate 10 PTE R&W FIB about ${topic}. Return ONLY JSON: [{"type":"RWFIB","question":"...___1___...___2___...___3___","blanks":[{"options":["a","b","c","d"],"answer":"x"},{"options":["a","b","c","d"],"answer":"x"},{"options":["a","b","c","d"],"answer":"x"}],"explanation":"繁體中文"}]`,
+                    SWT: `Generate 10 PTE summarize about ${topic}. Return ONLY JSON: [{"type":"SWT","question":"Summarize:","passage":"...","modelAnswer":"...","explanation":"繁體中文"}]`,
+                    WFD: `Generate 10 PTE dictation sentences about ${topic}. Return ONLY JSON: [{"type":"WFD","question":"Type:","answer":"sentence","explanation":"繁體中文"}]`,
+                    HCS: `Generate 10 PTE correct-summary about ${topic}. Return ONLY JSON: [{"type":"HCS","passage":"...","question":"Best summary?","options":["a","b","c","d"],"answer":"x","explanation":"繁體中文"}]`,
+                    HIW: `Generate 10 PTE incorrect-words about ${topic}. Return ONLY JSON: [{"type":"HIW","question":"Find:","original":"correct","modified":"errors","wrongWords":["w1","w2"],"explanation":"繁體中文"}]`,
+                    VOCAB: `Generate 10 PTE vocab about ${topic}. Return ONLY JSON: [{"type":"VOCAB","question":"meaning?","options":["a","b","c","d"],"answer":"x","explanation":"繁體中文"}]`
+                };
+
+                const resp = await fetch(
+                    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`,
+                    { method:'POST', headers:{'Content-Type':'application/json'},
+                      body: JSON.stringify({ contents:[{parts:[{text:prompts[type]}]}], generationConfig:{temperature:0.85,maxOutputTokens:4096} }) }
+                );
+                const result = await resp.json();
+                const text = result.candidates?.[0]?.content?.parts?.[0]?.text || '';
+                const cleaned = text.replace(/```json\n?/g,'').replace(/```\n?/g,'').trim();
+                const qs = JSON.parse(cleaned);
+                if (!bank[type]) bank[type] = [];
+                bank[type].push(...qs);
+                fs.writeFileSync(BANK_FILE, JSON.stringify(bank));
+                console.log(`✅ ${type}: +${qs.length} = ${bank[type].length}`);
+            } catch(e) {
+                console.error(`❌ ${type} batch ${i}: ${e.message}`);
+            }
+            // Rate limit
+            await new Promise(r => setTimeout(r, 1500));
+        }
+    }
+    console.log('🎉 Bulk generation complete!');
+});
+
 // Health check
 app.get('/health', (req, res) => res.json({ status: 'ok' }));
 

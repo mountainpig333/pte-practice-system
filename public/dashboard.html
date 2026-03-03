@@ -81,6 +81,7 @@
                     <option value="50">50 題</option>
                 </select>
                 <button class="btn btn-pri" onclick="startBankPractice('mixed')">🔀 綜合練習</button>
+                <button class="btn btn-sec" id="genBtn" onclick="bulkGenerate()">🤖 AI 批量生題</button>
             </div>
         </div>
 
@@ -168,6 +169,19 @@
     function startBankPractice(type) {
         const count = document.getElementById('bankCount').value;
         location.href = `/practice?bank=${type}&count=${count}`;
+    }
+
+    async function bulkGenerate() {
+        const btn = document.getElementById('genBtn');
+        btn.disabled = true;
+        btn.textContent = '🤖 生成中...（約5-10分鐘）';
+        try {
+            await fetch('/api/bank/bulk-generate', { method: 'POST', headers: {'Content-Type':'application/json'}, body: '{}' });
+            btn.textContent = '✅ 已開始生成！請稍後重新整理';
+            setTimeout(() => loadBankStats(), 30000);
+        } catch(e) {
+            btn.textContent = '❌ 生成失敗';
+        }
     }
 
     // Load stats

@@ -6,51 +6,60 @@
     <title>PTE 練習</title>
     <style>
         *{margin:0;padding:0;box-sizing:border-box}
-        :root{--pri:#667eea;--sec:#764ba2;--ok:#10b981;--err:#ef4444;--gray:#6b7280}
+        :root{--pri:#667eea;--sec:#764ba2;--ok:#10b981;--err:#ef4444;--gray:#6b7280;--warn:#f59e0b}
         body{font-family:'Segoe UI',sans-serif;background:#f5f7fa;min-height:100vh}
         .header{background:linear-gradient(135deg,var(--pri),var(--sec));color:#fff;padding:15px 25px;display:flex;justify-content:space-between;align-items:center}
-        .header a{color:#fff;text-decoration:none;font-size:14px}
-        .container{max-width:800px;margin:30px auto;padding:0 20px}
+        .header h1{font-size:18px} .header a{color:#fff;text-decoration:none;font-size:14px}
+        .container{max-width:800px;margin:25px auto;padding:0 20px}
         .card{background:#fff;border-radius:15px;padding:25px;margin-bottom:20px;box-shadow:0 2px 10px rgba(0,0,0,.05)}
-        .progress{display:flex;align-items:center;gap:15px;margin-bottom:25px}
+        .progress{display:flex;align-items:center;gap:12px;margin-bottom:20px}
         .progress-bar{flex:1;height:8px;background:#e5e7eb;border-radius:4px;overflow:hidden}
         .progress-fill{height:100%;background:linear-gradient(90deg,var(--pri),var(--sec));transition:width .3s;border-radius:4px}
-        .progress-text{font-size:14px;color:var(--gray);white-space:nowrap}
-        .q-type{display:inline-block;background:var(--pri);color:#fff;padding:4px 14px;border-radius:20px;font-size:13px;margin-bottom:15px}
-        .q-text{font-size:17px;line-height:1.8;margin-bottom:20px;padding:15px;background:#f9fafb;border-radius:10px}
-        .q-text .blank{display:inline-block;min-width:100px;border-bottom:2px solid var(--pri);margin:0 4px;text-align:center;color:var(--pri);font-weight:600}
-        .options{display:grid;gap:10px;margin-bottom:20px}
-        .opt{padding:14px 18px;border:2px solid #e5e7eb;border-radius:10px;cursor:pointer;font-size:15px;transition:all .2s;text-align:left;background:#fff}
-        .opt:hover{border-color:var(--pri)}
-        .opt.selected{border-color:var(--pri);background:#eef2ff}
-        .opt.correct{border-color:var(--ok);background:#d1fae5}
-        .opt.wrong{border-color:var(--err);background:#fee2e2}
-        .opt.disabled{pointer-events:none}
-        .ro-list{display:flex;flex-direction:column;gap:8px;margin-bottom:20px}
-        .ro-item{padding:14px;background:#f3f4f6;border:2px solid #e5e7eb;border-radius:10px;cursor:grab;display:flex;align-items:center;gap:10px;transition:all .2s}
-        .ro-item:hover{border-color:var(--pri)}
-        .ro-item .num{background:var(--pri);color:#fff;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600}
+        .progress-text{font-size:13px;color:var(--gray);white-space:nowrap}
+        .q-type{display:inline-block;padding:5px 14px;border-radius:20px;font-size:12px;margin-bottom:12px;font-weight:600;color:#fff}
+        .q-type.reading{background:#3b82f6} .q-type.writing{background:#8b5cf6}
+        .q-type.listening{background:#f59e0b} .q-type.vocab{background:#10b981}
+        .q-label{font-size:13px;color:var(--gray);margin-bottom:15px}
+        .q-text{font-size:16px;line-height:1.8;margin-bottom:18px;padding:15px;background:#f9fafb;border-radius:10px}
+        .passage{font-size:14px;line-height:1.8;padding:15px;background:#fefce8;border:1px solid #fde68a;border-radius:10px;margin-bottom:15px;max-height:200px;overflow-y:auto}
+        .options{display:grid;gap:10px;margin-bottom:18px}
+        .opt{padding:13px 16px;border:2px solid #e5e7eb;border-radius:10px;cursor:pointer;font-size:14px;transition:all .2s;text-align:left;background:#fff;display:flex;align-items:flex-start;gap:10px}
+        .opt:hover{border-color:var(--pri)} .opt.selected{border-color:var(--pri);background:#eef2ff}
+        .opt.correct{border-color:var(--ok);background:#d1fae5} .opt.wrong{border-color:var(--err);background:#fee2e2}
+        .opt.disabled{pointer-events:none;opacity:.85}
+        .opt .check{width:20px;height:20px;border:2px solid #d1d5db;border-radius:4px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;margin-top:2px}
+        .opt.selected .check{border-color:var(--pri);background:var(--pri);color:#fff}
+        .opt.correct .check{border-color:var(--ok);background:var(--ok);color:#fff}
+        .ro-list{display:flex;flex-direction:column;gap:8px;margin-bottom:18px}
+        .ro-item{padding:12px 14px;background:#f3f4f6;border:2px solid #e5e7eb;border-radius:10px;cursor:grab;display:flex;align-items:center;gap:10px;transition:all .2s;font-size:14px}
+        .ro-item:hover{border-color:var(--pri)} .ro-item .num{background:var(--pri);color:#fff;min-width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600}
         .ro-item.dragging{opacity:.4}
-        .wfd-input{width:100%;padding:14px;border:2px solid #e5e7eb;border-radius:10px;font-size:16px;margin-bottom:15px}
-        .wfd-input:focus{outline:none;border-color:var(--pri)}
-        .btn{padding:12px 28px;border:none;border-radius:10px;font-size:15px;font-weight:600;cursor:pointer;transition:all .2s}
+        .text-input{width:100%;padding:14px;border:2px solid #e5e7eb;border-radius:10px;font-size:15px;margin-bottom:15px;font-family:inherit}
+        .text-input:focus{outline:none;border-color:var(--pri)}
+        textarea.text-input{min-height:80px;resize:vertical}
+        .hiw-word{display:inline-block;padding:2px 6px;margin:2px;border-radius:6px;cursor:pointer;transition:all .2s;font-size:15px}
+        .hiw-word:hover{background:#e0e7ff} .hiw-word.selected{background:#fecaca;text-decoration:line-through;color:var(--err)}
+        .hiw-word.correct-mark{background:#bbf7d0;font-weight:600} .hiw-word.wrong-mark{background:#fecaca;text-decoration:line-through}
+        .rwfib-blank select{padding:6px 10px;border:2px solid #e5e7eb;border-radius:8px;font-size:14px;cursor:pointer;margin:0 2px}
+        .rwfib-blank select:focus{border-color:var(--pri);outline:none}
+        .rwfib-blank select.correct{border-color:var(--ok);background:#d1fae5}
+        .rwfib-blank select.wrong{border-color:var(--err);background:#fee2e2}
+        .btn{padding:11px 26px;border:none;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;transition:all .2s}
         .btn-pri{background:linear-gradient(135deg,var(--pri),var(--sec));color:#fff}
-        .btn-sec{background:#e5e7eb;color:#333}
-        .btn-ok{background:var(--ok);color:#fff}
+        .btn-ok{background:var(--ok);color:#fff} .btn-sec{background:#e5e7eb;color:#333}
         .btn:hover{transform:translateY(-2px);box-shadow:0 5px 15px rgba(0,0,0,.15)}
         .btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
         .btns{display:flex;gap:12px;justify-content:center}
-        .feedback{padding:15px;border-radius:10px;margin-top:15px;display:none}
-        .feedback.show{display:block}
-        .feedback.correct{background:#d1fae5;border:1px solid var(--ok)}
-        .feedback.wrong{background:#fee2e2;border:1px solid var(--err)}
-        .feedback .fb-title{font-weight:600;margin-bottom:5px}
+        .feedback{padding:15px;border-radius:10px;margin-top:15px;display:none;font-size:14px;line-height:1.6}
+        .feedback.show{display:block} .feedback.correct{background:#d1fae5;border:1px solid var(--ok)} .feedback.wrong{background:#fee2e2;border:1px solid var(--err)}
+        .feedback .fb-title{font-weight:600;margin-bottom:5px;font-size:15px}
+        .model-answer{margin-top:10px;padding:10px;background:rgba(255,255,255,.5);border-radius:8px;font-style:italic}
         .score-card{text-align:center;padding:40px}
-        .score-card .big{font-size:64px;font-weight:bold;color:var(--pri);margin-bottom:10px}
-        .score-card .sub{color:var(--gray);margin-bottom:25px}
-        .rwfib-blank{display:inline-block;margin:0 4px}
-        .rwfib-blank select{padding:6px 12px;border:2px solid #e5e7eb;border-radius:8px;font-size:14px;cursor:pointer}
-        .rwfib-blank select:focus{border-color:var(--pri);outline:none}
+        .score-card .big{font-size:60px;font-weight:bold;color:var(--pri);margin-bottom:8px}
+        .score-card .sub{color:var(--gray);margin-bottom:8px}
+        .score-card .breakdown{text-align:left;max-width:400px;margin:20px auto;font-size:14px}
+        .score-card .breakdown .row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #e5e7eb}
+        .hidden{display:none!important}
     </style>
 </head>
 <body>
@@ -58,296 +67,302 @@
         <h1 id="articleTitle">📚 PTE 練習</h1>
         <a href="/dashboard">← 返回</a>
     </div>
-
     <div class="container">
-        <!-- Progress -->
         <div class="progress">
             <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
             <div class="progress-text" id="progressText">0/0</div>
         </div>
-
-        <!-- Question Card -->
         <div class="card" id="questionCard">
             <div class="q-type" id="qType">Loading...</div>
+            <div class="q-label" id="qLabel"></div>
             <div class="q-text" id="qText"></div>
+            <div class="passage hidden" id="qPassage"></div>
             <div id="qBody"></div>
             <div class="feedback" id="feedback">
                 <div class="fb-title" id="fbTitle"></div>
                 <div id="fbText"></div>
+                <div class="model-answer hidden" id="fbModel"></div>
             </div>
-            <div class="btns" style="margin-top:20px">
+            <div class="btns" style="margin-top:18px">
                 <button class="btn btn-pri" id="submitBtn" onclick="submitAnswer()">提交答案</button>
                 <button class="btn btn-ok" id="nextBtn" onclick="nextQuestion()" style="display:none">下一題 →</button>
             </div>
         </div>
-
-        <!-- Score Card -->
-        <div class="card score-card" id="scoreCard" style="display:none">
+        <div class="card score-card hidden" id="scoreCard">
             <div class="big" id="finalScore">0%</div>
             <div class="sub" id="finalDetail">0/0 正確</div>
-            <div class="btns">
+            <div class="breakdown" id="breakdown"></div>
+            <div class="btns" style="margin-top:20px">
                 <button class="btn btn-pri" onclick="location.reload()">重新練習</button>
                 <button class="btn btn-sec" onclick="location.href='/dashboard'">返回儀表板</button>
             </div>
         </div>
     </div>
+<script>
+let questions=[], currentIndex=0, score=0, selectedAnswer=null, typeScores={};
+const params=new URLSearchParams(location.search), articleId=params.get('id');
 
-    <script>
-    let questions = [];
-    let currentIndex = 0;
-    let score = 0;
-    let selectedAnswer = null;
+const TYPE_INFO={
+    FIB:{label:'Reading: Fill in the Blanks',cat:'reading',desc:'選擇正確的單字填入空格'},
+    MCSA:{label:'Multiple Choice (Single)',cat:'reading',desc:'選擇一個最佳答案'},
+    MCMA:{label:'Multiple Choice (Multiple)',cat:'reading',desc:'選擇所有正確答案（可多選）'},
+    RO:{label:'Re-order Paragraphs',cat:'reading',desc:'將句子按正確順序排列'},
+    RWFIB:{label:'Reading & Writing: Fill in the Blanks',cat:'reading',desc:'從下拉選單中選擇正確的單字'},
+    SWT:{label:'Summarize Written Text',cat:'writing',desc:'用一句話（5-75字）摘要以下段落'},
+    WFD:{label:'Write from Dictation',cat:'listening',desc:'閱讀句子後，從記憶中打出完整句子'},
+    HCS:{label:'Highlight Correct Summary',cat:'listening',desc:'選擇最能描述文章的摘要'},
+    HIW:{label:'Highlight Incorrect Words',cat:'listening',desc:'點擊句子中不正確的單字'},
+    VOCAB:{label:'Vocabulary in Context',cat:'vocab',desc:'根據文章上下文，選擇最接近的意思'},
+    MC:{label:'Multiple Choice',cat:'reading',desc:'選擇正確答案'}
+};
 
-    // Get article ID from URL
-    const params = new URLSearchParams(location.search);
-    const articleId = params.get('id');
-
-    async function loadArticle() {
-        if (!articleId) {
-            document.getElementById('qText').textContent = '請從儀表板選擇文章';
-            return;
-        }
-        try {
-            const r = await fetch('/api/articles/' + articleId);
-            const article = await r.json();
-            if (article.error) {
-                document.getElementById('qText').textContent = '找不到文章';
-                return;
-            }
-            document.getElementById('articleTitle').textContent = '📚 ' + article.title;
-            questions = article.questions || [];
-            if (questions.length === 0) {
-                document.getElementById('qText').textContent = '這篇文章還沒有題目';
-                return;
-            }
-            showQuestion();
-        } catch(e) {
-            document.getElementById('qText').textContent = '載入失敗';
-        }
-    }
-
-    function showQuestion() {
-        if (currentIndex >= questions.length) {
-            showScore();
-            return;
-        }
-
-        const q = questions[currentIndex];
-        selectedAnswer = null;
-
-        // Update progress
-        document.getElementById('progressFill').style.width = ((currentIndex / questions.length) * 100) + '%';
-        document.getElementById('progressText').textContent = `${currentIndex + 1}/${questions.length}`;
-
-        // Type badge
-        const typeLabels = {
-            'FIB': '📝 Fill in the Blanks',
-            'MC': '✅ Multiple Choice',
-            'RO': '🔢 Re-order Paragraphs',
-            'WFD': '⌨️ Write from Dictation',
-            'RWFIB': '📝 Reading & Writing FIB'
-        };
-        document.getElementById('qType').textContent = typeLabels[q.type] || q.type;
-
-        // Question text
-        document.getElementById('qText').textContent = q.question || '';
-
-        // Body
-        const body = document.getElementById('qBody');
-        body.innerHTML = '';
-
-        // Hide feedback
-        document.getElementById('feedback').className = 'feedback';
-        document.getElementById('submitBtn').style.display = '';
-        document.getElementById('nextBtn').style.display = 'none';
-        document.getElementById('submitBtn').disabled = false;
-
-        if (q.type === 'FIB' || q.type === 'MC') {
-            renderOptions(q, body);
-        } else if (q.type === 'RO') {
-            renderReorder(q, body);
-        } else if (q.type === 'WFD') {
-            renderWFD(q, body);
-        } else if (q.type === 'RWFIB') {
-            renderRWFIB(q, body);
-        }
-    }
-
-    function renderOptions(q, container) {
-        const div = document.createElement('div');
-        div.className = 'options';
-        (q.options || []).forEach((opt, i) => {
-            const btn = document.createElement('button');
-            btn.className = 'opt';
-            btn.textContent = opt;
-            btn.onclick = () => {
-                div.querySelectorAll('.opt').forEach(o => o.classList.remove('selected'));
-                btn.classList.add('selected');
-                selectedAnswer = opt;
-            };
-            div.appendChild(btn);
-        });
-        container.appendChild(div);
-    }
-
-    function renderReorder(q, container) {
-        const sentences = [...(q.sentences || [])];
-        // Shuffle
-        for (let i = sentences.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [sentences[i], sentences[j]] = [sentences[j], sentences[i]];
-        }
-
-        const list = document.createElement('div');
-        list.className = 'ro-list';
-        list.id = 'roList';
-
-        sentences.forEach((s, i) => {
-            const item = document.createElement('div');
-            item.className = 'ro-item';
-            item.draggable = true;
-            item.innerHTML = `<div class="num">${i + 1}</div><span>${s}</span>`;
-            item.dataset.text = s;
-
-            item.ondragstart = (e) => {
-                e.dataTransfer.setData('text', i.toString());
-                item.classList.add('dragging');
-            };
-            item.ondragend = () => item.classList.remove('dragging');
-            item.ondragover = (e) => e.preventDefault();
-            item.ondrop = (e) => {
-                e.preventDefault();
-                const fromIdx = parseInt(e.dataTransfer.getData('text'));
-                const items = list.querySelectorAll('.ro-item');
-                const fromItem = items[fromIdx];
-                if (fromItem && fromItem !== item) {
-                    list.insertBefore(fromItem, item);
-                    updateRONumbers();
-                }
-            };
-
-            list.appendChild(item);
-        });
-
-        container.appendChild(list);
-        selectedAnswer = 'ro';
-    }
-
-    function updateRONumbers() {
-        const items = document.querySelectorAll('#roList .ro-item');
-        items.forEach((item, i) => {
-            item.querySelector('.num').textContent = i + 1;
-        });
-    }
-
-    function renderWFD(q, container) {
-        document.getElementById('qText').textContent = '請打出以下句子（測試你的記憶力）：';
-        const input = document.createElement('input');
-        input.type = 'text';
-        input.className = 'wfd-input';
-        input.placeholder = '在此輸入句子...';
-        input.id = 'wfdInput';
-        container.appendChild(input);
-        selectedAnswer = 'wfd';
-    }
-
-    function renderRWFIB(q, container) {
-        const blanks = q.blanks || [];
-        let html = q.question || '';
-
-        blanks.forEach((b, i) => {
-            const options = (b.options || []).map(o => `<option value="${o}">${o}</option>`).join('');
-            html = html.replace(`___${i+1}___`, `<span class="rwfib-blank"><select id="rwfib${i}"><option value="">-- 選擇 --</option>${options}</select></span>`);
-        });
-
-        document.getElementById('qText').innerHTML = html;
-        selectedAnswer = 'rwfib';
-    }
-
-    function submitAnswer() {
-        const q = questions[currentIndex];
-        let isCorrect = false;
-        let userAnswer = '';
-
-        if (q.type === 'FIB' || q.type === 'MC') {
-            if (!selectedAnswer) { alert('請選擇一個答案'); return; }
-            userAnswer = selectedAnswer;
-            isCorrect = selectedAnswer.trim().toLowerCase() === (q.answer || '').trim().toLowerCase();
-
-            // Highlight correct/wrong
-            document.querySelectorAll('.opt').forEach(o => {
-                o.classList.add('disabled');
-                if (o.textContent.trim().toLowerCase() === (q.answer || '').trim().toLowerCase()) {
-                    o.classList.add('correct');
-                } else if (o.classList.contains('selected')) {
-                    o.classList.add('wrong');
-                }
-            });
-
-        } else if (q.type === 'RO') {
-            const items = document.querySelectorAll('#roList .ro-item');
-            const userOrder = Array.from(items).map(i => i.dataset.text);
-            const correctOrder = q.sentences || [];
-            isCorrect = JSON.stringify(userOrder) === JSON.stringify(correctOrder);
-            userAnswer = userOrder.join(' | ');
-
-        } else if (q.type === 'WFD') {
-            const input = document.getElementById('wfdInput');
-            userAnswer = (input ? input.value : '').trim();
-            isCorrect = userAnswer.toLowerCase() === (q.answer || '').toLowerCase();
-
-        } else if (q.type === 'RWFIB') {
-            const blanks = q.blanks || [];
-            let allCorrect = true;
-            blanks.forEach((b, i) => {
-                const sel = document.getElementById('rwfib' + i);
-                if (sel && sel.value !== b.answer) allCorrect = false;
-            });
-            isCorrect = allCorrect;
-        }
-
-        if (isCorrect) score++;
-
-        // Show feedback
-        const fb = document.getElementById('feedback');
-        const fbTitle = document.getElementById('fbTitle');
-        const fbText = document.getElementById('fbText');
-
-        fb.className = 'feedback show ' + (isCorrect ? 'correct' : 'wrong');
-        fbTitle.textContent = isCorrect ? '✅ 正確！' : '❌ 錯誤';
-        fbText.textContent = q.explanation || (isCorrect ? '做得好！' : `正確答案：${q.answer}`);
-
-        // Save result
-        fetch('/api/submit', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({
-                articleId, questionIndex: currentIndex,
-                type: q.type, correct: isCorrect,
-                userAnswer
-            })
-        });
-
-        document.getElementById('submitBtn').style.display = 'none';
-        document.getElementById('nextBtn').style.display = '';
-    }
-
-    function nextQuestion() {
-        currentIndex++;
+async function loadArticle(){
+    if(!articleId){document.getElementById('qText').textContent='請從儀表板選擇文章';return}
+    try{
+        const r=await fetch('/api/articles/'+articleId);
+        const a=await r.json();
+        if(a.error){document.getElementById('qText').textContent='找不到文章';return}
+        document.getElementById('articleTitle').textContent='📚 '+a.title;
+        questions=a.questions||[];
+        if(!questions.length){document.getElementById('qText').textContent='這篇文章還沒有題目';return}
         showQuestion();
+    }catch(e){document.getElementById('qText').textContent='載入失敗'}
+}
+
+function showQuestion(){
+    if(currentIndex>=questions.length){showScore();return}
+    const q=questions[currentIndex];
+    selectedAnswer=null;
+    document.getElementById('progressFill').style.width=((currentIndex/questions.length)*100)+'%';
+    document.getElementById('progressText').textContent=`${currentIndex+1}/${questions.length}`;
+    
+    const info=TYPE_INFO[q.type]||TYPE_INFO.MCSA;
+    const badge=document.getElementById('qType');
+    badge.textContent=info.label;
+    badge.className='q-type '+info.cat;
+    document.getElementById('qLabel').textContent=info.desc;
+    document.getElementById('qText').textContent=q.question||'';
+    document.getElementById('qText').classList.remove('hidden');
+    
+    const passage=document.getElementById('qPassage');
+    passage.classList.add('hidden');
+    if(q.passage){passage.textContent=q.passage;passage.classList.remove('hidden')}
+    
+    const body=document.getElementById('qBody');body.innerHTML='';
+    document.getElementById('feedback').className='feedback';
+    document.getElementById('fbModel').classList.add('hidden');
+    document.getElementById('submitBtn').style.display='';
+    document.getElementById('submitBtn').disabled=false;
+    document.getElementById('nextBtn').style.display='none';
+
+    switch(q.type){
+        case 'FIB':case 'MCSA':case 'MC':case 'HCS':case 'VOCAB':renderSingle(q,body);break;
+        case 'MCMA':renderMulti(q,body);break;
+        case 'RO':renderReorder(q,body);break;
+        case 'RWFIB':renderRWFIB(q,body);break;
+        case 'SWT':renderSWT(q,body);break;
+        case 'WFD':renderWFD(q,body);break;
+        case 'HIW':renderHIW(q,body);break;
+        default:renderSingle(q,body);
+    }
+}
+
+// Single select
+function renderSingle(q,c){
+    const div=document.createElement('div');div.className='options';
+    (q.options||[]).forEach(opt=>{
+        const btn=document.createElement('button');btn.className='opt';
+        btn.innerHTML=`<span class="check"></span><span>${opt}</span>`;
+        btn.onclick=()=>{div.querySelectorAll('.opt').forEach(o=>o.classList.remove('selected'));btn.classList.add('selected');selectedAnswer=opt};
+        div.appendChild(btn);
+    });
+    c.appendChild(div);
+}
+
+// Multi select
+function renderMulti(q,c){
+    const div=document.createElement('div');div.className='options';
+    const selected=new Set();
+    (q.options||[]).forEach(opt=>{
+        const btn=document.createElement('button');btn.className='opt';
+        btn.innerHTML=`<span class="check">✓</span><span>${opt}</span>`;
+        btn.onclick=()=>{
+            if(selected.has(opt)){selected.delete(opt);btn.classList.remove('selected')}
+            else{selected.add(opt);btn.classList.add('selected')}
+            selectedAnswer=[...selected];
+        };
+        div.appendChild(btn);
+    });
+    c.appendChild(div);
+    selectedAnswer=[];
+}
+
+// Reorder
+function renderReorder(q,c){
+    const ss=[...(q.sentences||[])];
+    for(let i=ss.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[ss[i],ss[j]]=[ss[j],ss[i]]}
+    const list=document.createElement('div');list.className='ro-list';list.id='roList';
+    ss.forEach((s,i)=>{
+        const item=document.createElement('div');item.className='ro-item';item.draggable=true;
+        item.innerHTML=`<div class="num">${i+1}</div><span>${s}</span>`;item.dataset.text=s;
+        item.ondragstart=e=>{e.dataTransfer.setData('text/plain',i.toString());item.classList.add('dragging')};
+        item.ondragend=()=>item.classList.remove('dragging');
+        item.ondragover=e=>e.preventDefault();
+        item.ondrop=e=>{e.preventDefault();const fi=parseInt(e.dataTransfer.getData('text/plain'));const items=[...list.children];if(items[fi]&&items[fi]!==item){list.insertBefore(items[fi],item);[...list.querySelectorAll('.num')].forEach((n,idx)=>n.textContent=idx+1)}};
+        list.appendChild(item);
+    });
+    c.appendChild(list);selectedAnswer='ro';
+}
+
+// RWFIB
+function renderRWFIB(q,c){
+    const blanks=q.blanks||[];
+    let html=(q.question||'');
+    blanks.forEach((b,i)=>{
+        const opts=(b.options||[]).map(o=>`<option value="${o}">${o}</option>`).join('');
+        html=html.replace(`___${i+1}___`,`<span class="rwfib-blank"><select id="rwfib${i}"><option value="">--</option>${opts}</select></span>`);
+    });
+    document.getElementById('qText').innerHTML=html;
+    selectedAnswer='rwfib';
+}
+
+// SWT
+function renderSWT(q,c){
+    const ta=document.createElement('textarea');ta.className='text-input';ta.id='swtInput';
+    ta.placeholder='Write your one-sentence summary here (5-75 words)...';
+    c.appendChild(ta);
+    const wc=document.createElement('div');wc.style.cssText='font-size:12px;color:var(--gray);margin-top:-10px;margin-bottom:10px';wc.id='wordCount';wc.textContent='0 words';
+    c.appendChild(wc);
+    ta.oninput=()=>{const w=ta.value.trim().split(/\s+/).filter(x=>x).length;wc.textContent=w+' words';wc.style.color=w>=5&&w<=75?'var(--ok)':'var(--err)'};
+    selectedAnswer='swt';
+}
+
+// WFD
+function renderWFD(q,c){
+    // Show sentence briefly, then hide
+    const preview=document.createElement('div');preview.style.cssText='padding:15px;background:#fef3c7;border-radius:10px;margin-bottom:15px;font-size:16px;text-align:center';
+    preview.textContent=q.answer;preview.id='wfdPreview';c.appendChild(preview);
+    const timer=document.createElement('div');timer.style.cssText='text-align:center;color:var(--warn);font-weight:600;margin-bottom:10px';timer.id='wfdTimer';timer.textContent='⏱️ 記住這個句子... 5秒';c.appendChild(timer);
+    const input=document.createElement('input');input.type='text';input.className='text-input';input.id='wfdInput';
+    input.placeholder='句子隱藏後在此輸入...';input.disabled=true;c.appendChild(input);
+    let sec=5;
+    const iv=setInterval(()=>{sec--;timer.textContent=`⏱️ ${sec}秒後隱藏...`;if(sec<=0){clearInterval(iv);preview.style.display='none';timer.textContent='⌨️ 請從記憶中打出句子';input.disabled=false;input.focus()}},1000);
+    selectedAnswer='wfd';
+}
+
+// HIW
+function renderHIW(q,c){
+    const div=document.createElement('div');div.style.cssText='line-height:2.2;padding:10px';div.id='hiwDiv';
+    const words=(q.modified||'').split(/\s+/);
+    const selected=new Set();
+    words.forEach((w,i)=>{
+        const span=document.createElement('span');span.className='hiw-word';span.textContent=w;span.dataset.idx=i;
+        span.onclick=()=>{if(selected.has(i)){selected.delete(i);span.classList.remove('selected')}else{selected.add(i);span.classList.add('selected')}
+            selectedAnswer=[...selected].map(idx=>words[idx])};
+        div.appendChild(span);div.appendChild(document.createTextNode(' '));
+    });
+    c.appendChild(div);
+    selectedAnswer=[];
+}
+
+function submitAnswer(){
+    const q=questions[currentIndex];
+    let isCorrect=false,userAnswer='';
+
+    switch(q.type){
+        case 'FIB':case 'MCSA':case 'MC':case 'HCS':case 'VOCAB':
+            if(!selectedAnswer){alert('請選擇答案');return}
+            userAnswer=selectedAnswer;isCorrect=selectedAnswer.trim().toLowerCase()===(q.answer||'').trim().toLowerCase();
+            document.querySelectorAll('.opt').forEach(o=>{o.classList.add('disabled');
+                const txt=o.querySelector('span:last-child').textContent;
+                if(txt.trim().toLowerCase()===(q.answer||'').trim().toLowerCase())o.classList.add('correct');
+                else if(o.classList.contains('selected'))o.classList.add('wrong')});
+            break;
+
+        case 'MCMA':
+            if(!selectedAnswer||!selectedAnswer.length){alert('請選擇答案');return}
+            const correctAnswers=(q.answers||[]).map(a=>a.toLowerCase().trim());
+            const userAnswers=selectedAnswer.map(a=>a.toLowerCase().trim());
+            isCorrect=correctAnswers.length===userAnswers.length&&correctAnswers.every(a=>userAnswers.includes(a));
+            userAnswer=selectedAnswer.join(', ');
+            document.querySelectorAll('.opt').forEach(o=>{o.classList.add('disabled');
+                const txt=o.querySelector('span:last-child').textContent.toLowerCase().trim();
+                if(correctAnswers.includes(txt))o.classList.add('correct');
+                else if(o.classList.contains('selected'))o.classList.add('wrong')});
+            break;
+
+        case 'RO':
+            const items=[...document.querySelectorAll('#roList .ro-item')];
+            const userOrder=items.map(i=>i.dataset.text);
+            isCorrect=JSON.stringify(userOrder)===JSON.stringify(q.sentences||[]);
+            userAnswer=userOrder.join(' | ');break;
+
+        case 'RWFIB':
+            const blanks=q.blanks||[];let allOk=true;
+            blanks.forEach((b,i)=>{const sel=document.getElementById('rwfib'+i);
+                if(sel){if(sel.value===b.answer)sel.classList.add('correct');else{sel.classList.add('wrong');allOk=false}}});
+            isCorrect=allOk;break;
+
+        case 'SWT':
+            const swtVal=(document.getElementById('swtInput')||{}).value||'';
+            userAnswer=swtVal.trim();
+            const wc=swtVal.trim().split(/\s+/).filter(x=>x).length;
+            isCorrect=wc>=5&&wc<=75;break;
+
+        case 'WFD':
+            userAnswer=((document.getElementById('wfdInput')||{}).value||'').trim();
+            isCorrect=userAnswer.toLowerCase()===((q.answer||'').trim().toLowerCase());break;
+
+        case 'HIW':
+            const wrongWords=(q.wrongWords||[]).map(w=>w.toLowerCase());
+            const userWords=(selectedAnswer||[]).map(w=>w.toLowerCase().replace(/[^a-z]/g,''));
+            isCorrect=wrongWords.length===userWords.length&&wrongWords.every(w=>userWords.some(u=>u.includes(w.toLowerCase().replace(/[^a-z]/g,''))));
+            // Highlight
+            document.querySelectorAll('.hiw-word').forEach(span=>{
+                const w=span.textContent.toLowerCase().replace(/[^a-z]/g,'');
+                if(wrongWords.some(ww=>w.includes(ww.toLowerCase().replace(/[^a-z]/g,''))))span.classList.add('correct-mark');
+            });
+            userAnswer=(selectedAnswer||[]).join(', ');break;
     }
 
-    function showScore() {
-        document.getElementById('questionCard').style.display = 'none';
-        document.getElementById('scoreCard').style.display = 'block';
-        const pct = questions.length ? Math.round(score / questions.length * 100) : 0;
-        document.getElementById('finalScore').textContent = pct + '%';
-        document.getElementById('finalDetail').textContent = `${score}/${questions.length} 正確`;
-        document.getElementById('progressFill').style.width = '100%';
-    }
+    if(isCorrect)score++;
+    const t=q.type;if(!typeScores[t])typeScores[t]={total:0,correct:0};typeScores[t].total++;if(isCorrect)typeScores[t].correct++;
 
-    // Init
-    loadArticle();
-    </script>
+    const fb=document.getElementById('feedback'),fbT=document.getElementById('fbTitle'),fbX=document.getElementById('fbText'),fbM=document.getElementById('fbModel');
+    fb.className='feedback show '+(isCorrect?'correct':'wrong');
+    fbT.textContent=isCorrect?'✅ 正確！':'❌ 錯誤';
+    fbX.textContent=q.explanation||(isCorrect?'做得好！':`正確答案：${q.answer||''}`);
+
+    if(q.type==='SWT'&&q.modelAnswer){fbM.classList.remove('hidden');fbM.innerHTML='<strong>參考答案：</strong>'+q.modelAnswer}
+    if(q.type==='WFD'&&!isCorrect){fbM.classList.remove('hidden');fbM.innerHTML='<strong>正確句子：</strong>'+q.answer}
+
+    fetch('/api/submit',{method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({articleId,questionIndex:currentIndex,type:q.type,correct:isCorrect,userAnswer})});
+
+    document.getElementById('submitBtn').style.display='none';
+    document.getElementById('nextBtn').style.display='';
+}
+
+function nextQuestion(){currentIndex++;showQuestion()}
+
+function showScore(){
+    document.getElementById('questionCard').classList.add('hidden');
+    const sc=document.getElementById('scoreCard');sc.classList.remove('hidden');
+    const pct=questions.length?Math.round(score/questions.length*100):0;
+    document.getElementById('finalScore').textContent=pct+'%';
+    document.getElementById('finalDetail').textContent=`${score}/${questions.length} 正確`;
+    document.getElementById('progressFill').style.width='100%';
+    // Breakdown
+    const bd=document.getElementById('breakdown');
+    let html='';
+    for(const[type,s]of Object.entries(typeScores)){
+        const info=TYPE_INFO[type]||{label:type};
+        html+=`<div class="row"><span>${info.label}</span><span>${s.correct}/${s.total}</span></div>`;
+    }
+    bd.innerHTML=html;
+}
+
+loadArticle();
+</script>
 </body>
 </html>

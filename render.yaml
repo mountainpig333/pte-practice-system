@@ -1,0 +1,13 @@
+services:
+  - name: pte-practice-system
+    type: web
+    env: node
+    region: oregon
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: NODE_VERSION
+        value: "20"
+      - key: GEMINI_API_KEY
+        value: ""
+        sync: false

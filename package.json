@@ -1,18 +1,13 @@
 {
   "name": "pte-practice-system",
   "version": "1.0.0",
-  "description": "PTE 英文學習系統 - 從經濟學人文章生成練習題目",
+  "description": "PTE Practice System",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "node server.js"
+    "start": "node server.js"
   },
   "dependencies": {
-    "express": "^4.18.2",
-    "sqlite3": "^5.1.7",
-    "express-session": "^1.17.3",
-    "body-parser": "^1.20.2",
-    "@google/generative-ai": "^0.2.1",
-    "bcryptjs": "^2.4.3"
+    "express": "^4.21.0",
+    "express-session": "^1.18.0"
   }
 }

@@ -1,0 +1,856 @@
+⏭️  FIB: already has 350 questions, skipping
+
+🔄 MCSA: has 270, need 80 more
+  Batch 1/8 (10 questions, topics: food security, urbanization and city planning, mental health)
+  ✅ MCSA: generated 10 questions
+  💾 Saved. Total MCSA: 280
+  Batch 2/8 (10 questions, topics: ocean conservation, artificial intelligence and technology, climate change and environment)
+  ❌ MCSA: failed - Unterminated string in JSON at position 5569 (line 105 column 15)
+  Batch 3/8 (10 questions, topics: urbanization and city planning, income inequality, global economics and trade)
+  ✅ MCSA: generated 10 questions
+  💾 Saved. Total MCSA: 290
+  Batch 4/8 (10 questions, topics: artificial intelligence and technology, political systems and democracy, supply chain management)
+  ✅ MCSA: generated 10 questions
+  💾 Saved. Total MCSA: 300
+  Batch 5/8 (10 questions, topics: urbanization and city planning, education reform, water scarcity)
+    ⚠️ Attempt 1 failed: Empty response, retrying in 5s...
+  ✅ MCSA: generated 10 questions
+  💾 Saved. Total MCSA: 310
+  Batch 6/8 (10 questions, topics: globalization, cryptocurrency, international relations)
+  ✅ MCSA: generated 10 questions
+  💾 Saved. Total MCSA: 320
+  Batch 7/8 (10 questions, topics: financial markets, global economics and trade, space exploration)
+  ❌ MCSA: failed - Expected ',' or '}' after property value in JSON at position 2855 (line 50 column 42)
+  Batch 8/8 (10 questions, topics: artificial intelligence and technology, cultural diversity, international relations)
+  ✅ MCSA: generated 10 questions
+  💾 Saved. Total MCSA: 330
+
+🔄 MCMA: has 10, need 340 more
+  Batch 1/34 (10 questions, topics: renewable energy, globalization, international relations)
+  ✅ MCMA: generated 10 questions
+  💾 Saved. Total MCMA: 20
+  Batch 2/34 (10 questions, topics: space exploration, political systems and democracy, startup ecosystems)
+  ❌ MCMA: failed - Unexpected end of JSON input
+  Batch 3/34 (10 questions, topics: food security, supply chain management, urbanization and city planning)
+  ✅ MCMA: generated 10 questions
+  💾 Saved. Total MCMA: 30
+  Batch 4/34 (10 questions, topics: water scarcity, social media impact, income inequality)
+  ❌ MCMA: failed - Unterminated string in JSON at position 6091 (line 101 column 98)
+  Batch 5/34 (10 questions, topics: urbanization and city planning, artificial intelligence and technology, supply chain management)
+  ✅ MCMA: generated 10 questions
+  💾 Saved. Total MCMA: 40
+  Batch 6/34 (10 questions, topics: supply chain management, digital privacy, startup ecosystems)
+    ⚠️ Attempt 1 failed: Empty response, retrying in 5s...
+  ✅ MCMA: generated 10 questions
+  💾 Saved. Total MCMA: 50
+  Batch 7/34 (10 questions, topics: education reform, sustainable development, healthcare and medicine)
+  ✅ MCMA: generated 10 questions
+  💾 Saved. Total MCMA: 60
+  Batch 8/34 (10 questions, topics: sustainable development, cultural diversity, space exploration)
+  ✅ MCMA: generated 10 questions
+  💾 Saved. Total MCMA: 70
+  Batch 9/34 (10 questions, topics: aging population, cultural diversity, global economics and trade)
+  ✅ MCMA: generated 10 questions
+  💾 Saved. Total MCMA: 80
+  Batch 10/34 (10 questions, topics: sustainable development, renewable energy, water scarcity)
+  ✅ MCMA: generated 10 questions
+  💾 Saved. Total MCMA: 90
+  Batch 11/34 (10 questions, topics: social media impact, artificial intelligence and technology, global economics and trade)
+  ✅ MCMA: generated 10 questions
+  💾 Saved. Total MCMA: 100
+  Batch 12/34 (10 questions, topics: cybersecurity, global economics and trade, renewable energy)
+  ✅ MCMA: generated 10 questions
+  💾 Saved. Total MCMA: 110
+  Batch 13/34 (10 questions, topics: supply chain management, aging population, cryptocurrency)
+  ❌ MCMA: failed - Unterminated string in JSON at position 3709 (line 64 column 193)
+  Batch 14/34 (10 questions, topics: renewable energy, digital privacy, cryptocurrency)
+  ✅ MCMA: generated 10 questions
+  💾 Saved. Total MCMA: 120
+  Batch 15/34 (10 questions, topics: food security, global economics and trade, space exploration)
+  ✅ MCMA: generated 10 questions
+  💾 Saved. Total MCMA: 130
+  Batch 16/34 (10 questions, topics: international relations, water scarcity, immigration policy)
+  ❌ MCMA: failed - Unexpected end of JSON input
+  Batch 17/34 (10 questions, topics: global economics and trade, supply chain management, renewable energy)
+  ✅ MCMA: generated 10 questions
+  💾 Saved. Total MCMA: 140
+  Batch 18/34 (10 questions, topics: startup ecosystems, cybersecurity, food security)
+  ✅ MCMA: generated 10 questions
+  💾 Saved. Total MCMA: 150
+  Batch 19/34 (10 questions, topics: global economics and trade, climate change and environment, space exploration)
+  ❌ MCMA: failed - Unexpected end of JSON input
+  Batch 20/34 (10 questions, topics: urbanization and city planning, education reform, supply chain management)
+  ✅ MCMA: generated 10 questions
+  💾 Saved. Total MCMA: 160
+  Batch 21/34 (10 questions, topics: social media impact, immigration policy, climate change and environment)
+  ✅ MCMA: generated 10 questions
+  💾 Saved. Total MCMA: 170
+  Batch 22/34 (10 questions, topics: income inequality, space exploration, education reform)
+  ✅ MCMA: generated 10 questions
+  💾 Saved. Total MCMA: 180
+  Batch 23/34 (10 questions, topics: political systems and democracy, healthcare and medicine, cultural diversity)
+  ✅ MCMA: generated 10 questions
+  💾 Saved. Total MCMA: 190
+  Batch 24/34 (10 questions, topics: political systems and democracy, food security, water scarcity)
+  ✅ MCMA: generated 10 questions
+  💾 Saved. Total MCMA: 200
+  Batch 25/34 (10 questions, topics: automation and employment, healthcare and medicine, climate change and environment)
+  ✅ MCMA: generated 10 questions
+  💾 Saved. Total MCMA: 210
+  Batch 26/34 (10 questions, topics: artificial intelligence and technology, climate change and environment, supply chain management)
+  ✅ MCMA: generated 10 questions
+  💾 Saved. Total MCMA: 220
+  Batch 27/34 (10 questions, topics: urbanization and city planning, climate change and environment, public transportation)
+    ⚠️ Attempt 1 failed: Empty response, retrying in 5s...
+  ❌ MCMA: failed - Unterminated string in JSON at position 2742 (line 45 column 102)
+  Batch 28/34 (10 questions, topics: renewable energy, food security, cultural diversity)
+  ✅ MCMA: generated 10 questions
+  💾 Saved. Total MCMA: 230
+  Batch 29/34 (10 questions, topics: healthcare and medicine, political systems and democracy, mental health)
+  ✅ MCMA: generated 10 questions
+  💾 Saved. Total MCMA: 240
+  Batch 30/34 (10 questions, topics: immigration policy, social media impact, international relations)
+  ❌ MCMA: failed - Unterminated string in JSON at position 5939 (line 1 column 5940)
+  Batch 31/34 (10 questions, topics: income inequality, social media impact, water scarcity)
+  ✅ MCMA: generated 10 questions
+  💾 Saved. Total MCMA: 250
+  Batch 32/34 (10 questions, topics: digital privacy, global economics and trade, education reform)
+  ✅ MCMA: generated 10 questions
+  💾 Saved. Total MCMA: 260
+  Batch 33/34 (10 questions, topics: food security, global economics and trade, automation and employment)
+  ✅ MCMA: generated 10 questions
+  💾 Saved. Total MCMA: 270
+  Batch 34/34 (10 questions, topics: cultural diversity, income inequality, water scarcity)
+  ✅ MCMA: generated 10 questions
+  💾 Saved. Total MCMA: 280
+
+🔄 RO: has 15, need 335 more
+  Batch 1/34 (10 questions, topics: renewable energy, automation and employment, startup ecosystems)
+  ✅ RO: generated 10 questions
+  💾 Saved. Total RO: 25
+  Batch 2/34 (10 questions, topics: food security, cultural diversity, aging population)
+  ✅ RO: generated 10 questions
+  💾 Saved. Total RO: 35
+  Batch 3/34 (10 questions, topics: urbanization and city planning, income inequality, healthcare and medicine)
+  ✅ RO: generated 10 questions
+  💾 Saved. Total RO: 45
+  Batch 4/34 (10 questions, topics: biotechnology, global economics and trade, immigration policy)
+  ✅ RO: generated 10 questions
+  💾 Saved. Total RO: 55
+  Batch 5/34 (10 questions, topics: artificial intelligence and technology, renewable energy, digital privacy)
+  ✅ RO: generated 10 questions
+  💾 Saved. Total RO: 65
+  Batch 6/34 (10 questions, topics: healthcare and medicine, income inequality, renewable energy)
+  ✅ RO: generated 10 questions
+  💾 Saved. Total RO: 75
+  Batch 7/34 (10 questions, topics: immigration policy, artificial intelligence and technology, international relations)
+  ✅ RO: generated 10 questions
+  💾 Saved. Total RO: 85
+  Batch 8/34 (10 questions, topics: climate change and environment, aging population, renewable energy)
+  ✅ RO: generated 10 questions
+  💾 Saved. Total RO: 95
+  Batch 9/34 (10 questions, topics: space exploration, ocean conservation, automation and employment)
+  ❌ RO: failed - Unterminated string in JSON at position 5732 (line 64 column 6)
+  Batch 10/34 (10 questions, topics: food security, sustainable development, global economics and trade)
+  ✅ RO: generated 10 questions
+  💾 Saved. Total RO: 105
+  Batch 11/34 (10 questions, topics: global economics and trade, food security, social media impact)
+  ✅ RO: generated 10 questions
+  💾 Saved. Total RO: 115
+  Batch 12/34 (10 questions, topics: financial markets, renewable energy, aging population)
+  ✅ RO: generated 10 questions
+  💾 Saved. Total RO: 125
+  Batch 13/34 (10 questions, topics: healthcare and medicine, digital privacy, food security)
+  ✅ RO: generated 10 questions
+  💾 Saved. Total RO: 135
+  Batch 14/34 (10 questions, topics: aging population, supply chain management, healthcare and medicine)
+  ✅ RO: generated 10 questions
+  💾 Saved. Total RO: 145
+  Batch 15/34 (10 questions, topics: renewable energy, public transportation, urbanization and city planning)
+  ✅ RO: generated 10 questions
+  💾 Saved. Total RO: 155
+  Batch 16/34 (10 questions, topics: political systems and democracy, social media impact, artificial intelligence and technology)
+  ❌ RO: failed - Unterminated string in JSON at position 2518 (line 52 column 24)
+  Batch 17/34 (10 questions, topics: international relations, artificial intelligence and technology, global economics and trade)
+  ✅ RO: generated 10 questions
+  💾 Saved. Total RO: 165
+  Batch 18/34 (10 questions, topics: cryptocurrency, immigration policy, food security)
+  ✅ RO: generated 10 questions
+  💾 Saved. Total RO: 175
+  Batch 19/34 (10 questions, topics: urbanization and city planning, income inequality, aging population)
+  ✅ RO: generated 10 questions
+  💾 Saved. Total RO: 185
+  Batch 20/34 (10 questions, topics: healthcare and medicine, political systems and democracy, water scarcity)
+  ✅ RO: generated 10 questions
+  💾 Saved. Total RO: 195
+  Batch 21/34 (10 questions, topics: income inequality, cultural diversity, global economics and trade)
+  ✅ RO: generated 10 questions
+  💾 Saved. Total RO: 205
+  Batch 22/34 (10 questions, topics: renewable energy, water scarcity, automation and employment)
+  ✅ RO: generated 10 questions
+  💾 Saved. Total RO: 215
+  Batch 23/34 (10 questions, topics: renewable energy, political systems and democracy, water scarcity)
+  ✅ RO: generated 10 questions
+  💾 Saved. Total RO: 225
+  Batch 24/34 (10 questions, topics: globalization, sustainable development, global economics and trade)
+  ✅ RO: generated 10 questions
+  💾 Saved. Total RO: 235
+  Batch 25/34 (10 questions, topics: artificial intelligence and technology, aging population, financial markets)
+  ✅ RO: generated 10 questions
+  💾 Saved. Total RO: 245
+  Batch 26/34 (10 questions, topics: global economics and trade, renewable energy, climate change and environment)
+  ✅ RO: generated 10 questions
+  💾 Saved. Total RO: 255
+  Batch 27/34 (10 questions, topics: global economics and trade, immigration policy, climate change and environment)
+  ✅ RO: generated 10 questions
+  💾 Saved. Total RO: 265
+  Batch 28/34 (10 questions, topics: public transportation, ocean conservation, healthcare and medicine)
+  ✅ RO: generated 10 questions
+  💾 Saved. Total RO: 275
+  Batch 29/34 (10 questions, topics: artificial intelligence and technology, renewable energy, biotechnology)
+  ✅ RO: generated 10 questions
+  💾 Saved. Total RO: 285
+  Batch 30/34 (10 questions, topics: political systems and democracy, global economics and trade, food security)
+  ✅ RO: generated 10 questions
+  💾 Saved. Total RO: 295
+  Batch 31/34 (10 questions, topics: immigration policy, mental health, water scarcity)
+  ❌ RO: failed - Unterminated string in JSON at position 4648 (line 60 column 192)
+  Batch 32/34 (10 questions, topics: education reform, income inequality, ocean conservation)
+  ✅ RO: generated 10 questions
+  💾 Saved. Total RO: 305
+  Batch 33/34 (10 questions, topics: renewable energy, financial markets, startup ecosystems)
+  ❌ RO: failed - Unterminated string in JSON at position 3030 (line 1 column 3031)
+  Batch 34/34 (5 questions, topics: artificial intelligence and technology, cultural diversity, water scarcity)
+  ✅ RO: generated 5 questions
+  💾 Saved. Total RO: 310
+
+🔄 RWFIB: has 10, need 340 more
+  Batch 1/34 (10 questions, topics: biotechnology, immigration policy, political systems and democracy)
+  ❌ RWFIB: failed - Unterminated string in JSON at position 1482 (line 19 column 119)
+  Batch 2/34 (10 questions, topics: aging population, food security, mental health)
+    ⚠️ Attempt 1 failed: Empty response, retrying in 5s...
+    ⚠️ Attempt 2 failed: Empty response, retrying in 5s...
+  ❌ RWFIB: failed - Unexpected end of JSON input
+  Batch 3/34 (10 questions, topics: political systems and democracy, globalization, climate change and environment)
+  ❌ RWFIB: failed - Expected double-quoted property name in JSON at position 7575 (line 145 column 135)
+  Batch 4/34 (10 questions, topics: income inequality, global economics and trade, sustainable development)
+  ✅ RWFIB: generated 10 questions
+  💾 Saved. Total RWFIB: 20
+  Batch 5/34 (10 questions, topics: biotechnology, financial markets, mental health)
+    ⚠️ Attempt 1 failed: Empty response, retrying in 5s...
+    ⚠️ Attempt 2 failed: Empty response, retrying in 5s...
+  ❌ RWFIB: failed - Empty response
+  Batch 6/34 (10 questions, topics: global economics and trade, artificial intelligence and technology, international relations)
+    ⚠️ Attempt 1 failed: Empty response, retrying in 5s...
+    ⚠️ Attempt 2 failed: Empty response, retrying in 5s...
+  ❌ RWFIB: failed - Unterminated string in JSON at position 7606 (line 172 column 395)
+  Batch 7/34 (10 questions, topics: education reform, mental health, water scarcity)
+  ✅ RWFIB: generated 10 questions
+  💾 Saved. Total RWFIB: 30
+  Batch 8/34 (10 questions, topics: biotechnology, income inequality, international relations)
+  ❌ RWFIB: failed - Expected double-quoted property name in JSON at position 5103 (line 116 column 74)
+  Batch 9/34 (10 questions, topics: healthcare and medicine, food security, income inequality)
+  ✅ RWFIB: generated 10 questions
+  💾 Saved. Total RWFIB: 40
+  Batch 10/34 (10 questions, topics: globalization, aging population, mental health)
+  ❌ RWFIB: failed - Unterminated string in JSON at position 4259 (line 109 column 280)
+  Batch 11/34 (10 questions, topics: financial markets, cryptocurrency, political systems and democracy)
+    ⚠️ Attempt 1 failed: Empty response, retrying in 5s...
+    ⚠️ Attempt 2 failed: Empty response, retrying in 5s...
+  ❌ RWFIB: failed - Empty response
+  Batch 12/34 (10 questions, topics: financial markets, supply chain management, startup ecosystems)
+    ⚠️ Attempt 1 failed: Empty response, retrying in 5s...
+    ⚠️ Attempt 2 failed: Empty response, retrying in 5s...
+  ❌ RWFIB: failed - Empty response
+  Batch 13/34 (10 questions, topics: public transportation, startup ecosystems, renewable energy)
+  ❌ RWFIB: failed - Unterminated string in JSON at position 1628 (line 22 column 70)
+  Batch 14/34 (10 questions, topics: mental health, renewable energy, international relations)
+    ⚠️ Attempt 1 failed: Empty response, retrying in 5s...
+  ✅ RWFIB: generated 10 questions
+  💾 Saved. Total RWFIB: 50
+  Batch 15/34 (10 questions, topics: immigration policy, cryptocurrency, space exploration)
+  ❌ RWFIB: failed - Expected property name or '}' in JSON at position 2737 (line 90 column 8)
+  Batch 16/34 (10 questions, topics: aging population, urbanization and city planning, space exploration)
+    ⚠️ Attempt 1 failed: Empty response, retrying in 5s...
+    ⚠️ Attempt 2 failed: Empty response, retrying in 5s...
+  ❌ RWFIB: failed - Unterminated string in JSON at position 966 (line 25 column 95)
+  Batch 17/34 (10 questions, topics: space exploration, climate change and environment, international relations)
+    ⚠️ Attempt 1 failed: Empty response, retrying in 5s...
+    ⚠️ Attempt 2 failed: Empty response, retrying in 5s...
+  ❌ RWFIB: failed - Empty response
+  Batch 18/34 (10 questions, topics: water scarcity, international relations, education reform)
+  ✅ RWFIB: generated 10 questions
+  💾 Saved. Total RWFIB: 60
+  Batch 19/34 (10 questions, topics: income inequality, digital privacy, renewable energy)
+  ❌ RWFIB: failed - Unterminated string in JSON at position 112 (line 4 column 86)
+  Batch 20/34 (10 questions, topics: healthcare and medicine, renewable energy, food security)
+    ⚠️ Attempt 1 failed: Empty response, retrying in 5s...
+    ⚠️ Attempt 2 failed: Empty response, retrying in 5s...
+  ❌ RWFIB: failed - Empty response
+  Batch 21/34 (10 questions, topics: income inequality, space exploration, urbanization and city planning)
+    ⚠️ Attempt 1 failed: Empty response, retrying in 5s...
+    ⚠️ Attempt 2 failed: Empty response, retrying in 5s...
+  ❌ RWFIB: failed - Unterminated string in JSON at position 5506 (line 1 column 5507)
+  Batch 22/34 (10 questions, topics: income inequality, financial markets, global economics and trade)
+    ⚠️ Attempt 1 failed: Empty response, retrying in 5s...
+    ⚠️ Attempt 2 failed: Empty response, retrying in 5s...
+  ❌ RWFIB: failed - Expected property name or '}' in JSON at position 668 (line 14 column 8)
+  Batch 23/34 (10 questions, topics: urbanization and city planning, ocean conservation, income inequality)
+  ❌ RWFIB: failed - Unterminated string in JSON at position 3976 (line 56 column 91)
+  Batch 24/34 (10 questions, topics: cybersecurity, ocean conservation, startup ecosystems)
+  ❌ RWFIB: failed - Unterminated string in JSON at position 5544 (line 130 column 384)
+  Batch 25/34 (10 questions, topics: cybersecurity, renewable energy, financial markets)
+    ⚠️ Attempt 1 failed: Empty response, retrying in 5s...
+  ❌ RWFIB: failed - Unterminated string in JSON at position 2665 (line 46 column 78)
+  Batch 26/34 (10 questions, topics: global economics and trade, cryptocurrency, cultural diversity)
+  ❌ RWFIB: failed - Expected double-quoted property name in JSON at position 5803 (line 158 column 73)
+  Batch 27/34 (10 questions, topics: space exploration, sustainable development, political systems and democracy)
+  ❌ RWFIB: failed - Unterminated string in JSON at position 6530 (line 114 column 39)
+  Batch 28/34 (10 questions, topics: climate change and environment, digital privacy, renewable energy)
+    ⚠️ Attempt 1 failed: Empty response, retrying in 5s...
+    ⚠️ Attempt 2 failed: Empty response, retrying in 5s...
+  ❌ RWFIB: failed - Unterminated string in JSON at position 4331 (line 94 column 26)
+  Batch 29/34 (10 questions, topics: global economics and trade, renewable energy, ocean conservation)
+    ⚠️ Attempt 1 failed: Empty response, retrying in 5s...
+  ❌ RWFIB: failed - Unterminated string in JSON at position 5153 (line 91 column 58)
+  Batch 30/34 (10 questions, topics: space exploration, biotechnology, global economics and trade)
+  ❌ RWFIB: failed - Unterminated string in JSON at position 5000 (line 109 column 325)
+  Batch 31/34 (10 questions, topics: climate change and environment, urbanization and city planning, financial markets)
+  ✅ RWFIB: generated 10 questions
+  💾 Saved. Total RWFIB: 70
+  Batch 32/34 (10 questions, topics: biotechnology, renewable energy, globalization)
+  ✅ RWFIB: generated 10 questions
+  💾 Saved. Total RWFIB: 80
+  Batch 33/34 (10 questions, topics: healthcare and medicine, cryptocurrency, artificial intelligence and technology)
+  ❌ RWFIB: failed - Unterminated string in JSON at position 4165 (line 70 column 50)
+  Batch 34/34 (10 questions, topics: sustainable development, space exploration, automation and employment)
+    ⚠️ Attempt 1 failed: Empty response, retrying in 5s...
+  ❌ RWFIB: failed - Unterminated string in JSON at position 4719 (line 120 column 57)
+
+🔄 SWT: has 10, need 340 more
+  Batch 1/34 (10 questions, topics: healthcare and medicine, artificial intelligence and technology, water scarcity)
+    ⚠️ Attempt 1 failed: Empty response, retrying in 5s...
+  ✅ SWT: generated 10 questions
+  💾 Saved. Total SWT: 20
+  Batch 2/34 (10 questions, topics: global economics and trade, social media impact, automation and employment)
+  ✅ SWT: generated 10 questions
+  💾 Saved. Total SWT: 30
+  Batch 3/34 (10 questions, topics: automation and employment, sustainable development, education reform)
+  ❌ SWT: failed - Unterminated string in JSON at position 8977 (line 70 column 40)
+  Batch 4/34 (10 questions, topics: cybersecurity, social media impact, biotechnology)
+    ⚠️ Attempt 1 failed: Empty response, retrying in 5s...
+    ⚠️ Attempt 2 failed: Empty response, retrying in 5s...
+  ❌ SWT: failed - Empty response
+  Batch 5/34 (10 questions, topics: urbanization and city planning, startup ecosystems, political systems and democracy)
+    ⚠️ Attempt 1 failed: Empty response, retrying in 5s...
+  ✅ SWT: generated 10 questions
+  💾 Saved. Total SWT: 40
+  Batch 6/34 (10 questions, topics: artificial intelligence and technology, aging population, healthcare and medicine)
+  ✅ SWT: generated 10 questions
+  💾 Saved. Total SWT: 50
+  Batch 7/34 (10 questions, topics: cybersecurity, digital privacy, artificial intelligence and technology)
+    ⚠️ Attempt 1 failed: Empty response, retrying in 5s...
+  ✅ SWT: generated 10 questions
+  💾 Saved. Total SWT: 60
+  Batch 8/34 (10 questions, topics: global economics and trade, cultural diversity, climate change and environment)
+  ✅ SWT: generated 10 questions
+  💾 Saved. Total SWT: 70
+  Batch 9/34 (10 questions, topics: cybersecurity, globalization, education reform)
+    ⚠️ Attempt 1 failed: Empty response, retrying in 5s...
+  ✅ SWT: generated 10 questions
+  💾 Saved. Total SWT: 80
+  Batch 10/34 (10 questions, topics: political systems and democracy, global economics and trade, food security)
+    ⚠️ Attempt 1 failed: Empty response, retrying in 5s...
+    ⚠️ Attempt 2 failed: Empty response, retrying in 5s...
+  ❌ SWT: failed - Empty response
+  Batch 11/34 (10 questions, topics: automation and employment, political systems and democracy, sustainable development)
+  ❌ SWT: failed - Unterminated string in JSON at position 833 (line 6 column 89)
+  Batch 12/34 (10 questions, topics: immigration policy, artificial intelligence and technology, education reform)
+  ✅ SWT: generated 10 questions
+  💾 Saved. Total SWT: 90
+  Batch 13/34 (10 questions, topics: education reform, climate change and environment, space exploration)
+    ⚠️ Attempt 1 failed: Empty response, retrying in 5s...
+  ✅ SWT: generated 10 questions
+  💾 Saved. Total SWT: 100
+  Batch 14/34 (10 questions, topics: sustainable development, social media impact, ocean conservation)
+    ⚠️ Attempt 1 failed: Empty response, retrying in 5s...
+    ⚠️ Attempt 2 failed: Empty response, retrying in 5s...
+  ❌ SWT: failed - Unterminated string in JSON at position 6158 (line 50 column 481)
+  Batch 15/34 (10 questions, topics: artificial intelligence and technology, financial markets, sustainable development)
+    ⚠️ Attempt 1 failed: Empty response, retrying in 5s...
+  ✅ SWT: generated 10 questions
+  💾 Saved. Total SWT: 110
+  Batch 16/34 (10 questions, topics: climate change and environment, global economics and trade, education reform)
+    ⚠️ Attempt 1 failed: Empty response, retrying in 5s...
+    ⚠️ Attempt 2 failed: Empty response, retrying in 5s...
+  ❌ SWT: failed - Empty response
+  Batch 17/34 (10 questions, topics: income inequality, artificial intelligence and technology, education reform)
+    ⚠️ Attempt 1 failed: Empty response, retrying in 5s...
+  ✅ SWT: generated 10 questions
+  💾 Saved. Total SWT: 120
+  Batch 18/34 (10 questions, topics: renewable energy, water scarcity, healthcare and medicine)
+  ❌ SWT: failed - Expected property name or '}' in JSON at position 2168 (line 20 column 4)
+  Batch 19/34 (10 questions, topics: cybersecurity, urbanization and city planning, education reform)
+  ❌ SWT: failed - Unterminated string in JSON at position 10470 (line 77 column 662)
+  Batch 20/34 (10 questions, topics: food security, income inequality, immigration policy)
+    ⚠️ Attempt 1 failed: Empty response, retrying in 5s...
+  ✅ SWT: generated 10 questions
+  💾 Saved. Total SWT: 130
+  Batch 21/34 (10 questions, topics: healthcare and medicine, cultural diversity, international relations)
+    ⚠️ Attempt 1 failed: Empty response, retrying in 5s...
+  ✅ SWT: generated 10 questions
+  💾 Saved. Total SWT: 140
+  Batch 22/34 (10 questions, topics: global economics and trade, cryptocurrency, immigration policy)
+    ⚠️ Attempt 1 failed: Empty response, retrying in 5s...
+  ✅ SWT: generated 10 questions
+  💾 Saved. Total SWT: 150
+  Batch 23/34 (10 questions, topics: climate change and environment, healthcare and medicine, artificial intelligence and technology)
+    ⚠️ Attempt 1 failed: Empty response, retrying in 5s...
+    ⚠️ Attempt 2 failed: Empty response, retrying in 5s...
+  ✅ SWT: generated 10 questions
+  💾 Saved. Total SWT: 160
+  Batch 24/34 (10 questions, topics: political systems and democracy, social media impact, income inequality)
+  ✅ SWT: generated 10 questions
+  💾 Saved. Total SWT: 170
+  Batch 25/34 (10 questions, topics: global economics and trade, food security, financial markets)
+    ⚠️ Attempt 1 failed: Empty response, retrying in 5s...
+    ⚠️ Attempt 2 failed: Empty response, retrying in 5s...
+  ❌ SWT: failed - Empty response
+  Batch 26/34 (10 questions, topics: globalization, digital privacy, political systems and democracy)
+  ✅ SWT: generated 10 questions
+  💾 Saved. Total SWT: 180
+  Batch 27/34 (10 questions, topics: digital privacy, artificial intelligence and technology, climate change and environment)
+  ✅ SWT: generated 10 questions
+  💾 Saved. Total SWT: 190
+  Batch 28/34 (10 questions, topics: urbanization and city planning, cryptocurrency, food security)
+  ❌ SWT: failed - Expected double-quoted property name in JSON at position 4677 (line 34 column 74)
+  Batch 29/34 (10 questions, topics: artificial intelligence and technology, cryptocurrency, climate change and environment)
+    ⚠️ Attempt 1 failed: Empty response, retrying in 5s...
+  ❌ SWT: failed - Unterminated string in JSON at position 8112 (line 61 column 36)
+  Batch 30/34 (10 questions, topics: aging population, social media impact, digital privacy)
+    ⚠️ Attempt 1 failed: Empty response, retrying in 5s...
+  ✅ SWT: generated 10 questions
+  💾 Saved. Total SWT: 200
+  Batch 31/34 (10 questions, topics: artificial intelligence and technology, healthcare and medicine, globalization)
+  ✅ SWT: generated 10 questions
+  💾 Saved. Total SWT: 210
+  Batch 32/34 (10 questions, topics: global economics and trade, biotechnology, aging population)
+    ⚠️ Attempt 1 failed: Empty response, retrying in 5s...
+    ⚠️ Attempt 2 failed: Empty response, retrying in 5s...
+  ❌ SWT: failed - Empty response
+  Batch 33/34 (10 questions, topics: urbanization and city planning, global economics and trade, aging population)
+  ✅ SWT: generated 10 questions
+  💾 Saved. Total SWT: 220
+  Batch 34/34 (10 questions, topics: ocean conservation, financial markets, automation and employment)
+  ✅ SWT: generated 10 questions
+  💾 Saved. Total SWT: 230
+
+🔄 WFD: has 30, need 320 more
+  Batch 1/32 (10 questions, topics: biotechnology, artificial intelligence and technology, startup ecosystems)
+  ✅ WFD: generated 10 questions
+  💾 Saved. Total WFD: 40
+  Batch 2/32 (10 questions, topics: income inequality, urbanization and city planning, global economics and trade)
+  ✅ WFD: generated 10 questions
+  💾 Saved. Total WFD: 50
+  Batch 3/32 (10 questions, topics: global economics and trade, political systems and democracy, healthcare and medicine)
+  ✅ WFD: generated 10 questions
+  💾 Saved. Total WFD: 60
+  Batch 4/32 (10 questions, topics: public transportation, ocean conservation, globalization)
+  ✅ WFD: generated 10 questions
+  💾 Saved. Total WFD: 70
+  Batch 5/32 (10 questions, topics: healthcare and medicine, cryptocurrency, artificial intelligence and technology)
+  ✅ WFD: generated 10 questions
+  💾 Saved. Total WFD: 80
+  Batch 6/32 (10 questions, topics: climate change and environment, education reform, financial markets)
+  ✅ WFD: generated 10 questions
+  💾 Saved. Total WFD: 90
+  Batch 7/32 (10 questions, topics: water scarcity, biotechnology, supply chain management)
+  ✅ WFD: generated 10 questions
+  💾 Saved. Total WFD: 100
+  Batch 8/32 (10 questions, topics: climate change and environment, aging population, financial markets)
+  ✅ WFD: generated 10 questions
+  💾 Saved. Total WFD: 110
+  Batch 9/32 (10 questions, topics: education reform, financial markets, space exploration)
+  ✅ WFD: generated 10 questions
+  💾 Saved. Total WFD: 120
+  Batch 10/32 (10 questions, topics: sustainable development, renewable energy, global economics and trade)
+  ✅ WFD: generated 10 questions
+  💾 Saved. Total WFD: 130
+  Batch 11/32 (10 questions, topics: ocean conservation, supply chain management, automation and employment)
+  ✅ WFD: generated 10 questions
+  💾 Saved. Total WFD: 140
+  Batch 12/32 (10 questions, topics: startup ecosystems, biotechnology, ocean conservation)
+  ✅ WFD: generated 10 questions
+  💾 Saved. Total WFD: 150
+  Batch 13/32 (10 questions, topics: climate change and environment, artificial intelligence and technology, globalization)
+  ✅ WFD: generated 10 questions
+  💾 Saved. Total WFD: 160
+  Batch 14/32 (10 questions, topics: international relations, mental health, food security)
+  ✅ WFD: generated 10 questions
+  💾 Saved. Total WFD: 170
+  Batch 15/32 (10 questions, topics: sustainable development, aging population, renewable energy)
+  ✅ WFD: generated 10 questions
+  💾 Saved. Total WFD: 180
+  Batch 16/32 (10 questions, topics: urbanization and city planning, cultural diversity, international relations)
+  ✅ WFD: generated 10 questions
+  💾 Saved. Total WFD: 190
+  Batch 17/32 (10 questions, topics: biotechnology, renewable energy, education reform)
+  ✅ WFD: generated 10 questions
+  💾 Saved. Total WFD: 200
+  Batch 18/32 (10 questions, topics: healthcare and medicine, immigration policy, cryptocurrency)
+  ✅ WFD: generated 10 questions
+  💾 Saved. Total WFD: 210
+  Batch 19/32 (10 questions, topics: artificial intelligence and technology, climate change and environment, renewable energy)
+  ✅ WFD: generated 10 questions
+  💾 Saved. Total WFD: 220
+  Batch 20/32 (10 questions, topics: supply chain management, cybersecurity, healthcare and medicine)
+  ✅ WFD: generated 10 questions
+  💾 Saved. Total WFD: 230
+  Batch 21/32 (10 questions, topics: healthcare and medicine, urbanization and city planning, globalization)
+  ✅ WFD: generated 10 questions
+  💾 Saved. Total WFD: 240
+  Batch 22/32 (10 questions, topics: international relations, sustainable development, global economics and trade)
+  ✅ WFD: generated 10 questions
+  💾 Saved. Total WFD: 250
+  Batch 23/32 (10 questions, topics: education reform, healthcare and medicine, income inequality)
+  ✅ WFD: generated 10 questions
+  💾 Saved. Total WFD: 260
+  Batch 24/32 (10 questions, topics: globalization, social media impact, digital privacy)
+  ✅ WFD: generated 10 questions
+  💾 Saved. Total WFD: 270
+  Batch 25/32 (10 questions, topics: cybersecurity, financial markets, startup ecosystems)
+  ✅ WFD: generated 10 questions
+  💾 Saved. Total WFD: 280
+  Batch 26/32 (10 questions, topics: artificial intelligence and technology, space exploration, water scarcity)
+  ✅ WFD: generated 10 questions
+  💾 Saved. Total WFD: 290
+  Batch 27/32 (10 questions, topics: renewable energy, climate change and environment, food security)
+  ✅ WFD: generated 10 questions
+  💾 Saved. Total WFD: 300
+  Batch 28/32 (10 questions, topics: education reform, supply chain management, urbanization and city planning)
+  ✅ WFD: generated 10 questions
+  💾 Saved. Total WFD: 310
+  Batch 29/32 (10 questions, topics: biotechnology, immigration policy, sustainable development)
+  ✅ WFD: generated 10 questions
+  💾 Saved. Total WFD: 320
+  Batch 30/32 (10 questions, topics: automation and employment, income inequality, artificial intelligence and technology)
+  ✅ WFD: generated 10 questions
+  💾 Saved. Total WFD: 330
+  Batch 31/32 (10 questions, topics: automation and employment, financial markets, global economics and trade)
+  ✅ WFD: generated 10 questions
+  💾 Saved. Total WFD: 340
+  Batch 32/32 (10 questions, topics: renewable energy, income inequality, biotechnology)
+  ✅ WFD: generated 10 questions
+  💾 Saved. Total WFD: 350
+
+🔄 HCS: has 10, need 340 more
+  Batch 1/34 (10 questions, topics: biotechnology, digital privacy, supply chain management)
+  ✅ HCS: generated 10 questions
+  💾 Saved. Total HCS: 20
+  Batch 2/34 (10 questions, topics: globalization, climate change and environment, financial markets)
+  ✅ HCS: generated 10 questions
+  💾 Saved. Total HCS: 30
+  Batch 3/34 (10 questions, topics: income inequality, international relations, space exploration)
+  ✅ HCS: generated 10 questions
+  💾 Saved. Total HCS: 40
+  Batch 4/34 (10 questions, topics: climate change and environment, space exploration, globalization)
+  ❌ HCS: failed - Unterminated string in JSON at position 6709 (line 72 column 88)
+  Batch 5/34 (10 questions, topics: artificial intelligence and technology, climate change and environment, aging population)
+    ⚠️ Attempt 1 failed: Empty response, retrying in 5s...
+  ✅ HCS: generated 10 questions
+  💾 Saved. Total HCS: 50
+  Batch 6/34 (10 questions, topics: education reform, urbanization and city planning, social media impact)
+  ✅ HCS: generated 10 questions
+  💾 Saved. Total HCS: 60
+  Batch 7/34 (10 questions, topics: startup ecosystems, water scarcity, artificial intelligence and technology)
+  ✅ HCS: generated 10 questions
+  💾 Saved. Total HCS: 70
+  Batch 8/34 (10 questions, topics: water scarcity, global economics and trade, social media impact)
+  ❌ HCS: failed - Unterminated string in JSON at position 8507 (line 94 column 350)
+  Batch 9/34 (10 questions, topics: globalization, sustainable development, international relations)
+  ✅ HCS: generated 10 questions
+  💾 Saved. Total HCS: 80
+  Batch 10/34 (10 questions, topics: income inequality, global economics and trade, automation and employment)
+    ⚠️ Attempt 1 failed: Empty response, retrying in 5s...
+  ✅ HCS: generated 10 questions
+  💾 Saved. Total HCS: 90
+  Batch 11/34 (10 questions, topics: income inequality, political systems and democracy, climate change and environment)
+  ❌ HCS: failed - Unterminated string in JSON at position 637 (line 1 column 638)
+  Batch 12/34 (10 questions, topics: climate change and environment, education reform, public transportation)
+    ⚠️ Attempt 1 failed: Empty response, retrying in 5s...
+  ❌ HCS: failed - Unterminated string in JSON at position 10753 (line 110 column 35)
+  Batch 13/34 (10 questions, topics: climate change and environment, social media impact, space exploration)
+  ❌ HCS: failed - Expected double-quoted property name in JSON at position 9733 (line 138 column 19)
+  Batch 14/34 (10 questions, topics: biotechnology, supply chain management, automation and employment)
+  ❌ HCS: failed - Unterminated string in JSON at position 6863 (line 98 column 29)
+  Batch 15/34 (10 questions, topics: political systems and democracy, immigration policy, artificial intelligence and technology)
+  ✅ HCS: generated 10 questions
+  💾 Saved. Total HCS: 100
+  Batch 16/34 (10 questions, topics: social media impact, sustainable development, climate change and environment)
+  ❌ HCS: failed - Unterminated string in JSON at position 6192 (line 84 column 49)
+  Batch 17/34 (10 questions, topics: space exploration, sustainable development, cryptocurrency)
+    ⚠️ Attempt 1 failed: Empty response, retrying in 5s...
+  ✅ HCS: generated 10 questions
+  💾 Saved. Total HCS: 110
+  Batch 18/34 (10 questions, topics: globalization, healthcare and medicine, mental health)
+  ✅ HCS: generated 10 questions
+  💾 Saved. Total HCS: 120
+  Batch 19/34 (10 questions, topics: automation and employment, immigration policy, ocean conservation)
+  ❌ HCS: failed - Unterminated string in JSON at position 686 (line 1 column 687)
+  Batch 20/34 (10 questions, topics: climate change and environment, mental health, global economics and trade)
+  ✅ HCS: generated 10 questions
+  💾 Saved. Total HCS: 130
+  Batch 21/34 (10 questions, topics: artificial intelligence and technology, healthcare and medicine, social media impact)
+  ❌ HCS: failed - Expected double-quoted property name in JSON at position 11779 (line 140 column 46)
+  Batch 22/34 (10 questions, topics: education reform, immigration policy, cryptocurrency)
+  ✅ HCS: generated 10 questions
+  💾 Saved. Total HCS: 140
+  Batch 23/34 (10 questions, topics: social media impact, international relations, public transportation)
+  ❌ HCS: failed - Unterminated string in JSON at position 4655 (line 72 column 102)
+  Batch 24/34 (10 questions, topics: education reform, biotechnology, international relations)
+    ⚠️ Attempt 1 failed: Empty response, retrying in 5s...
+  ✅ HCS: generated 10 questions
+  💾 Saved. Total HCS: 150
+  Batch 25/34 (10 questions, topics: international relations, urbanization and city planning, ocean conservation)
+  ❌ HCS: failed - Unterminated string in JSON at position 4959 (line 58 column 48)
+  Batch 26/34 (10 questions, topics: globalization, startup ecosystems, space exploration)
+  ❌ HCS: failed - Unterminated string in JSON at position 5971 (line 1 column 5972)
+  Batch 27/34 (10 questions, topics: income inequality, globalization, public transportation)
+  ✅ HCS: generated 10 questions
+  💾 Saved. Total HCS: 160
+  Batch 28/34 (10 questions, topics: biotechnology, global economics and trade, renewable energy)
+  ❌ HCS: failed - Unterminated string in JSON at position 3181 (line 49 column 201)
+  Batch 29/34 (10 questions, topics: income inequality, cryptocurrency, climate change and environment)
+  ✅ HCS: generated 10 questions
+  💾 Saved. Total HCS: 170
+  Batch 30/34 (10 questions, topics: cultural diversity, international relations, social media impact)
+  ✅ HCS: generated 10 questions
+  💾 Saved. Total HCS: 180
+  Batch 31/34 (10 questions, topics: political systems and democracy, income inequality, public transportation)
+  ✅ HCS: generated 10 questions
+  💾 Saved. Total HCS: 190
+  Batch 32/34 (10 questions, topics: ocean conservation, education reform, digital privacy)
+  ✅ HCS: generated 10 questions
+  💾 Saved. Total HCS: 200
+  Batch 33/34 (10 questions, topics: cybersecurity, renewable energy, urbanization and city planning)
+  ❌ HCS: failed - Unterminated string in JSON at position 7847 (line 109 column 169)
+  Batch 34/34 (10 questions, topics: political systems and democracy, climate change and environment, digital privacy)
+  ❌ HCS: failed - Unterminated string in JSON at position 11961 (line 138 column 14)
+
+🔄 HIW: has 15, need 335 more
+  Batch 1/34 (10 questions, topics: climate change and environment, healthcare and medicine, food security)
+  ❌ HIW: failed - Unterminated string in JSON at position 3167 (line 58 column 33)
+  Batch 2/34 (10 questions, topics: healthcare and medicine, artificial intelligence and technology, automation and employment)
+  ✅ HIW: generated 10 questions
+  💾 Saved. Total HIW: 25
+  Batch 3/34 (10 questions, topics: education reform, automation and employment, cultural diversity)
+  ✅ HIW: generated 10 questions
+  💾 Saved. Total HIW: 35
+  Batch 4/34 (10 questions, topics: healthcare and medicine, aging population, water scarcity)
+  ✅ HIW: generated 10 questions
+  💾 Saved. Total HIW: 45
+  Batch 5/34 (10 questions, topics: immigration policy, income inequality, healthcare and medicine)
+  ✅ HIW: generated 10 questions
+  💾 Saved. Total HIW: 55
+  Batch 6/34 (10 questions, topics: supply chain management, ocean conservation, healthcare and medicine)
+    ⚠️ Attempt 1 failed: Empty response, retrying in 5s...
+  ✅ HIW: generated 10 questions
+  💾 Saved. Total HIW: 65
+  Batch 7/34 (10 questions, topics: globalization, political systems and democracy, education reform)
+  ✅ HIW: generated 10 questions
+  💾 Saved. Total HIW: 75
+  Batch 8/34 (10 questions, topics: cybersecurity, international relations, healthcare and medicine)
+  ✅ HIW: generated 10 questions
+  💾 Saved. Total HIW: 85
+  Batch 9/34 (10 questions, topics: automation and employment, public transportation, healthcare and medicine)
+  ✅ HIW: generated 10 questions
+  💾 Saved. Total HIW: 95
+  Batch 10/34 (10 questions, topics: globalization, artificial intelligence and technology, food security)
+  ✅ HIW: generated 10 questions
+  💾 Saved. Total HIW: 105
+  Batch 11/34 (10 questions, topics: biotechnology, global economics and trade, income inequality)
+  ❌ HIW: failed - Unterminated string in JSON at position 1839 (line 38 column 77)
+  Batch 12/34 (10 questions, topics: supply chain management, healthcare and medicine, cybersecurity)
+  ✅ HIW: generated 10 questions
+  💾 Saved. Total HIW: 115
+  Batch 13/34 (10 questions, topics: digital privacy, biotechnology, aging population)
+  ✅ HIW: generated 10 questions
+  💾 Saved. Total HIW: 125
+  Batch 14/34 (10 questions, topics: space exploration, supply chain management, renewable energy)
+  ✅ HIW: generated 10 questions
+  💾 Saved. Total HIW: 135
+  Batch 15/34 (10 questions, topics: cryptocurrency, public transportation, global economics and trade)
+  ✅ HIW: generated 12 questions
+  💾 Saved. Total HIW: 147
+  Batch 16/34 (10 questions, topics: cryptocurrency, income inequality, mental health)
+  ✅ HIW: generated 10 questions
+  💾 Saved. Total HIW: 157
+  Batch 17/34 (10 questions, topics: global economics and trade, cryptocurrency, immigration policy)
+  ✅ HIW: generated 10 questions
+  💾 Saved. Total HIW: 167
+  Batch 18/34 (10 questions, topics: healthcare and medicine, social media impact, cultural diversity)
+  ✅ HIW: generated 10 questions
+  💾 Saved. Total HIW: 177
+  Batch 19/34 (10 questions, topics: digital privacy, cybersecurity, cultural diversity)
+    ⚠️ Attempt 1 failed: Empty response, retrying in 5s...
+  ✅ HIW: generated 10 questions
+  💾 Saved. Total HIW: 187
+  Batch 20/34 (10 questions, topics: ocean conservation, globalization, international relations)
+  ✅ HIW: generated 10 questions
+  💾 Saved. Total HIW: 197
+  Batch 21/34 (10 questions, topics: global economics and trade, food security, biotechnology)
+  ✅ HIW: generated 10 questions
+  💾 Saved. Total HIW: 207
+  Batch 22/34 (10 questions, topics: cultural diversity, education reform, financial markets)
+  ❌ HIW: failed - Unterminated string in JSON at position 1507 (line 28 column 30)
+  Batch 23/34 (10 questions, topics: renewable energy, political systems and democracy, globalization)
+  ❌ HIW: failed - Unterminated string in JSON at position 4643 (line 96 column 102)
+  Batch 24/34 (10 questions, topics: financial markets, international relations, startup ecosystems)
+  ✅ HIW: generated 10 questions
+  💾 Saved. Total HIW: 217
+  Batch 25/34 (10 questions, topics: urbanization and city planning, artificial intelligence and technology, digital privacy)
+  ✅ HIW: generated 10 questions
+  💾 Saved. Total HIW: 227
+  Batch 26/34 (10 questions, topics: cultural diversity, aging population, water scarcity)
+  ❌ HIW: failed - Unterminated string in JSON at position 190 (line 6 column 14)
+  Batch 27/34 (10 questions, topics: artificial intelligence and technology, supply chain management, aging population)
+  ✅ HIW: generated 10 questions
+  💾 Saved. Total HIW: 237
+  Batch 28/34 (10 questions, topics: public transportation, startup ecosystems, cultural diversity)
+  ✅ HIW: generated 10 questions
+  💾 Saved. Total HIW: 247
+  Batch 29/34 (10 questions, topics: space exploration, globalization, startup ecosystems)
+  ✅ HIW: generated 10 questions
+  💾 Saved. Total HIW: 257
+  Batch 30/34 (10 questions, topics: supply chain management, healthcare and medicine, social media impact)
+    ⚠️ Attempt 1 failed: Empty response, retrying in 5s...
+  ❌ HIW: failed - Unterminated string in JSON at position 5192 (line 97 column 16)
+  Batch 31/34 (10 questions, topics: food security, social media impact, artificial intelligence and technology)
+  ✅ HIW: generated 10 questions
+  💾 Saved. Total HIW: 267
+  Batch 32/34 (10 questions, topics: artificial intelligence and technology, climate change and environment, mental health)
+  ✅ HIW: generated 10 questions
+  💾 Saved. Total HIW: 277
+  Batch 33/34 (10 questions, topics: supply chain management, global economics and trade, public transportation)
+  ✅ HIW: generated 10 questions
+  💾 Saved. Total HIW: 287
+  Batch 34/34 (5 questions, topics: income inequality, healthcare and medicine, automation and employment)
+  ✅ HIW: generated 5 questions
+  💾 Saved. Total HIW: 292
+
+🔄 VOCAB: has 20, need 330 more
+  Batch 1/33 (10 questions, topics: global economics and trade, ocean conservation, mental health)
+  ✅ VOCAB: generated 10 questions
+  💾 Saved. Total VOCAB: 30
+  Batch 2/33 (10 questions, topics: urbanization and city planning, food security, artificial intelligence and technology)
+  ✅ VOCAB: generated 10 questions
+  💾 Saved. Total VOCAB: 40
+  Batch 3/33 (10 questions, topics: financial markets, digital privacy, artificial intelligence and technology)
+  ✅ VOCAB: generated 10 questions
+  💾 Saved. Total VOCAB: 50
+  Batch 4/33 (10 questions, topics: income inequality, public transportation, water scarcity)
+  ✅ VOCAB: generated 10 questions
+  💾 Saved. Total VOCAB: 60
+  Batch 5/33 (10 questions, topics: artificial intelligence and technology, education reform, food security)
+  ✅ VOCAB: generated 10 questions
+  💾 Saved. Total VOCAB: 70
+  Batch 6/33 (10 questions, topics: financial markets, space exploration, global economics and trade)
+  ✅ VOCAB: generated 10 questions
+  💾 Saved. Total VOCAB: 80
+  Batch 7/33 (10 questions, topics: globalization, aging population, immigration policy)
+  ✅ VOCAB: generated 10 questions
+  💾 Saved. Total VOCAB: 90
+  Batch 8/33 (10 questions, topics: aging population, supply chain management, cryptocurrency)
+  ✅ VOCAB: generated 10 questions
+  💾 Saved. Total VOCAB: 100
+  Batch 9/33 (10 questions, topics: cryptocurrency, global economics and trade, immigration policy)
+  ✅ VOCAB: generated 10 questions
+  💾 Saved. Total VOCAB: 110
+  Batch 10/33 (10 questions, topics: mental health, healthcare and medicine, climate change and environment)
+  ✅ VOCAB: generated 10 questions
+  💾 Saved. Total VOCAB: 120
+  Batch 11/33 (10 questions, topics: cybersecurity, ocean conservation, renewable energy)
+  ✅ VOCAB: generated 10 questions
+  💾 Saved. Total VOCAB: 130
+  Batch 12/33 (10 questions, topics: supply chain management, food security, mental health)
+  ✅ VOCAB: generated 10 questions
+  💾 Saved. Total VOCAB: 140
+  Batch 13/33 (10 questions, topics: aging population, immigration policy, social media impact)
+  ✅ VOCAB: generated 10 questions
+  💾 Saved. Total VOCAB: 150
+  Batch 14/33 (10 questions, topics: global economics and trade, climate change and environment, public transportation)
+  ✅ VOCAB: generated 10 questions
+  💾 Saved. Total VOCAB: 160
+  Batch 15/33 (10 questions, topics: renewable energy, biotechnology, international relations)
+    ⚠️ Attempt 1 failed: This operation was aborted, retrying in 5s...
+  ✅ VOCAB: generated 10 questions
+  💾 Saved. Total VOCAB: 170
+  Batch 16/33 (10 questions, topics: ocean conservation, supply chain management, biotechnology)
+  ✅ VOCAB: generated 10 questions
+  💾 Saved. Total VOCAB: 180
+  Batch 17/33 (10 questions, topics: sustainable development, education reform, urbanization and city planning)
+  ✅ VOCAB: generated 10 questions
+  💾 Saved. Total VOCAB: 190
+  Batch 18/33 (10 questions, topics: space exploration, globalization, water scarcity)
+  ✅ VOCAB: generated 10 questions
+  💾 Saved. Total VOCAB: 200
+  Batch 19/33 (10 questions, topics: sustainable development, mental health, renewable energy)
+  ✅ VOCAB: generated 10 questions
+  💾 Saved. Total VOCAB: 210
+  Batch 20/33 (10 questions, topics: food security, education reform, healthcare and medicine)
+  ✅ VOCAB: generated 10 questions
+  💾 Saved. Total VOCAB: 220
+  Batch 21/33 (10 questions, topics: sustainable development, space exploration, immigration policy)
+  ✅ VOCAB: generated 10 questions
+  💾 Saved. Total VOCAB: 230
+  Batch 22/33 (10 questions, topics: income inequality, ocean conservation, artificial intelligence and technology)
+  ✅ VOCAB: generated 10 questions
+  💾 Saved. Total VOCAB: 240
+  Batch 23/33 (10 questions, topics: public transportation, cybersecurity, water scarcity)
+  ✅ VOCAB: generated 10 questions
+  💾 Saved. Total VOCAB: 250
+  Batch 24/33 (10 questions, topics: education reform, biotechnology, cybersecurity)
+  ✅ VOCAB: generated 10 questions
+  💾 Saved. Total VOCAB: 260
+  Batch 25/33 (10 questions, topics: immigration policy, water scarcity, globalization)
+  ❌ VOCAB: failed - Expected ',' or ']' after array element in JSON at position 785 (line 17 column 13)
+  Batch 26/33 (10 questions, topics: global economics and trade, public transportation, healthcare and medicine)
+  ✅ VOCAB: generated 10 questions
+  💾 Saved. Total VOCAB: 270
+  Batch 27/33 (10 questions, topics: urbanization and city planning, healthcare and medicine, startup ecosystems)
+  ✅ VOCAB: generated 10 questions
+  💾 Saved. Total VOCAB: 280
+  Batch 28/33 (10 questions, topics: global economics and trade, income inequality, education reform)
+  ✅ VOCAB: generated 10 questions
+  💾 Saved. Total VOCAB: 290
+  Batch 29/33 (10 questions, topics: artificial intelligence and technology, biotechnology, digital privacy)
+  ✅ VOCAB: generated 10 questions
+  💾 Saved. Total VOCAB: 300
+  Batch 30/33 (10 questions, topics: education reform, sustainable development, public transportation)
+  ✅ VOCAB: generated 10 questions
+  💾 Saved. Total VOCAB: 310
+  Batch 31/33 (10 questions, topics: global economics and trade, immigration policy, climate change and environment)
+  ✅ VOCAB: generated 10 questions
+  💾 Saved. Total VOCAB: 320
+  Batch 32/33 (10 questions, topics: global economics and trade, education reform, climate change and environment)
+  ✅ VOCAB: generated 10 questions
+  💾 Saved. Total VOCAB: 330
+  Batch 33/33 (10 questions, topics: startup ecosystems, water scarcity, cryptocurrency)
+  ✅ VOCAB: generated 10 questions
+  💾 Saved. Total VOCAB: 340
+
+========================================
+📊 題庫統計:
+  FIB: 350 題
+  MCSA: 330 題
+  MCMA: 280 題
+  RO: 310 題
+  RWFIB: 80 題
+  SWT: 230 題
+  WFD: 350 題
+  HCS: 200 題
+  HIW: 292 題
+  VOCAB: 340 題
+  Total: 2762 題
+
+✅ Done!

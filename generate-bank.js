@@ -1,10 +1,11 @@
 /**
  * PTE 題庫批量生成器
- * 使用 Gemini API 批量生成各種 PTE 題型
+ * 使用 MiniMax API (Anthropic format) 批量生成各種 PTE 題型
  */
 
 const fs = require('fs');
-const GEMINI_API_KEY = process.env.GEMINI_API_KEY || 'AIzaSyDiMIKPMiP8kfij9DVTqfIMjTMPuZcKs-s';
+const MINIMAX_API_KEY = process.env.MINIMAX_API_KEY || 'sk-cp-hAhpYJEvRwEIVIf9s5LXX_T5a-gF92UzaxOKTV8AYyGByM--m0N1VpW8YrrVdhT4sXI7DY399dLmutEVjKO-8ZDumntlks4v_uU09hM3GOblH9nJyTXDf34';
+const MINIMAX_MODEL = 'MiniMax-M2.5';
 const BANK_FILE = './question-bank.json';
 
 // ============ 題庫載入/儲存 ============
@@ -14,22 +15,42 @@ function loadBank() {
 }
 function saveBank(bank) { fs.writeFileSync(BANK_FILE, JSON.stringify(bank)); }
 
-// ============ Gemini API ============
-async function callGemini(prompt) {
-    const r = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`,
-        {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                contents: [{ parts: [{ text: prompt }] }],
-                generationConfig: { temperature: 0.85, maxOutputTokens: 8192 }
-            })
+// ============ MiniMax API (Anthropic format) ============
+async function callLLM(prompt, retries = 3) {
+    for (let attempt = 1; attempt <= retries; attempt++) {
+        try {
+            const controller = new AbortController();
+            const timeout = setTimeout(() => controller.abort(), 300000); // 5 min timeout
+            const r = await fetch('https://api.minimax.io/anthropic/v1/messages', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-api-key': MINIMAX_API_KEY,
+                    'anthropic-version': '2023-06-01'
+                },
+                body: JSON.stringify({
+                    model: MINIMAX_MODEL,
+                    max_tokens: 8192,
+                    messages: [{ role: 'user', content: prompt }]
+                }),
+                signal: controller.signal
+            });
+            clearTimeout(timeout);
+            const result = await r.json();
+            if (result.error) throw new Error(result.error.message || JSON.stringify(result.error));
+            const textBlock = result.content?.find(b => b.type === 'text');
+            const text = (textBlock?.text || '').replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
+            if (!text) throw new Error('Empty response');
+            return text;
+        } catch (e) {
+            if (attempt < retries) {
+                console.log(`    ⚠️ Attempt ${attempt} failed: ${e.message}, retrying in 5s...`);
+                await new Promise(r => setTimeout(r, 5000));
+            } else {
+                throw e;
+            }
         }
-    );
-    const result = await r.json();
-    const text = result.candidates?.[0]?.content?.parts?.[0]?.text || '';
-    return text.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
+    }
 }
 
 // ============ 各題型生成 Prompt ============
@@ -132,7 +153,7 @@ async function generateBatch(type, batchSize, topicBatch) {
     if (!prompt) return [];
 
     try {
-        const text = await callGemini(prompt);
+        const text = await callLLM(prompt);
         const questions = JSON.parse(text);
         console.log(`  ✅ ${type}: generated ${questions.length} questions`);
         return questions;

@@ -1,0 +1,420 @@
+[
+  {
+    "FIB": {
+      "type": "FIB",
+      "question": "The advent of CRISPR-Cas9 has revolutionized gene editing, enabling scientists to make ______ modifications to the DNA of living organisms.",
+      "options": [
+        "precise",
+        "imprecise",
+        "random",
+        "superficial"
+      ],
+      "answer": "precise",
+      "explanation": " precise， CRISPR ， DNA 。",
+      "difficulty": "medium",
+      "topic": "biotechnology"
+    }
+  },
+  {
+    "FIB": {
+      "type": "FIB",
+      "question": "The new integrated ticketing system allows passengers to transfer seamlessly between ______ services, enhancing overall travel efficiency.",
+      "options": [
+        "rail",
+        "road",
+        "water",
+        "air"
+      ],
+      "answer": "rail",
+      "explanation": "「rail」，。",
+      "difficulty": "hard",
+      "topic": "public transportation"
+    }
+  },
+  {
+    "FIB": {
+      "type": "FIB",
+      "question": "Synthetic biology aims to design biological parts that can be assembled into novel ______ for applications in medicine and energy.",
+      "options": [
+        "organisms",
+        "circuits",
+        "pathways",
+        "networks"
+      ],
+      "answer": "circuits",
+      "explanation": "circuits ，，。",
+      "difficulty": "medium",
+      "topic": "biotechnology"
+    }
+  },
+  {
+    "FIB": {
+      "type": "FIB",
+      "question": "Cognitive‑behavioral therapy (CBT) is widely regarded as an evidence‑based ______ for depression, with numerous clinical trials supporting its efficacy.",
+      "options": [
+        "intervention",
+        "cause",
+        "risk factor",
+        "diagnosis"
+      ],
+      "answer": "intervention",
+      "explanation": " intervention， CBT 。",
+      "difficulty": "easy",
+      "topic": "mental health"
+    }
+  },
+  {
+    "FIB": {
+      "type": "FIB",
+      "question": "The new regulation aims to ______ transparency in financial reporting.",
+      "options": [
+        "enhance",
+        "enhancement",
+        "enhanced",
+        "enhancing"
+      ],
+      "answer": "enhance",
+      "explanation": "。aims to 。"
+    }
+  },
+  {
+    "MCSA": {
+      "type": "MCSA",
+      "passage": "The Food and Agriculture Organization estimates that one‑third of all food produced globally is lost or wasted. In sub‑Saharan Africa, a pilot program partners with farmers and retailers to improve storage infrastructure and streamline supply chains, aiming to cut post‑harvest losses by half.",
+      "question": "What is the main target of the program?",
+      "options": [
+        "a) Increase crop yields",
+        "b) Reduce post‑harvest waste",
+        "c) Expand export markets",
+        "d) Provide micro‑loans to smallholders"
+      ],
+      "answer": "b",
+      "explanation": " b，。",
+      "difficulty": "easy",
+      "topic": "food security"
+    }
+  },
+  {
+    "MCSA": {
+      "type": "MCSA",
+      "passage": "The International Monetary Fund has warned that rising income inequality can undermine long-term economic growth by reducing aggregate demand. It recommends progressive taxation and expanded access to education as corrective measures.",
+      "question": "What policy does the IMF suggest to mitigate the negative effects of inequality on growth?",
+      "options": [
+        "Decrease public spending",
+        "Implement progressive taxation and expand education access",
+        "Abolish minimum wage",
+        "Encourage monopoly practices"
+      ],
+      "answer": "b",
+      "explanation": "IMF，。",
+      "difficulty": "medium",
+      "topic": "income inequality"
+    }
+  },
+  {
+    "MCSA": {
+      "type": "MCSA",
+      "passage": "The World Health Organization announced that a new malaria vaccine has shown 80% efficacy in phase three trials, potentially saving hundreds of thousands of lives annually.",
+      "question": "What is the impact of the new malaria vaccine?",
+      "options": [
+        "It could significantly reduce malaria deaths worldwide.",
+        "It is ineffective against drug‑resistant strains.",
+        "It only works for children under five.",
+        "It has been rejected by most African nations."
+      ],
+      "answer": "a",
+      "explanation": "，80%，，。",
+      "difficulty": "easy",
+      "topic": "healthcare and medicine"
+    }
+  },
+  {
+    "MCSA": {
+      "type": "MCSA",
+      "passage": "Rising housing costs in global cities have widened wealth gaps, as those who own property reap appreciation while renters face mounting expenses. Some cities have introduced rent controls to protect vulnerable tenants.",
+      "question": "What policy has been introduced to protect renters?",
+      "options": [
+        "a) Removing rent controls",
+        "b) Implementing rent controls",
+        "c) Reducing property taxes",
+        "d) Encouraging speculation"
+      ],
+      "answer": "b",
+      "explanation": "，。",
+      "difficulty": "easy",
+      "topic": "income inequality"
+    }
+  },
+  {
+    "MCSA": {
+      "type": "MCSA",
+      "passage": "The World Trade Organization reported that global merchandise trade volumes fell by 3% in the first quarter, the steepest decline since the 2009 financial crisis. Analysts attribute the drop to renewed protectionist measures and a slowdown in Chinese manufacturing.",
+      "question": "According to the passage, what factor contributed most to the decline in global trade?",
+      "options": [
+        "a) Increased demand for services",
+        "b) Protectionist policies",
+        "c) Higher oil prices",
+        "d) Technological innovation"
+      ],
+      "answer": "b",
+      "explanation": " b) ，。",
+      "difficulty": "medium",
+      "topic": "global economics and trade"
+    }
+  },
+  {
+    "MCMA": {
+      "type": "MCMA",
+      "passage": "In response to rising urban congestion, many cities have implemented congestion pricing, where drivers pay a fee to enter busy zones during peak hours. The revenue is invested in public transport upgrades and bike‑lane expansions. Early pilots have shown a modest reduction in traffic volume and air pollution.",
+      "question": "What are the observed outcomes of congestion pricing in the pilot programs? (select all that apply)",
+      "options": [
+        "a) Decrease in traffic volume.",
+        "b) Increase in parking availability.",
+        "c) Reduction in air pollution.",
+        "d) Funding for public transport.",
+        "e) Rise in overall vehicle ownership."
+      ],
+      "answers": [
+        "a",
+        "c",
+        "d"
+      ],
+      "explanation": "、，，。",
+      "difficulty": "medium",
+      "topic": "sustainable development",
+      "answer": [
+        "a",
+        "b"
+      ]
+    }
+  },
+  {
+    "MCMA": {
+      "type": "MCMA",
+      "passage": "Preserving indigenous languages is essential for maintaining cultural heritage and knowledge.",
+      "question": "Which measures can help preserve indigenous languages? (select all that apply)",
+      "options": [
+        "Language classes in schools",
+        "Digital archiving",
+        "Prohibition of native language use",
+        "Community radio programs",
+        "Exclusive use of official language"
+      ],
+      "answers": [
+        "Language classes in schools",
+        "Digital archiving",
+        "Community radio programs"
+      ],
+      "explanation": "、。。",
+      "difficulty": "medium",
+      "topic": "cultural diversity",
+      "answer": [
+        "a",
+        "b"
+      ]
+    }
+  },
+  {
+    "MCMA": {
+      "type": "MCMA",
+      "passage": "While social media can provide economic opportunities, such as online marketplaces and remote work, the digital divide means that low‑income individuals often lack reliable internet access, limiting their ability to benefit from these platforms.",
+      "question": "Which of the following statements about the relationship between social media and economic inequality are correct? (select all that apply)",
+      "options": [
+        "a) Social media can create new income streams for users with internet access.",
+        "b) Lack of internet access prevents low‑income groups from leveraging online platforms.",
+        "c) Social media usage automatically reduces income inequality.",
+        "d) Digital literacy programs can help bridge the gap.",
+        "e) Social media has no impact on economic mobility."
+      ],
+      "answers": [
+        "a",
+        "b",
+        "d"
+      ],
+      "explanation": "a) ，。b) ，。d) ，。",
+      "difficulty": "medium",
+      "topic": "social media impact",
+      "answer": [
+        "a",
+        "b"
+      ]
+    }
+  },
+  {
+    "MCMA": {
+      "type": "MCMA",
+      "passage": "____________________________________________________________（FDI），___________________________，____________________________________，_____________________________________________。",
+      "question": "_________________________________________________________？（________________________）",
+      "options": [
+        "a) 外國直接投資增加",
+        "b) 全球利率上升",
+        "c) 資本回流至發達經濟體",
+        "d) 貨幣政策寬鬆",
+        "e) 出口需求減少"
+      ],
+      "answers": [
+        "b) 全球利率上升",
+        "c) 資本回流至發達經濟體",
+        "e) 出口需求減少"
+      ],
+      "explanation": "、。",
+      "difficulty": "medium",
+      "topic": "global economics and trade",
+      "answer": [
+        "a",
+        "b"
+      ]
+    }
+  },
+  {
+    "MCMA": {
+      "type": "MCMA",
+      "passage": "__________________________________________，____________________________________。____________________________________________________________，____________________________________。",
+      "question": "___________________________________________________？（________________________）",
+      "options": [
+        "a) 風資源不穩定",
+        "b) 海上建設成本高",
+        "c) 電網整合困難",
+        "d) 缺乏技術標準",
+        "e) 陸地土地利用限制"
+      ],
+      "answers": [
+        "b) 海上建設成本高",
+        "c) 電網整合困難",
+        "d) 缺乏技術標準"
+      ],
+      "explanation": "、，，。",
+      "difficulty": "hard",
+      "topic": "renewable energy",
+      "answer": [
+        "a",
+        "b"
+      ]
+    }
+  },
+  {
+    "RO": {
+      "type": "RO",
+      "sentences": [
+        "However, the high upfront investment in digital infrastructure can be a barrier for small and medium enterprises.",
+        "These systems enable real‑time monitoring, predictive maintenance, and flexible customization of products.",
+        "Smart factories equipped with cyber‑physical systems are revolutionizing the manufacturing sector.",
+        "To bridge this gap, industry consortia are offering shared platforms and financing models that lower entry thresholds."
+      ],
+      "answer": "3,2,1,4",
+      "explanation": "，、，，。",
+      "difficulty": "medium",
+      "topic": "automation and employment"
+    }
+  },
+  {
+    "RO": {
+      "type": "RO",
+      "sentences": [
+        "Urbanization refers to the increasing proportion of people living in cities due to migration and natural population growth.",
+        "Effective urban planning is essential to manage growth sustainably and improve the quality of urban life.",
+        "While cities can offer better employment opportunities and cultural amenities, they also face challenges such as overcrowding and inequality.",
+        "This demographic shift often results in higher demand for housing, infrastructure, and public services."
+      ],
+      "answer": "1,4,3,2",
+      "explanation": "，、，，。",
+      "difficulty": "medium",
+      "topic": "urbanization and city planning"
+    }
+  },
+  {
+    "RO": {
+      "type": "RO",
+      "sentences": [
+        "It often begins with attacks on press freedom and judicial independence.",
+        "Ultimately, such processes undermine public trust and threaten the sustainability of democratic governance.",
+        "As checks and balances weaken, incumbent leaders may consolidate power beyond constitutional limits.",
+        "Democratic backsliding refers to the gradual erosion of democratic norms and institutions."
+      ],
+      "answer": "2,4,3,1",
+      "explanation": "，，，。",
+      "difficulty": "hard",
+      "topic": "political systems and democracy"
+    }
+  },
+  {
+    "RO": {
+      "type": "RO",
+      "sentences": [
+        "When successfully implemented, these initiatives foster inclusive communities and drive economic growth.",
+        "Such diversity can sometimes lead to social tensions if not managed properly.",
+        "Integrative programs that emphasize shared values and intercultural dialogue help build mutual respect.",
+        "The increasing migration flows have turned many cities into multicultural mosaics."
+      ],
+      "answer": "4,2,3,1",
+      "explanation": "(1)，(2)，(3)，(4)。",
+      "difficulty": "hard",
+      "topic": "cultural diversity"
+    }
+  },
+  {
+    "RO": {
+      "type": "RO",
+      "sentences": [
+        "Climate change intensifies droughts, reducing the reliability of traditional water sources.",
+        "Freshwater reserves are under unprecedented strain due to increasing global demand.",
+        "Adopting efficient irrigation technologies and water‑recycling practices can significantly alleviate scarcity.",
+        "Agricultural irrigation accounts for roughly 70 percent of worldwide water consumption."
+      ],
+      "answer": "3,1,4,2",
+      "explanation": "，，，。",
+      "difficulty": "medium",
+      "topic": "water scarcity"
+    }
+  },
+  {
+    "WFD": {
+      "type": "WFD",
+      "question": "Type this sentence from memory:",
+      "answer": "Technological unemployment remains a contested phenomenon among economists.",
+      "explanation": "。",
+      "difficulty": "medium",
+      "topic": "automation and employment"
+    }
+  },
+  {
+    "WFD": {
+      "type": "WFD",
+      "question": "Type this sentence from memory:",
+      "answer": "Global trade agreements influence economic development across nations.",
+      "explanation": "。",
+      "difficulty": "medium",
+      "topic": "global economics and trade"
+    }
+  },
+  {
+    "WFD": {
+      "type": "WFD",
+      "question": "Type this sentence from memory:",
+      "answer": "Central banks adjust interest rates to manage economic stability.",
+      "explanation": "。",
+      "difficulty": "medium",
+      "topic": "financial_markets"
+    }
+  },
+  {
+    "WFD": {
+      "type": "WFD",
+      "question": "Type this sentence from memory:",
+      "answer": "Separation of powers remains fundamental to democratic governance.",
+      "explanation": "。",
+      "difficulty": "easy",
+      "topic": "Political Systems and Democracy"
+    }
+  },
+  {
+    "WFD": {
+      "type": "WFD",
+      "question": "Type this sentence from memory:",
+      "answer": "City infrastructure must adapt continuously to demographic changes and migration patterns.",
+      "explanation": "。",
+      "difficulty": "medium",
+      "topic": "urbanization_city_planning"
+    }
+  }
+]

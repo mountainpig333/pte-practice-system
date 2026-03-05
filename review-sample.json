@@ -1,0 +1,334 @@
+[
+  {
+    "FIB": {
+      "type": "FIB",
+      "question": "Zoning regulations aim to separate residential, commercial, and industrial zones to minimize ______ conflicts.",
+      "options": [
+        "land-use",
+        "economic",
+        "social",
+        "political"
+      ],
+      "answer": "land-use",
+      "explanation": "\u3001\uff0c\u300cland-use\u300d\uff08\uff09\uff0c\u3002",
+      "difficulty": "medium",
+      "topic": "city planning"
+    }
+  },
+  {
+    "FIB": {
+      "type": "FIB",
+      "question": "The declining cost of ______ panels has made solar power increasingly competitive with fossil fuels.",
+      "options": [
+        "photovoltaic",
+        "thermal",
+        "hydro",
+        "geothermal"
+      ],
+      "answer": "photovoltaic",
+      "explanation": "\u300cphotovoltaic\u300d\uff0c\uff08\uff09\uff0c\uff0c\u3002",
+      "difficulty": "medium",
+      "topic": "renewable energy"
+    }
+  },
+  {
+    "FIB": {
+      "type": "FIB",
+      "question": "As ______ deepens, consumers in emerging markets gain access to a wider array of foreign products, but domestic industries face heightened competition.",
+      "options": [
+        "globalization",
+        "regionalism",
+        "fragmentation",
+        "neutrality"
+      ],
+      "answer": "globalization",
+      "explanation": "\u300cglobalization deepens\u300d\uff0c\u3002",
+      "difficulty": "easy",
+      "topic": "globalization"
+    }
+  },
+  {
+    "FIB": {
+      "type": "FIB",
+      "question": "Access to clean water remains a ______ issue in many parts of the developing world.",
+      "options": [
+        "critical",
+        "criticize",
+        "criticism",
+        "critically"
+      ],
+      "answer": "critical",
+      "explanation": "\uff0c\u3002critical \u3002"
+    }
+  },
+  {
+    "MCSA": {
+      "type": "MCSA",
+      "passage": "Remittance flows have been revolutionized by cryptocurrency, enabling migrants to send money across borders with lower fees and faster settlement times. However, volatility in crypto markets remains a significant concern for users seeking stability.",
+      "question": "What advantage of cryptocurrency for remittances does the passage highlight?",
+      "options": [
+        "Higher returns on investment",
+        "Lower fees and faster settlement",
+        "Government backing",
+        "Guaranteed stability"
+      ],
+      "answer": "b",
+      "explanation": "\uff0c\u3002",
+      "difficulty": "easy",
+      "topic": "cryptocurrency"
+    }
+  },
+  {
+    "MCSA": {
+      "type": "MCSA",
+      "passage": "A recent study by the Oxford Internet Institute found that heavy use of short\u2011form video platforms correlates with a 12% increase in anxiety among teenagers. Meanwhile, advertisers are shifting budgets to these platforms, drawn by granular demographic targeting and high engagement rates.",
+      "question": "What does the study link with increased anxiety in teenagers?",
+      "options": [
+        "a) Use of short\u2011form video platforms",
+        "b) Reading news articles",
+        "c) Participation in offline sports",
+        "d) Listening to music"
+      ],
+      "answer": "a",
+      "explanation": " a\uff0c\uff0c\u3002",
+      "difficulty": "medium",
+      "topic": "social media impact"
+    }
+  },
+  {
+    "MCSA": {
+      "type": "MCSA",
+      "passage": "The European Union's General Data Protection Regulation (GDPR) has fined a major social\u2011media company \u20ac500\u202fmillion for failing to protect user data from third\u2011party advertisers. The penalty underscores the regulator's commitment to enforcing strict privacy standards.",
+      "question": "What was the main reason for the GDPR fine?",
+      "options": [
+        "a) The company shared data with the EU",
+        "b) It allowed unauthorized third\u2011party access to user data",
+        "c) It delayed reporting a data breach",
+        "d) It refused to delete outdated user records"
+      ],
+      "answer": "b",
+      "explanation": " b\uff0c\u3002",
+      "difficulty": "easy",
+      "topic": "digital privacy"
+    }
+  },
+  {
+    "MCSA": {
+      "type": "MCSA",
+      "passage": "Recent studies suggest that remote work has not diminished productivity, contrary to many managers' expectations. In fact, several metrics indicate that employees working from home tend to work longer hours and report higher job satisfaction.",
+      "question": "According to the passage, what has been the effect of remote work on productivity?",
+      "options": [
+        "It has significantly decreased productivity",
+        "It has not diminished productivity",
+        "It has made no measurable difference",
+        "It has only helped senior employees"
+      ],
+      "answer": "b",
+      "explanation": "\uff0c\u3001\u3002"
+    }
+  },
+  {
+    "MCMA": {
+      "type": "MCMA",
+      "passage": "Governments can shape the startup landscape through policy measures such as tax incentives, venture capital funds, and streamlined licensing processes. These actions aim to lower barriers for new businesses.",
+      "question": "Which policy measures can support startup growth? (select all that apply)",
+      "options": [
+        "Tax incentives",
+        "Venture capital funds",
+        "High import tariffs",
+        "Streamlined licensing",
+        "Restrictive labor laws"
+      ],
+      "answers": [
+        "Tax incentives",
+        "Venture capital funds",
+        "Streamlined licensing"
+      ],
+      "explanation": "\u3001\u3002\uff0c\u3002",
+      "difficulty": "medium",
+      "topic": "startup ecosystems",
+      "answer": [
+        "a",
+        "b"
+      ]
+    }
+  },
+  {
+    "MCMA": {
+      "type": "MCMA",
+      "passage": "Democratic institutions provide checks on executive power to prevent abuse and protect the rule of law.",
+      "question": "Which institutions can serve as checks on executive power in a democracy? (select all that apply)",
+      "options": [
+        "Legislature",
+        "Judiciary",
+        "Military",
+        "Electoral commission",
+        "Media"
+      ],
+      "answers": [
+        "Legislature",
+        "Judiciary",
+        "Media"
+      ],
+      "explanation": "\u3001\uff0c\u3002\uff0c\uff0c\u3002",
+      "difficulty": "hard",
+      "topic": "political systems and democracy",
+      "answer": [
+        "a",
+        "b"
+      ]
+    }
+  },
+  {
+    "MCMA": {
+      "type": "MCMA",
+      "passage": "Supply chain resilience is enhanced by diversifying suppliers across multiple geographic regions. This strategy mitigates risks from natural disasters, political instability, or transportation disruptions.",
+      "question": "What does supplier diversification aim to mitigate? (select all that apply)",
+      "options": [
+        "a) Natural disasters",
+        "b) Political instability",
+        "c) Customer complaints",
+        "d) Transportation disruptions",
+        "e) Employee turnover"
+      ],
+      "answers": [
+        "a",
+        "b",
+        "d"
+      ],
+      "explanation": "\u3001\uff0c\u3002",
+      "difficulty": "medium",
+      "topic": "supply chain management",
+      "answer": [
+        "a",
+        "b"
+      ]
+    }
+  },
+  {
+    "MCMA": {
+      "type": "MCMA",
+      "passage": "Climate change affects multiple sectors of the global economy. Rising sea levels threaten coastal infrastructure, while changing precipitation patterns disrupt agriculture. Extreme weather events cause billions in damages annually, and shifting ecosystems affect fisheries and tourism.",
+      "question": "According to the passage, which sectors are affected by climate change? (Select all that apply)",
+      "options": [
+        "Coastal infrastructure",
+        "Agriculture",
+        "Manufacturing of electronics",
+        "Fisheries",
+        "Tourism"
+      ],
+      "answers": [
+        "Coastal infrastructure",
+        "Agriculture",
+        "Fisheries",
+        "Tourism"
+      ],
+      "explanation": "\u3001\u3001\uff0c\u3002",
+      "answer": [
+        "a",
+        "b",
+        "c"
+      ]
+    }
+  },
+  {
+    "RO": {
+      "type": "RO",
+      "sentences": [
+        "Intergenerational solidarity can also help mitigate the societal impact of an aging demographic.",
+        "Governments must implement comprehensive strategies to support older adults' well\u2011being.",
+        "This trend places significant pressure on healthcare systems and pension schemes.",
+        "Many countries are experiencing unprecedented demographic shifts due to aging populations."
+      ],
+      "answer": "4,3,2,1",
+      "explanation": "(1)\uff0c(2)\uff0c(3)\uff0c(4)\u3002",
+      "difficulty": "hard",
+      "topic": "aging population"
+    }
+  },
+  {
+    "RO": {
+      "type": "RO",
+      "sentences": [
+        "Practices such as crop rotation, agroforestry, and reduced chemical input enhance long-term soil fertility.",
+        "Sustainable agriculture aims to produce food while preserving ecological balance and natural resources.",
+        "When adopted widely, sustainable agriculture can secure food supply for future generations.",
+        "By maintaining biodiversity, these methods also help to mitigate the impacts of climate change."
+      ],
+      "answer": "2,1,4,3",
+      "explanation": "\uff0c\uff0c\uff0c\u3002",
+      "difficulty": "medium",
+      "topic": "food security"
+    }
+  },
+  {
+    "RO": {
+      "type": "RO",
+      "sentences": [
+        "Artificial intelligence is revolutionizing healthcare by enabling earlier diagnosis and personalized treatment plans.",
+        "Looking ahead, the synergy between AI and medical expertise promises to improve patient outcomes while upholding ethical principles.",
+        "The massive amount of patient data required for AI algorithms, however, raises significant privacy concerns.",
+        "To safeguard individuals' information, regulators are implementing strict data protection laws and standards."
+      ],
+      "answer": "1,4,2,3",
+      "explanation": "AI\uff0c\uff0c\uff0cAI\u3002",
+      "difficulty": "hard",
+      "topic": "artificial intelligence and technology"
+    }
+  },
+  {
+    "RO": {
+      "type": "RO",
+      "sentences": [
+        "New jobs in manufacturing, installation, and maintenance are offsetting declines in fossil\u2011fuel sectors.",
+        "Governments and private enterprises are therefore launching upskilling programs to ensure a smooth transition.",
+        "However, workers require specialized training to meet the technical demands of the green economy.",
+        "The transition to renewable energy sources is reshaping labor markets across the globe."
+      ],
+      "answer": "2,4,3,1",
+      "explanation": "\uff0c\u3001\uff0c\uff0c\u3002",
+      "difficulty": "hard",
+      "topic": "renewable energy"
+    }
+  },
+  {
+    "WFD": {
+      "type": "WFD",
+      "question": "Type this sentence from memory:",
+      "answer": "Curriculum reform requires systematic evaluation of learning outcomes.",
+      "explanation": "\u3002",
+      "difficulty": "medium",
+      "topic": "education reform"
+    }
+  },
+  {
+    "WFD": {
+      "type": "WFD",
+      "question": "Type this sentence from memory:",
+      "answer": "Data collection practices by technology companies raise serious ethical and legal questions.",
+      "explanation": "\u3002",
+      "difficulty": "hard",
+      "topic": "digital privacy"
+    }
+  },
+  {
+    "WFD": {
+      "type": "WFD",
+      "question": "Type this sentence from memory:",
+      "answer": "Artificial intelligence is transforming industries through automation and data analysis.",
+      "explanation": "\u3002",
+      "difficulty": "medium",
+      "topic": "artificial intelligence and technology"
+    }
+  },
+  {
+    "WFD": {
+      "type": "WFD",
+      "question": "Type this sentence from memory:",
+      "answer": "City infrastructure must adapt continuously to demographic changes and migration patterns.",
+      "explanation": "\u3002",
+      "difficulty": "medium",
+      "topic": "urbanization_city_planning"
+    }
+  }
+]

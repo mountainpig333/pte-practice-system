@@ -170,9 +170,60 @@ app.post('/api/bbc/fetch', (req, res) => {
 
 // API: Auto-cleanup
 app.post('/api/cleanup', (req, res) => {
-    const { password } = req.body;
+    const { password, action } = req.body;
     if (password !== PASSWORD) return res.status(401).json({ error: 'Unauthorized' });
-    res.json({ success: true, message: '需要升級新版代碼' });
+
+    const data = loadData();
+    let result = { deleted: 0 };
+
+    switch(action) {
+        case 'articles':
+            // 刪除 30 天前的文章
+            const cutoff = new Date(Date.now() - 30*24*60*60*1000);
+            const before = data.articles.length;
+            data.articles = data.articles.filter(a => new Date(a.date) > cutoff);
+            result.deleted = before - data.articles.length;
+            result.message = `刪除了 ${result.deleted} 篇過期文章`;
+            break;
+
+        case 'stats':
+            // 清除練習統計（results陣列）
+            const statsCount = (data.results || []).length;
+            data.results = [];
+            result.deleted = statsCount;
+            result.message = `清除了 ${result.deleted} 筆練習記錄`;
+            break;
+
+        case 'cache':
+            // 清除快取（如果有的話）
+            result.message = '快取清除完成（無需清除）';
+            break;
+
+        case 'all':
+            // 全部清除
+            const articleCount = data.articles.length;
+            const statsCnt = (data.results || []).length;
+            data.articles = [];
+            data.results = [];
+            result.deleted = articleCount + statsCnt;
+            result.message = `已清除全部：${articleCount} 篇文章 + ${statsCnt} 筆記錄`;
+            break;
+
+        default:
+            return res.json({
+                success: true,
+                actions: ['articles', 'stats', 'cache', 'all'],
+                description: {
+                    articles: '刪除 30 天前的文章',
+                    stats: '清除所有練習記錄',
+                    cache: '清除快取',
+                    all: '清除全部（文章+記錄）'
+                }
+            });
+    }
+
+    saveData(data);
+    res.json({ success: true, ...result });
 });
 
 app.get('/api/articles', requireAuth, (req, res) => {

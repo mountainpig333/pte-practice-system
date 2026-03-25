@@ -105,22 +105,18 @@ app.post('/api/articles', requireAuth, async (req, res) => {
         questions: []
     };
 
-    // 生成中英對照翻譯
-    if (GEMINI_API_KEY) {
-        try {
-            const translation = await generateTranslation(content, title);
-            article.translation = translation;
-        } catch (err) {
-            console.error('AI 翻譯失敗:', err.message);
-        }
+    // 生成中英對照翻譯 (使用 MiniMax)
+    const translation = await generateTranslation(content, title);
+    if (translation) {
+        article.translation = translation;
+    }
 
-        // 生成題目
-        try {
-            const questions = await generateQuestions(content, title);
-            article.questions = questions;
-        } catch (err) {
-            console.error('AI 出題失敗:', err.message);
-        }
+    // 生成題目 (使用 MiniMax)
+    try {
+        const questions = await generateQuestions(content, title);
+        article.questions = questions;
+    } catch (err) {
+        console.error('AI 出題失敗:', err.message);
     }
 
     if (article.questions.length === 0) {
@@ -158,10 +154,6 @@ Return ONLY the bilingual content in this exact format (no JSON, no code blocks)
 ...`;
 
     return await callMiniMax(prompt);
-}
-
-function generateTranslation(articleContent, title) {
-    return Promise.resolve('翻譯功能需要設定 Gemini API Key');
 }
 
 // ============ BBC ARTICLE FETCHER ============

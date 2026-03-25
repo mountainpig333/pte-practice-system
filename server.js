@@ -7,22 +7,22 @@ const app = express();
 const PORT = process.env.PORT || 10000;
 const PASSWORD = process.env.PASSWORD || 'PTE2026';
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY || '';
-const MINIMAX_API_KEY = process.env.MINIMAX_API_KEY || '';
+const MINIMAX_API_KEY = process.env.MINIMAX_API_KEY || 'sk-cp-hAhpYJEvRwEIVIf9s5LXX_T5a-gF92UzaxOKTV8AYyGByM--m0N1VpW8YrrVdhT4sXI7DY399dLmutEVjKO-8ZDumntlks4v_uU09hM3GOblH9nJyTXDf34';
 const MINIMAX_GROUP_ID = process.env.MINIMAX_GROUP_ID || '';
 
 // MiniMax API call
 async function callMiniMax(prompt, maxTokens = 8192) {
-    if (!MINIMAX_API_KEY || !MINIMAX_GROUP_ID) {
+    if (!MINIMAX_API_KEY) {
         throw new Error('MiniMax API not configured');
     }
-    const response = await fetch('https://api.minimax.chat/v1/text/chatcompletion_pro', {
+    const response = await fetch('https://api.minimax.io/v1/text/chatcompletion_v2', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             'Authorization: Bearer ' + MINIMAX_API_KEY
         },
         body: JSON.stringify({
-            model: 'MiniMax-M2.7',
+            model: 'MiniMax-M2',
             messages: [{ role: 'user', content: prompt }],
             max_tokens: maxTokens,
             temperature: 0.3
@@ -32,7 +32,7 @@ async function callMiniMax(prompt, maxTokens = 8192) {
     if (result.choices?.[0]?.message?.content) {
         return result.choices[0].message.content;
     }
-    throw new Error(result.error?.message || 'MiniMax API error');
+    throw new Error(result.base_resp?.status_msg || 'MiniMax API error');
 }
 
 // JSON file storage

@@ -74,11 +74,21 @@ app.post('/api/articles', requireAuth, async (req, res) => {
         id: Date.now(),
         title,
         content,
+        translation: null,  // 中英對照翻譯
         date: new Date().toISOString().split('T')[0],
         questions: []
     };
 
+    // 生成中英對照翻譯
     if (GEMINI_API_KEY) {
+        try {
+            const translation = await generateTranslation(content, title);
+            article.translation = translation;
+        } catch (err) {
+            console.error('AI 翻譯失敗:', err.message);
+        }
+
+        // 生成題目
         try {
             const questions = await generateQuestions(content, title);
             article.questions = questions;
@@ -95,6 +105,47 @@ app.post('/api/articles', requireAuth, async (req, res) => {
     saveData(data);
     res.json({ success: true, article });
 });
+
+// ============ AI TRANSLATION ============
+async function generateTranslation(articleContent, title) {
+    const prompt = `You are a professional translator. Translate the following English article into Traditional Chinese (繁體中文).
+
+Create a bilingual format where:
+- Keep the original English paragraph
+- Follow with the Chinese translation
+- Use "===原文===" and "===譯文===" as separators
+
+Title: ${title}
+
+Article:
+${articleContent.substring(0, 6000)}
+
+Return ONLY the bilingual content in this exact format (no JSON, no code blocks):
+===原文===
+[English paragraph 1]
+===譯文===
+[Chinese translation 1]
+===原文===
+[English paragraph 2]
+===譯文===
+[Chinese translation 2]
+...`;
+
+    const response = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`,
+        {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                contents: [{ parts: [{ text: prompt }] }],
+                generationConfig: { temperature: 0.3, maxOutputTokens: 8192 }
+            })
+        }
+    );
+
+    const result = await response.json();
+    return result.candidates?.[0]?.content?.parts?.[0]?.text || '';
+}
 
 app.get('/api/articles', requireAuth, (req, res) => {
     const data = loadData();

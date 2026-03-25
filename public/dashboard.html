@@ -210,9 +210,10 @@
                 <div class="article-item">
                     <div class="info" onclick="location.href='/practice?id=${a.id}'">
                         <h3>${a.title}</h3>
-                        <div class="meta">${a.date} · ${(a.questions||[]).length} 題</div>
+                        <div class="meta">${a.date} · ${(a.questions||[]).length} 題${a.translation ? ' · 📖 中英對照' : ''}</div>
                     </div>
                     <div>
+                        ${a.translation ? `<button class="btn" style="background:var(--sec);color:#fff;padding:6px 12px;border-radius:8px;font-size:12px;margin-right:8px" onclick="event.stopPropagation();showTranslation(${a.id})">📖 翻譯</button>` : ''}
                         <span class="badge" onclick="location.href='/practice?id=${a.id}'">${(a.questions||[]).length} 題</span>
                         <button class="del" onclick="deleteArticle(${a.id})">刪除</button>
                     </div>
@@ -248,7 +249,8 @@
 
             if (d.success) {
                 const qCount = (d.article.questions || []).length;
-                status.textContent = `✅ 已生成 ${qCount} 道題目！`;
+                const hasTrans = d.article.translation ? ' + 中英對照翻譯' : '';
+                status.textContent = `✅ 已生成 ${qCount} 道題目${hasTrans}！`;
                 status.style.color = 'var(--ok)';
                 document.getElementById('articleTitle').value = '';
                 document.getElementById('articleContent').value = '';
@@ -279,6 +281,24 @@
         await fetch('/api/articles/' + id, { method: 'DELETE' });
         loadArticles();
         loadStats();
+    }
+
+    // Show translation modal
+    async function showTranslation(id) {
+        const r = await fetch('/api/articles/' + id);
+        const a = await r.json();
+        if (!a.translation) return alert('無翻譯資料');
+        
+        const win = window.open('', '_blank', 'width=800,height=700');
+        win.document.write(`<!DOCTYPE html><html><head><title>${a.title} - 中英對照</title>
+            <style>body{font-family:'Segoe UI',sans-serif;padding:30px;line-height:1.8;max-width:900px;margin:0 auto}
+            h1{color:#667eea;margin-bottom:30px}
+            .block{margin-bottom:25px;padding:20px;background:#f9fafb;border-radius:12px}
+            .lang-en{color:#111;font-size:16px;margin-bottom:12px}
+            .lang-zh{color:#555;font-size:15px}
+            .label{font-size:12px;font-weight:bold;color:#667eea;margin-bottom:8px;text-transform:uppercase}
+            </style></head>
+            <body><h1>📖 ${a.title}</h1>${a.translation.replace(/===原文===/g, '<div class="block"><div class="label">英文</div><div class="lang-en">').replace(/===譯文===/g, '</div><div class="label">中文</div><div class="lang-zh">')}</div></body></html>`);
     }
 
     // Init

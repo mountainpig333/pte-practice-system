@@ -7,6 +7,33 @@ const app = express();
 const PORT = process.env.PORT || 10000;
 const PASSWORD = process.env.PASSWORD || 'PTE2026';
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY || '';
+const MINIMAX_API_KEY = process.env.MINIMAX_API_KEY || '';
+const MINIMAX_GROUP_ID = process.env.MINIMAX_GROUP_ID || '';
+
+// MiniMax API call
+async function callMiniMax(prompt, maxTokens = 8192) {
+    if (!MINIMAX_API_KEY || !MINIMAX_GROUP_ID) {
+        throw new Error('MiniMax API not configured');
+    }
+    const response = await fetch('https://api.minimax.chat/v1/text/chatcompletion_pro', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization: Bearer ' + MINIMAX_API_KEY
+        },
+        body: JSON.stringify({
+            model: 'MiniMax-M2.7',
+            messages: [{ role: 'user', content: prompt }],
+            max_tokens: maxTokens,
+            temperature: 0.3
+        })
+    });
+    const result = await response.json();
+    if (result.choices?.[0]?.message?.content) {
+        return result.choices[0].message.content;
+    }
+    throw new Error(result.error?.message || 'MiniMax API error');
+}
 
 // JSON file storage
 const DATA_FILE = path.join(__dirname, 'data.json');
@@ -131,20 +158,7 @@ Return ONLY the bilingual content in this exact format (no JSON, no code blocks)
 [Chinese translation 2]
 ...`;
 
-    const response = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`,
-        {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                contents: [{ parts: [{ text: prompt }] }],
-                generationConfig: { temperature: 0.3, maxOutputTokens: 8192 }
-            })
-        }
-    );
-
-    const result = await response.json();
-    return result.candidates?.[0]?.content?.parts?.[0]?.text || '';
+    return await callMiniMax(prompt);
 }
 
 function generateTranslation(articleContent, title) {
@@ -276,28 +290,7 @@ Article Title: ${title}
 Article Content:
 ${articleContent.substring(0, 4000)}`;
 
-    const response = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`,
-        {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                contents: [{ parts: [{ text: prompt }] }],
-                generationConfig: { temperature: 0.7, maxOutputTokens: 8192 }
-            })
-        }
-    );
-
-    const result = await response.json();
-    const text = result.candidates?.[0]?.content?.parts?.[0]?.text || '';
-    const cleaned = text.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
-    const questions = JSON.parse(cleaned);
-    
-    // Normalize: convert old MC type to MCSA
-    return questions.map(q => {
-        if (q.type === 'MC') q.type = 'MCSA';
-        return q;
-    });
+    return await callMiniMax(prompt, 8192);
 }
 
 // ============ BASIC QUESTION GENERATOR (Fallback) ============

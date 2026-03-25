@@ -7,19 +7,18 @@ const app = express();
 const PORT = process.env.PORT || 10000;
 const PASSWORD = process.env.PASSWORD || 'PTE2026';
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY || '';
-const MINIMAX_API_KEY = process.env.MINIMAX_API_KEY || 'sk-cp-hAhpYJEvRwEIVIf9s5LXX_T5a-gF92UzaxOKTV8AYyGByM--m0N1VpW8YrrVdhT4sXI7DY399dLmutEVjKO-8ZDumntlks4v_uU09hM3GOblH9nJyTXDf34';
+const MINIMAX_API_KEY = process.env.MINIMAX_API_KEY || process.env.MINIMAX_KEY || '';
 const MINIMAX_GROUP_ID = process.env.MINIMAX_GROUP_ID || '';
 
 // MiniMax API call
+const DEFAULT_MINIMAX_KEY = 'sk-cp-hAhpYJEvRwEIVIf9s5LXX_T5a-gF92UzaxOKTV8AYyGByM--m0N1VpW8YrrVdhT4sXI7DY399dLmutEVjKO-8ZDumntlks4v_uU09hM3GOblH9nJyTXDf34';
 async function callMiniMax(prompt, maxTokens = 8192) {
-    if (!MINIMAX_API_KEY) {
-        throw new Error('MiniMax API not configured');
-    }
+    const apiKey = MINIMAX_API_KEY || DEFAULT_MINIMAX_KEY;
     const response = await fetch('https://api.minimax.io/v1/text/chatcompletion_v2', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization: Bearer ' + MINIMAX_API_KEY
+            'Authorization': `Bearer ${apiKey}`
         },
         body: JSON.stringify({
             model: 'MiniMax-M2',

@@ -60,12 +60,23 @@
         .score-card .breakdown{text-align:left;max-width:400px;margin:20px auto;font-size:14px}
         .score-card .breakdown .row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #e5e7eb}
         .hidden{display:none!important}
+        .trans-btn{background:#764ba2;color:#fff;border:none;padding:8px 16px;border-radius:8px;font-size:13px;cursor:pointer;margin-right:12px;font-weight:600}
+        .trans-btn:hover{background:#6b4190}
+        .translation-section{display:none;margin:20px 0;padding:20px;background:#fff;border-radius:15px;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+        .translation-section.show{display:block}
+        .trans-block{margin-bottom:20px;padding:15px;background:#f9fafb;border-radius:10px}
+        .trans-label{font-size:11px;font-weight:bold;color:#667eea;margin-bottom:8px;text-transform:uppercase}
+        .trans-en{color:#111;font-size:15px;line-height:1.7}
+        .trans-zh{color:#555;font-size:14px;line-height:1.7;margin-top:8px}
     </style>
 </head>
 <body>
     <div class="header">
         <h1 id="articleTitle">📚 PTE 練習</h1>
-        <a href="/dashboard">← 返回</a>
+        <div>
+            <button class="trans-btn" id="transToggle" onclick="toggleTranslation()">📖 中英對照</button>
+            <a href="/dashboard">← 返回</a>
+        </div>
     </div>
     <div class="container">
         <div class="progress">
@@ -99,7 +110,40 @@
         </div>
     </div>
 <script>
-let questions=[], currentIndex=0, score=0, selectedAnswer=null, typeScores={};
+let questions=[], currentIndex=0, score=0, selectedAnswer=null, typeScores={}, currentArticle={};
+
+function toggleTranslation(){
+    const sec=document.getElementById('translationSection');
+    const btn=document.getElementById('transToggle');
+    if(sec.classList.contains('show')){
+        sec.classList.remove('show');
+        btn.textContent='📖 中英對照';
+    }else{
+        if(currentArticle.translation){
+            renderTranslation(currentArticle.translation);
+            sec.classList.add('show');
+            btn.textContent='✕ 關閉翻譯';
+        }else{
+            alert('這篇文章沒有翻譯');
+        }
+    }
+}
+
+function renderTranslation(trans){
+    const sec=document.getElementById('translationSection');
+    const parts=trans.split(/===原文===|===譯文===/).filter(p=>p.trim());
+    let html='<h2 style="margin-bottom:15px;color:#667eea">📖 中英對照</h2>';
+    for(let i=0;i<parts.length;i+=2){
+        const en=parts[i]||'', zh=parts[i+1]||'';
+        html+=`<div class="trans-block">
+            <div class="trans-label">English</div>
+            <div class="trans-en">${en.replace(/\n/g,'<br>')}</div>
+            <div class="trans-label" style="margin-top:12px">中文</div>
+            <div class="trans-zh">${zh.replace(/\n/g,'<br>')}</div>
+        </div>`;
+    }
+    sec.innerHTML=html;
+}
 const params=new URLSearchParams(location.search), articleId=params.get('id'), bankType=params.get('bank'), bankCount=params.get('count')||20;
 
 const TYPE_INFO={
@@ -138,6 +182,7 @@ async function loadArticle(){
         const a=await r.json();
         if(a.error){document.getElementById('qText').textContent='找不到文章';return}
         document.getElementById('articleTitle').textContent='📚 '+a.title;
+        currentArticle=a;
         questions=a.questions||[];
         if(!questions.length){document.getElementById('qText').textContent='這篇文章還沒有題目';return}
         showQuestion();

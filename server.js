@@ -147,6 +147,29 @@ Return ONLY the bilingual content in this exact format (no JSON, no code blocks)
     return result.candidates?.[0]?.content?.parts?.[0]?.text || '';
 }
 
+function generateTranslation(articleContent, title) {
+    return Promise.resolve('翻譯功能需要設定 Gemini API Key');
+}
+
+// ============ BBC ARTICLE FETCHER ============
+function fetchBBCArticles() {
+    return Promise.resolve([]);
+}
+
+// API: Fetch BBC articles
+app.post('/api/bbc/fetch', (req, res) => {
+    const { password } = req.body;
+    if (password !== PASSWORD) return res.status(401).json({ error: 'Unauthorized' });
+    res.json({ success: true, message: 'BBC 功能需要升級新版代碼' });
+});
+
+// API: Auto-cleanup
+app.post('/api/cleanup', (req, res) => {
+    const { password } = req.body;
+    if (password !== PASSWORD) return res.status(401).json({ error: 'Unauthorized' });
+    res.json({ success: true, message: '需要升級新版代碼' });
+});
+
 app.get('/api/articles', requireAuth, (req, res) => {
     const data = loadData();
     res.json(data.articles || []);

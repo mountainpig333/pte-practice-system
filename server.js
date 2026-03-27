@@ -215,9 +215,20 @@ async function fetchBBCWorldArticles() {
             const descMatch = item.match(/<description><!\[CDATA\[([\s\S]*?)\]\]><\/description>/);
             
             if (titleMatch && linkMatch) {
-                const title = titleMatch[1].trim();
+                let title = titleMatch[1].trim();
                 const url = linkMatch[1].trim();
                 const description = descMatch ? descMatch[1].trim() : '';
+                
+                // 如果標題看起來像 slug (如 cp84kw1y337o)，嘗試從描述產生標題
+                if (/^[a-z0-9]{10,}$/i.test(title)) {
+                    if (description && description.length > 20) {
+                        // 取描述的前 60 個字作為標題
+                        title = description.substring(0, 60).replace(/[^\w\s]/g, '').trim();
+                        if (description.length > 60) title += '...';
+                    } else {
+                        title = 'BBC World News';
+                    }
+                }
                 
                 if (url && !seenUrls.has(url)) {
                     seenUrls.add(url);

@@ -14,24 +14,34 @@ const MINIMAX_GROUP_ID = process.env.MINIMAX_GROUP_ID || '';
 const DEFAULT_MINIMAX_KEY = 'sk-cp-hAhpYJEvRwEIVIf9s5LXX_T5a-gF92UzaxOKTV8AYyGByM--m0N1VpW8YrrVdhT4sXI7DY399dLmutEVjKO-8ZDumntlks4v_uU09hM3GOblH9nJyTXDf34';
 async function callMiniMax(prompt, maxTokens = 8192) {
     const apiKey = MINIMAX_API_KEY || DEFAULT_MINIMAX_KEY;
-    const response = await fetch('https://api.minimax.io/v1/text/chatcompletion_v2', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${apiKey}`
-        },
-        body: JSON.stringify({
-            model: 'MiniMax-M2',
-            messages: [{ role: 'user', content: prompt }],
-            max_tokens: maxTokens,
-            temperature: 0.3
-        })
-    });
-    const result = await response.json();
-    if (result.choices?.[0]?.message?.content) {
-        return result.choices[0].message.content;
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 45000); // 45秒 timeout
+    
+    try {
+        const response = await fetch('https://api.minimax.io/v1/text/chatcompletion_v2', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${apiKey}`
+            },
+            body: JSON.stringify({
+                model: 'MiniMax-M2',
+                messages: [{ role: 'user', content: prompt }],
+                max_tokens: maxTokens,
+                temperature: 0.3
+            }),
+            signal: controller.signal
+        });
+        clearTimeout(timeout);
+        const result = await response.json();
+        if (result.choices?.[0]?.message?.content) {
+            return result.choices[0].message.content;
+        }
+        throw new Error(result.base_resp?.status_msg || 'MiniMax API error');
+    } catch (e) {
+        clearTimeout(timeout);
+        throw e;
     }
-    throw new Error(result.base_resp?.status_msg || 'MiniMax API error');
 }
 
 // JSON file storage
@@ -160,14 +170,24 @@ Return ONLY the bilingual content in this exact format (no JSON, no code blocks)
 
 // 使用 node fetch 抓取網頁
 async function fetchUrl(url) {
-    const response = await fetch(url, {
-        headers: {
-            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
-            'Accept-Language': 'en-US,en;q=0.9,zh-TW;q=0.8,zh;q=0.7'
-        }
-    });
-    return await response.text();
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 15000); // 15秒 timeout
+    
+    try {
+        const response = await fetch(url, {
+            headers: {
+                'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+                'Accept-Language': 'en-US,en;q=0.9,zh-TW;q=0.8,zh;q=0.7'
+            },
+            signal: controller.signal
+        });
+        clearTimeout(timeout);
+        return await response.text();
+    } catch (e) {
+        clearTimeout(timeout);
+        throw e;
+    }
 }
 
 // 從 BBC RSS 抓取文章列表 (含描述)
@@ -462,32 +482,28 @@ app.get('/api/stats', requireAuth, (req, res) => {
 // ============ AI QUESTION GENERATION (Enhanced) ============
 
 async function generateQuestions(articleContent, title) {
-    const prompt = `You are a PTE Academic exam question generator. Based on the following article, generate exactly 18 questions covering ALL major PTE question types.
+    const prompt = `You are a PTE Academic exam question generator. Based on the following article, generate exactly 10 questions covering the most important PTE question types.
 
 Generate these question types (in order):
 
 === READING ===
-1. THREE "Reading: Fill in the Blanks" (FIB) - Remove a key word from a sentence in the article, provide 4 plausible options. The blank should test vocabulary or grammar understanding.
+1. TWO "Reading: Fill in the Blanks" (FIB) - Remove a key word from a sentence in the article, provide 4 plausible options. The blank should test vocabulary or grammar understanding.
 
 2. TWO "Multiple Choice, Single Answer" (MCSA) - Ask a comprehension question about the article. Provide 4 options, only 1 is correct. Questions should test understanding of main idea, details, inference, or author's purpose.
 
 3. ONE "Multiple Choice, Multiple Answers" (MCMA) - Ask a question where 2-3 out of 5 options are correct. Test deeper comprehension.
 
-4. TWO "Re-order Paragraphs" (RO) - Take 4 sentences from or inspired by the article. Provide them in CORRECT order. The frontend will shuffle them.
+4. ONE "Re-order Paragraphs" (RO) - Take 4 sentences from or inspired by the article. Provide them in CORRECT order. The frontend will shuffle them.
 
-5. TWO "Reading & Writing: Fill in the Blanks" (RWFIB) - A paragraph from the article with 3 blanks. Each blank has 4 options (dropdown).
+5. ONE "Reading & Writing: Fill in the Blanks" (RWFIB) - A paragraph from the article with 2 blanks. Each blank has 4 options (dropdown).
 
 === WRITING ===
-6. ONE "Summarize Written Text" (SWT) - Ask the student to write a one-sentence summary (between 5-75 words) of the article or a paragraph. Provide a model answer.
+1. ONE "Summarize Written Text" (SWT) - Ask the student to write a one-sentence summary (between 5-75 words) of the article or a paragraph. Provide a model answer.
 
 === LISTENING (simulated as reading) ===
-7. TWO "Write from Dictation" (WFD) - Pick 2 important sentences from the article. Student must type the exact sentence from memory.
+1. ONE "Write from Dictation" (WFD) - Pick 1 important sentence from the article. Student must type the exact sentence from memory.
 
-8. ONE "Highlight Correct Summary" (HCS) - Provide 4 short summaries of the article. Only 1 is correct. Test overall comprehension.
-
-9. TWO "Highlight Incorrect Words" (HIW) - Take a sentence from the article and change 2-3 words to incorrect ones. Student must identify the wrong words. Provide the original correct sentence and the modified version.
-
-10. TWO vocabulary questions (VOCAB) - Test key vocabulary from the article. Give a word in context and ask for the closest meaning. Provide 4 options.
+2. ONE "Highlight Correct Summary" (HCS) - Provide 4 short summaries of the article. Only 1 is correct. Test overall comprehension.
 
 === RULES ===
 - Return ONLY a valid JSON array. No markdown, no code blocks.

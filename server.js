@@ -44,8 +44,12 @@ async function callMiniMax(prompt, maxTokens = 8192) {
     }
 }
 
-// JSON file storage
-const DATA_FILE = path.join(__dirname, 'data.json');
+// JSON file storage (使用 Render disk mount)
+const DATA_DIR = process.env.DISK_MOUNT_PATH || path.join(__dirname, 'data');
+if (!fs.existsSync(DATA_DIR)) {
+    fs.mkdirSync(DATA_DIR, { recursive: true });
+}
+const DATA_FILE = path.join(DATA_DIR, 'data.json');
 
 function loadData() {
     if (fs.existsSync(DATA_FILE)) {

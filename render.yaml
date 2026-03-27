@@ -5,9 +5,15 @@ services:
     region: oregon
     buildCommand: npm install
     startCommand: node server.js
+    disk:
+      - name: pte-data
+        mountPath: /app/data
+        sizeGB: 1
     envVars:
       - key: NODE_VERSION
         value: "20"
+      - key: DISK_MOUNT_PATH
+        value: "/app/data"
       - key: GEMINI_API_KEY
         value: ""
         sync: false

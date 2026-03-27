@@ -170,7 +170,7 @@ async function fetchUrl(url) {
     return await response.text();
 }
 
-// 從 BBC RSS 抓取文章列表
+// 從 BBC RSS 抓取文章列表 (含描述)
 async function fetchBBCWorldArticles() {
     const articles = [];
     const seenUrls = new Set();
@@ -179,7 +179,7 @@ async function fetchBBCWorldArticles() {
         // 使用 RSS feed 獲取文章列表
         const xml = await fetchUrl('https://feeds.bbci.co.uk/news/world/rss.xml');
         
-        // 解析 XML 獲取 item 標題和連結
+        // 解析 XML 獲取 item 標題、連結和描述
         const itemRegex = /<item>([\s\S]*?)<\/item>/gi;
         let match;
         
@@ -188,14 +188,16 @@ async function fetchBBCWorldArticles() {
             
             const titleMatch = item.match(/<title><!\[CDATA\[([\s\S]*?)\]\]><\/title>/);
             const linkMatch = item.match(/<link>([\s\S]*?)<\/link>/);
+            const descMatch = item.match(/<description><!\[CDATA\[([\s\S]*?)\]\]><\/description>/);
             
             if (titleMatch && linkMatch) {
                 const title = titleMatch[1].trim();
                 const url = linkMatch[1].trim();
+                const description = descMatch ? descMatch[1].trim() : '';
                 
                 if (url && !seenUrls.has(url)) {
                     seenUrls.add(url);
-                    articles.push({ url, title });
+                    articles.push({ url, title, description });
                 }
             }
         }
@@ -206,8 +208,92 @@ async function fetchBBCWorldArticles() {
     return articles;
 }
 
-// 抓取單篇文章內容
-async function fetchArticleContent(url) {
+// 抓取單篇文章內容 (RSS 描述優先)
+async function fetchArticleContent(url, description = '') {
+    try {
+        // 如果有 RSS 描述，直接使用
+        if (description && description.length > 50) {
+            // 嘗試從 URL 获取完整文章
+            const html = await fetchUrl(url);
+            
+            let title = '';
+            const titleMatch = html.match(/<title>([^<]+)<\/title>/i);
+            if (titleMatch) {
+                title = titleMatch[1].replace(/ - BBC News/, '').trim();
+            }
+            
+            // 嘗試獲取文章內容
+            let content = '';
+            const articleMatch = html.match(/<article[^>]*>([\s\S]*?)<\/article>/i);
+            if (articleMatch) {
+                const articleBody = articleMatch[1];
+                const pRegex = /<p[^>]*>([\s\S]*?)<\/p>/gi;
+                let pMatch;
+                const paragraphs = [];
+                
+                while ((pMatch = pRegex.exec(articleBody)) !== null) {
+                    const text = pMatch[1]
+                        .replace(/<[^>]+>/g, '')
+                        .replace(/&nbsp;/g, ' ')
+                        .replace(/&amp;/g, '&')
+                        .replace(/&quot;/g, '"')
+                        .replace(/&#\d+;/g, '')
+                        .trim();
+                    
+                    if (text.length > 50) {
+                        paragraphs.push(text);
+                    }
+                }
+                content = paragraphs.join('\n\n');
+            }
+            
+            // 如果抓不到內容，使用 RSS 描述
+            if (!content || content.length < 100) {
+                content = description;
+            }
+            
+            return { title, content };
+        }
+        
+        // 沒有描述，直接抓網頁
+        const html = await fetchUrl(url);
+        
+        let title = '';
+        const titleMatch = html.match(/<title>([^<]+)<\/title>/i);
+        if (titleMatch) {
+            title = titleMatch[1].replace(/ - BBC News/, '').trim();
+        }
+        
+        let content = '';
+        const articleMatch = html.match(/<article[^>]*>([\s\S]*?)<\/article>/i);
+        if (articleMatch) {
+            const articleBody = articleMatch[1];
+            const pRegex = /<p[^>]*>([\s\S]*?)<\/p>/gi;
+            let pMatch;
+            const paragraphs = [];
+            
+            while ((pMatch = pRegex.exec(articleBody)) !== null) {
+                const text = pMatch[1]
+                    .replace(/<[^>]+>/g, '')
+                    .replace(/&nbsp;/g, ' ')
+                    .replace(/&amp;/g, '&')
+                    .replace(/&quot;/g, '"')
+                    .replace(/&#\d+;/g, '')
+                    .trim();
+                
+                if (text.length > 50) {
+                    paragraphs.push(text);
+                }
+            }
+            content = paragraphs.join('\n\n');
+        }
+        
+        return { title, content };
+    } catch (e) {
+        console.error('抓取文章失敗:', e.message);
+        return { title: '', content: '' };
+    }
+}
     try {
         const html = await fetchUrl(url);
         
@@ -288,7 +374,7 @@ async function fetchAndProcessBBCArticles(count = 5) {
     // 2. 抓取每篇文章內容
     for (const article of articleList.slice(0, count)) {
         console.log(`抓取: ${article.title}`);
-        const content = await fetchArticleContent(article.url);
+        const content = await fetchArticleContent(article.url, article.description);
         
         if (content.content && content.content.length > 100) {
             const title = content.title || article.title;

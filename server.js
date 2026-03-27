@@ -157,15 +157,208 @@ Return ONLY the bilingual content in this exact format (no JSON, no code blocks)
 }
 
 // ============ BBC ARTICLE FETCHER ============
-function fetchBBCArticles() {
-    return Promise.resolve([]);
+
+// 使用 node fetch 抓取網頁
+async function fetchUrl(url) {
+    const response = await fetch(url, {
+        headers: {
+            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+            'Accept-Language': 'en-US,en;q=0.9,zh-TW;q=0.8,zh;q=0.7'
+        }
+    });
+    return await response.text();
+}
+
+// 從 BBC 世界新聞頁面抓取文章列表
+async function fetchBBCWorldArticles() {
+    const articles = [];
+    const seenUrls = new Set();
+    
+    try {
+        // 抓取 BBC World News 首頁
+        const html = await fetchUrl('https://www.bbc.com/news/world');
+        
+        // 解析文章連結 - BBC 新版網站使用 data-testid 属性
+        const linkRegex = /<a[^>]+href="(\/news\/[^"?]+)"[^>]*>(?:<[^>]*>)*?([^<]+)<\/a>/gi;
+        let match;
+        
+        while ((match = linkRegex.exec(html)) !== null && articles.length < 20) {
+            const url = match[1];
+            const title = match[2].replace(/<[^>]*>/g, '').trim();
+            
+            // 過濾有效的文章連結
+            if (url && title && !url.includes('#') && !seenUrls.has(url) && 
+                url.match(/\/news\/\d+/) && title.length > 10) {
+                seenUrls.add(url);
+                articles.push({
+                    url: 'https://www.bbc.com' + url,
+                    title: title.replace(/&amp;/g, '&').replace(/&quot;/g, '"')
+                });
+            }
+        }
+    } catch (e) {
+        console.error('抓取 BBC 首頁失敗:', e.message);
+    }
+    
+    return articles.slice(0, 10);
+}
+
+// 抓取單篇文章內容
+async function fetchArticleContent(url) {
+    try {
+        const html = await fetchUrl(url);
+        
+        // 提取標題 - 尝试多种选择器
+        let title = '';
+        const titleMatch = html.match(/<title>([^<]+)<\/title>/i);
+        if (titleMatch) {
+            title = titleMatch[1].replace(/ - BBC News/, '').trim();
+        }
+        
+        // 提取文章內容 - BBC 文章内容在 article 标签内
+        let content = '';
+        
+        // 方法1: 找 main article 區塊
+        const articleMatch = html.match(/<article[^>]*>([\s\S]*?)<\/article>/i);
+        if (articleMatch) {
+            const articleBody = articleMatch[1];
+            
+            // 提取段落
+            const pRegex = /<p[^>]*>([\s\S]*?)<\/p>/gi;
+            let pMatch;
+            const paragraphs = [];
+            
+            while ((pMatch = pRegex.exec(articleBody)) !== null) {
+                const text = pMatch[1]
+                    .replace(/<[^>]+>/g, '') // 移除 HTML 標籤
+                    .replace(/&nbsp;/g, ' ')
+                    .replace(/&amp;/g, '&')
+                    .replace(/&quot;/g, '"')
+                    .replace(/&#\d+;/g, '')
+                    .trim();
+                
+                if (text.length > 50) {
+                    paragraphs.push(text);
+                }
+            }
+            content = paragraphs.join('\n\n');
+        }
+        
+        // 如果方法1失敗，嘗試方法2
+        if (!content || content.length < 100) {
+            const bodyMatch = html.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
+            if (bodyMatch) {
+                const pRegex = /<p[^>]*>([\s\S]*?)<\/p>/gi;
+                let pMatch;
+                const paragraphs = [];
+                
+                while ((pMatch = pRegex.exec(bodyMatch[1])) !== null) {
+                    const text = pMatch[1]
+                        .replace(/<[^>]+>/g, '')
+                        .replace(/&nbsp;/g, ' ')
+                        .replace(/&amp;/g, '&')
+                        .trim();
+                    
+                    if (text.length > 50) {
+                        paragraphs.push(text);
+                    }
+                }
+                content = paragraphs.join('\n\n');
+            }
+        }
+        
+        return { title, content: content.substring(0, 8000) };
+    } catch (e) {
+        console.error(`抓取文章失敗 ${url}:`, e.message);
+        return { title: '', content: '' };
+    }
+}
+
+// 主函數: 抓取 BBC 文章並生成翻譯和題目
+async function fetchAndProcessBBCArticles(count = 5) {
+    const results = [];
+    
+    // 1. 抓取文章列表
+    const articleList = await fetchBBCWorldArticles();
+    console.log(`找到 ${articleList.length} 篇 BBC 文章`);
+    
+    // 2. 抓取每篇文章內容
+    for (const article of articleList.slice(0, count)) {
+        console.log(`抓取: ${article.title}`);
+        const content = await fetchArticleContent(article.url);
+        
+        if (content.content && content.content.length > 100) {
+            const title = content.title || article.title;
+            
+            // 生成文章物件
+            const articleData = {
+                id: Date.now() + Math.random(),
+                title: title,
+                content: content.content,
+                url: article.url,
+                translation: null,
+                date: new Date().toISOString().split('T')[0],
+                questions: [],
+                source: 'BBC News'
+            };
+            
+            // 3. 產生中英對照翻譯
+            try {
+                console.log(`產生翻譯: ${title}`);
+                const translation = await generateTranslation(content.content, title);
+                if (translation) {
+                    articleData.translation = translation;
+                }
+            } catch (e) {
+                console.error('翻譯失敗:', e.message);
+            }
+            
+            // 4. 產生 PTE 題目
+            try {
+                console.log(`產生題目: ${title}`);
+                const questions = await generateQuestions(content.content, title);
+                articleData.questions = questions;
+            } catch (e) {
+                console.error('出題失敗:', e.message);
+                articleData.questions = generateBasicQuestions(content.content, title);
+            }
+            
+            results.push(articleData);
+            console.log(`✅ 完成: ${title}`);
+        }
+    }
+    
+    return results;
 }
 
 // API: Fetch BBC articles
-app.post('/api/bbc/fetch', (req, res) => {
-    const { password } = req.body;
+app.post('/api/bbc/fetch', async (req, res) => {
+    const { password, count } = req.body;
     if (password !== PASSWORD) return res.status(401).json({ error: 'Unauthorized' });
-    res.json({ success: true, message: 'BBC 功能需要升級新版代碼' });
+    
+    const articleCount = Math.min(count || 5, 10);
+    
+    try {
+        console.log(`開始抓取 ${articleCount} 篇 BBC 文章...`);
+        const articles = await fetchAndProcessBBCArticles(articleCount);
+        
+        // 儲存到 data.json
+        const data = loadData();
+        data.articles.push(...articles);
+        saveData(data);
+        
+        console.log(`✅ 已儲存 ${articles.length} 篇 BBC 文章到 data.json`);
+        
+        res.json({ 
+            success: true, 
+            articles: articles,
+            count: articles.length
+        });
+    } catch (e) {
+        console.error('BBC fetch error:', e);
+        res.json({ success: false, error: e.message });
+    }
 });
 
 // API: Auto-cleanup

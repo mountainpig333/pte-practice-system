@@ -179,17 +179,18 @@ async function fetchBBCWorldArticles() {
         // 抓取 BBC World News 首頁
         const html = await fetchUrl('https://www.bbc.com/news/world');
         
-        // 解析文章連結 - BBC 新版網站使用 data-testid 属性
-        const linkRegex = /<a[^>]+href="(\/news\/[^"?]+)"[^>]*>(?:<[^>]*>)*?([^<]+)<\/a>/gi;
+        // 解析文章連結 - 只抓有數字ID的真正文章，不抓分類連結
+        // 匹配 /news/ 後面是數字的連結 (如 /news/12345678)
+        const articleLinkRegex = /href="(\/news\/(\d+))"[^>]*>([\s\S]*?)<\/a>/gi;
         let match;
         
-        while ((match = linkRegex.exec(html)) !== null && articles.length < 20) {
+        while ((match = articleLinkRegex.exec(html)) !== null && articles.length < 20) {
             const url = match[1];
-            const title = match[2].replace(/<[^>]*>/g, '').trim();
+            const title = match[3].replace(/<[^>]*>/g, '').replace(/&amp;/g, '&').replace(/&quot;/g, '"').trim();
             
-            // 過濾有效的文章連結 - 支援數字ID和分類連結
-            if (url && title && !url.includes('#') && !seenUrls.has(url) && 
-                (url.match(/\/news\/\d+/) || url.match(/\/news\/[a-z-]+/)) && title.length > 10) {
+            // 只接受有數字ID的文章連結，過濾掉分類連結
+            if (url && !url.includes('#') && !seenUrls.has(url) && 
+                url.match(/\/news\/\d+/) && title.length > 15) {
                 seenUrls.add(url);
                 articles.push({
                     url: 'https://www.bbc.com' + url,

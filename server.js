@@ -187,9 +187,9 @@ async function fetchBBCWorldArticles() {
             const url = match[1];
             const title = match[2].replace(/<[^>]*>/g, '').trim();
             
-            // 過濾有效的文章連結
+            // 過濾有效的文章連結 - 支援數字ID和分類連結
             if (url && title && !url.includes('#') && !seenUrls.has(url) && 
-                url.match(/\/news\/\d+/) && title.length > 10) {
+                (url.match(/\/news\/\d+/) || url.match(/\/news\/[a-z-]+/)) && title.length > 10) {
                 seenUrls.add(url);
                 articles.push({
                     url: 'https://www.bbc.com' + url,

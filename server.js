@@ -170,39 +170,40 @@ async function fetchUrl(url) {
     return await response.text();
 }
 
-// 從 BBC 世界新聞頁面抓取文章列表
+// 從 BBC RSS 抓取文章列表
 async function fetchBBCWorldArticles() {
     const articles = [];
     const seenUrls = new Set();
     
     try {
-        // 抓取 BBC World News 首頁
-        const html = await fetchUrl('https://www.bbc.com/news/world');
+        // 使用 RSS feed 獲取文章列表
+        const xml = await fetchUrl('https://feeds.bbci.co.uk/news/world/rss.xml');
         
-        // 解析文章連結 - 只抓有數字ID的真正文章，不抓分類連結
-        // 匹配 /news/ 後面是數字的連結 (如 /news/12345678)
-        const articleLinkRegex = /href="(\/news\/(\d+))"[^>]*>([\s\S]*?)<\/a>/gi;
+        // 解析 XML 獲取 item 標題和連結
+        const itemRegex = /<item>([\s\S]*?)<\/item>/gi;
         let match;
         
-        while ((match = articleLinkRegex.exec(html)) !== null && articles.length < 20) {
-            const url = match[1];
-            const title = match[3].replace(/<[^>]*>/g, '').replace(/&amp;/g, '&').replace(/&quot;/g, '"').trim();
+        while ((match = itemRegex.exec(xml)) !== null && articles.length < 10) {
+            const item = match[1];
             
-            // 只接受有數字ID的文章連結，過濾掉分類連結
-            if (url && !url.includes('#') && !seenUrls.has(url) && 
-                url.match(/\/news\/\d+/) && title.length > 15) {
-                seenUrls.add(url);
-                articles.push({
-                    url: 'https://www.bbc.com' + url,
-                    title: title.replace(/&amp;/g, '&').replace(/&quot;/g, '"')
-                });
+            const titleMatch = item.match(/<title><!\[CDATA\[([\s\S]*?)\]\]><\/title>/);
+            const linkMatch = item.match(/<link>([\s\S]*?)<\/link>/);
+            
+            if (titleMatch && linkMatch) {
+                const title = titleMatch[1].trim();
+                const url = linkMatch[1].trim();
+                
+                if (url && !seenUrls.has(url)) {
+                    seenUrls.add(url);
+                    articles.push({ url, title });
+                }
             }
         }
     } catch (e) {
-        console.error('抓取 BBC 首頁失敗:', e.message);
+        console.error('抓取 BBC RSS 失敗:', e.message);
     }
     
-    return articles.slice(0, 10);
+    return articles;
 }
 
 // 抓取單篇文章內容

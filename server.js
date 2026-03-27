@@ -497,7 +497,7 @@ app.get('/api/stats', requireAuth, (req, res) => {
 // ============ AI QUESTION GENERATION (Enhanced) ============
 
 async function generateQuestions(articleContent, title) {
-    const prompt = `You are a PTE Academic exam question generator. Based on the following article, generate exactly 10 questions covering the most important PTE question types.
+    const prompt = `You are a PTE Academic exam question generator. Based on the following article, generate exactly 10 questions focusing on READING question types ONLY.
 
 Generate these question types (in order):
 
@@ -512,19 +512,14 @@ Generate these question types (in order):
 
 5. ONE "Reading & Writing: Fill in the Blanks" (RWFIB) - A paragraph from the article with 2 blanks. Each blank has 4 options (dropdown).
 
-=== WRITING ===
-1. ONE "Summarize Written Text" (SWT) - Ask the student to write a one-sentence summary (between 5-75 words) of the article or a paragraph. Provide a model answer.
-
-=== LISTENING (simulated as reading) ===
-1. ONE "Write from Dictation" (WFD) - Pick 1 important sentence from the article. Student must type the exact sentence from memory.
-
-2. ONE "Highlight Correct Summary" (HCS) - Provide 4 short summaries of the article. Only 1 is correct. Test overall comprehension.
+6. ONE "Summarize Written Text" (SWT) - Ask the student to write a one-sentence summary (between 5-75 words) of the article or a paragraph. Provide a model answer.
 
 === RULES ===
 - Return ONLY a valid JSON array. No markdown, no code blocks.
 - All explanations must be in Traditional Chinese (繁體中文).
 - Questions should progress from easier to harder.
 - Use actual content from the article, not made-up content.
+- DO NOT generate WFD, HCS, HIW, or VOCAB - only reading types above.
 
 === JSON FORMAT FOR EACH TYPE ===
 
@@ -539,14 +534,6 @@ RO: {"type":"RO","sentences":["1st","2nd","3rd","4th"],"answer":"correct","expla
 RWFIB: {"type":"RWFIB","question":"text with ___1___ and ___2___ and ___3___","blanks":[{"options":["a","b","c","d"],"answer":"correct"},...],"explanation":"繁體中文說明"}
 
 SWT: {"type":"SWT","question":"Summarize the following text in one sentence (5-75 words):","passage":"paragraph from article","modelAnswer":"one sentence summary","explanation":"繁體中文說明"}
-
-WFD: {"type":"WFD","question":"Type the sentence you see, then it will be hidden:","answer":"exact sentence","explanation":"繁體中文說明"}
-
-HCS: {"type":"HCS","question":"Which summary best describes the article?","options":["summary1","summary2","summary3","summary4"],"answer":"correct summary","explanation":"繁體中文說明"}
-
-HIW: {"type":"HIW","question":"Find the incorrect words in this sentence:","modified":"sentence with wrong words","original":"original correct sentence","wrongWords":["word1","word2"],"explanation":"繁體中文說明"}
-
-VOCAB: {"type":"VOCAB","question":"In the context of the article, what does 'word' most closely mean?","options":["a","b","c","d"],"answer":"correct","explanation":"繁體中文說明"}
 
 Article Title: ${title}
 Article Content:

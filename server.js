@@ -462,12 +462,12 @@ app.get('/api/stats', requireAuth, (req, res) => {
 // ============ AI QUESTION GENERATION (Enhanced) ============
 
 async function generateQuestions(articleContent, title) {
-    const prompt = `You are a PTE Academic exam question generator. Based on the following article, generate exactly 18 questions covering ALL major PTE question types.
+    const prompt = `You are a PTE Academic exam question generator. Based on the following article, generate exactly 10 questions focusing on READING question types ONLY.
 
 Generate these question types (in order):
 
 === READING ===
-1. THREE "Reading: Fill in the Blanks" (FIB) - Remove a key word from a sentence in the article, provide 4 plausible options. The blank should test vocabulary or grammar understanding.
+1. TWO "Reading: Fill in the Blanks" (FIB) - Remove a key word from a sentence in the article, provide 4 plausible options. The blank should test vocabulary or grammar understanding.
 
 2. TWO "Multiple Choice, Single Answer" (MCSA) - Ask a comprehension question about the article. Provide 4 options, only 1 is correct. Questions should test understanding of main idea, details, inference, or author's purpose.
 
@@ -477,23 +477,14 @@ Generate these question types (in order):
 
 5. TWO "Reading & Writing: Fill in the Blanks" (RWFIB) - A paragraph from the article with 3 blanks. Each blank has 4 options (dropdown).
 
-=== WRITING ===
 6. ONE "Summarize Written Text" (SWT) - Ask the student to write a one-sentence summary (between 5-75 words) of the article or a paragraph. Provide a model answer.
-
-=== LISTENING (simulated as reading) ===
-7. TWO "Write from Dictation" (WFD) - Pick 2 important sentences from the article. Student must type the exact sentence from memory.
-
-8. ONE "Highlight Correct Summary" (HCS) - Provide 4 short summaries of the article. Only 1 is correct. Test overall comprehension.
-
-9. TWO "Highlight Incorrect Words" (HIW) - Take a sentence from the article and change 2-3 words to incorrect ones. Student must identify the wrong words. Provide the original correct sentence and the modified version.
-
-10. TWO vocabulary questions (VOCAB) - Test key vocabulary from the article. Give a word in context and ask for the closest meaning. Provide 4 options.
 
 === RULES ===
 - Return ONLY a valid JSON array. No markdown, no code blocks.
 - All explanations must be in Traditional Chinese (繁體中文).
 - Questions should progress from easier to harder.
 - Use actual content from the article, not made-up content.
+- DO NOT generate WFD, HCS, HIW, or VOCAB - only reading types above.
 
 === JSON FORMAT FOR EACH TYPE ===
 
@@ -508,14 +499,6 @@ RO: {"type":"RO","sentences":["1st","2nd","3rd","4th"],"answer":"correct","expla
 RWFIB: {"type":"RWFIB","question":"text with ___1___ and ___2___ and ___3___","blanks":[{"options":["a","b","c","d"],"answer":"correct"},...],"explanation":"繁體中文說明"}
 
 SWT: {"type":"SWT","question":"Summarize the following text in one sentence (5-75 words):","passage":"paragraph from article","modelAnswer":"one sentence summary","explanation":"繁體中文說明"}
-
-WFD: {"type":"WFD","question":"Type the sentence you see, then it will be hidden:","answer":"exact sentence","explanation":"繁體中文說明"}
-
-HCS: {"type":"HCS","question":"Which summary best describes the article?","options":["summary1","summary2","summary3","summary4"],"answer":"correct summary","explanation":"繁體中文說明"}
-
-HIW: {"type":"HIW","question":"Find the incorrect words in this sentence:","modified":"sentence with wrong words","original":"original correct sentence","wrongWords":["word1","word2"],"explanation":"繁體中文說明"}
-
-VOCAB: {"type":"VOCAB","question":"In the context of the article, what does 'word' most closely mean?","options":["a","b","c","d"],"answer":"correct","explanation":"繁體中文說明"}
 
 Article Title: ${title}
 Article Content:

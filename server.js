@@ -210,52 +210,28 @@ async function fetchBBCWorldArticles() {
 
 // 抓取單篇文章內容 (RSS 描述優先)
 async function fetchArticleContent(url, description = '') {
-    try {
-        // 如果有 RSS 描述，直接使用
-        if (description && description.length > 50) {
-            // 嘗試從 URL 获取完整文章
-            const html = await fetchUrl(url);
-            
-            let title = '';
-            const titleMatch = html.match(/<title>([^<]+)<\/title>/i);
-            if (titleMatch) {
-                title = titleMatch[1].replace(/ - BBC News/, '').trim();
-            }
-            
-            // 嘗試獲取文章內容
-            let content = '';
-            const articleMatch = html.match(/<article[^>]*>([\s\S]*?)<\/article>/i);
-            if (articleMatch) {
-                const articleBody = articleMatch[1];
-                const pRegex = /<p[^>]*>([\s\S]*?)<\/p>/gi;
-                let pMatch;
-                const paragraphs = [];
-                
-                while ((pMatch = pRegex.exec(articleBody)) !== null) {
-                    const text = pMatch[1]
-                        .replace(/<[^>]+>/g, '')
-                        .replace(/&nbsp;/g, ' ')
-                        .replace(/&amp;/g, '&')
-                        .replace(/&quot;/g, '"')
-                        .replace(/&#\d+;/g, '')
-                        .trim();
-                    
-                    if (text.length > 50) {
-                        paragraphs.push(text);
-                    }
-                }
-                content = paragraphs.join('\n\n');
-            }
-            
-            // 如果抓不到內容，使用 RSS 描述
-            if (!content || content.length < 100) {
-                content = description;
-            }
-            
-            return { title, content };
-        }
+    // 如果有 RSS 描述，直接使用（避免 fetch 個別網頁超時）
+    if (description && description.length > 30) {
+        let title = '';
+        try {
+            const urlParts = new URL(url);
+            const pathParts = urlParts.pathname.split('/').filter(p => p);
+            const lastPart = pathParts[pathParts.length - 1] || 'News';
+            title = lastPart.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+        } catch (e) { title = 'BBC News'; }
         
-        // 沒有描述，直接抓網頁
+        const content = description
+            .replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, '$1')
+            .replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>')
+            .replace(/&quot;/g, '"').replace(/&nbsp;/g, ' ')
+            .trim();
+        
+        console.log(`使用 RSS 描述 (${content.length} 字): ${content.substring(0, 40)}...`);
+        return { title, content };
+    }
+    
+    // 沒有描述才嘗試抓網頁
+    try {
         const html = await fetchUrl(url);
         
         let title = '';
@@ -291,74 +267,6 @@ async function fetchArticleContent(url, description = '') {
         return { title, content };
     } catch (e) {
         console.error('抓取文章失敗:', e.message);
-        return { title: '', content: '' };
-    }
-}
-    try {
-        const html = await fetchUrl(url);
-        
-        // 提取標題 - 尝试多种选择器
-        let title = '';
-        const titleMatch = html.match(/<title>([^<]+)<\/title>/i);
-        if (titleMatch) {
-            title = titleMatch[1].replace(/ - BBC News/, '').trim();
-        }
-        
-        // 提取文章內容 - BBC 文章内容在 article 标签内
-        let content = '';
-        
-        // 方法1: 找 main article 區塊
-        const articleMatch = html.match(/<article[^>]*>([\s\S]*?)<\/article>/i);
-        if (articleMatch) {
-            const articleBody = articleMatch[1];
-            
-            // 提取段落
-            const pRegex = /<p[^>]*>([\s\S]*?)<\/p>/gi;
-            let pMatch;
-            const paragraphs = [];
-            
-            while ((pMatch = pRegex.exec(articleBody)) !== null) {
-                const text = pMatch[1]
-                    .replace(/<[^>]+>/g, '') // 移除 HTML 標籤
-                    .replace(/&nbsp;/g, ' ')
-                    .replace(/&amp;/g, '&')
-                    .replace(/&quot;/g, '"')
-                    .replace(/&#\d+;/g, '')
-                    .trim();
-                
-                if (text.length > 50) {
-                    paragraphs.push(text);
-                }
-            }
-            content = paragraphs.join('\n\n');
-        }
-        
-        // 如果方法1失敗，嘗試方法2
-        if (!content || content.length < 100) {
-            const bodyMatch = html.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
-            if (bodyMatch) {
-                const pRegex = /<p[^>]*>([\s\S]*?)<\/p>/gi;
-                let pMatch;
-                const paragraphs = [];
-                
-                while ((pMatch = pRegex.exec(bodyMatch[1])) !== null) {
-                    const text = pMatch[1]
-                        .replace(/<[^>]+>/g, '')
-                        .replace(/&nbsp;/g, ' ')
-                        .replace(/&amp;/g, '&')
-                        .trim();
-                    
-                    if (text.length > 50) {
-                        paragraphs.push(text);
-                    }
-                }
-                content = paragraphs.join('\n\n');
-            }
-        }
-        
-        return { title, content: content.substring(0, 8000) };
-    } catch (e) {
-        console.error(`抓取文章失敗 ${url}:`, e.message);
         return { title: '', content: '' };
     }
 }

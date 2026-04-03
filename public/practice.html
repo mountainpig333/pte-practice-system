@@ -396,7 +396,7 @@ function submitAnswer(){
     if(q.type==='SWT'&&q.modelAnswer){fbM.classList.remove('hidden');fbM.innerHTML='<strong>參考答案：</strong>'+q.modelAnswer}
     if(q.type==='WFD'&&!isCorrect){fbM.classList.remove('hidden');fbM.innerHTML='<strong>正確句子：</strong>'+q.answer}
 
-    fetch('/api/submit',{method:'POST',headers:{'Content-Type':'application/json'},
+    fetch('/api/submit', { credentials: 'include', method:'POST',headers:{'Content-Type':'application/json'},
         body:JSON.stringify({articleId,questionIndex:currentIndex,type:q.type,correct:isCorrect,userAnswer})});
 
     document.getElementById('submitBtn').style.display='none';

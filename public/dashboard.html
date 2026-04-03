@@ -139,7 +139,7 @@
     // Bank
     async function loadBankStats() {
         try {
-            const r = await fetch('/api/bank/stats');
+            const r = await fetch('/api/bank/stats', { credentials: 'include' });
             const d = await r.json();
             const div = document.getElementById('bankTypes');
             if (d.total === 0) {
@@ -176,7 +176,7 @@
         btn.disabled = true;
         btn.textContent = '🤖 生成中...（約5-10分鐘）';
         try {
-            await fetch('/api/bank/bulk-generate', { method: 'POST', headers: {'Content-Type':'application/json'}, body: '{}' });
+            await fetch('/api/bank/bulk-generate', { credentials: 'include',  method: 'POST', headers: {'Content-Type':'application/json'}, body: '{}' });
             btn.textContent = '✅ 已開始生成！請稍後重新整理';
             setTimeout(() => loadBankStats(), 30000);
         } catch(e) {
@@ -187,7 +187,7 @@
     // Load stats
     async function loadStats() {
         try {
-            const r = await fetch('/api/stats');
+            const r = await fetch('/api/stats', { credentials: 'include' });
             const d = await r.json();
             document.getElementById('articleCount').textContent = d.articleCount || 0;
             document.getElementById('totalQ').textContent = d.total || 0;
@@ -200,7 +200,7 @@
     async function loadArticles() {
         const list = document.getElementById('articleList');
         try {
-            const r = await fetch('/api/articles');
+            const r = await fetch('/api/articles', { credentials: 'include' });
             const articles = await r.json();
             if (articles.length === 0) {
                 list.innerHTML = '<p style="color:var(--gray);text-align:center">還沒有上傳文章</p>';
@@ -240,7 +240,7 @@
         status.textContent = '';
 
         try {
-            const r = await fetch('/api/articles', {
+            const r = await fetch('/api/articles', { credentials: 'include', 
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({ title, content })
@@ -278,14 +278,14 @@
     // Delete article
     async function deleteArticle(id) {
         if (!confirm('確定要刪除這篇文章嗎？')) return;
-        await fetch('/api/articles/' + id, { method: 'DELETE' });
+        await fetch('/api/articles/' + id, { credentials: 'include', method: 'DELETE' });
         loadArticles();
         loadStats();
     }
 
     // Show translation modal
     async function showTranslation(id) {
-        const r = await fetch('/api/articles/' + id);
+        const r = await fetch('/api/articles/' + id, { credentials: 'include' });
         const a = await r.json();
         if (!a.translation) return alert('無翻譯資料');
         

@@ -348,10 +348,13 @@ async function fetchAndProcessBBCArticles(count = 5) {
     return results;
 }
 
-// API: Fetch BBC articles
+// API: Fetch BBC articles (使用 body 中的 password 驗證，不依賴 session)
 app.post('/api/bbc/fetch', async (req, res) => {
     const { password, count } = req.body;
-    if (password !== PASSWORD) return res.status(401).json({ error: 'Unauthorized' });
+    // 改用 body 中的密碼驗證，確保即使 session 失效也能工作
+    if (!password || password !== PASSWORD) {
+        return res.status(401).json({ error: 'Unauthorized' });
+    }
     
     const articleCount = Math.min(count || 5, 10);
     

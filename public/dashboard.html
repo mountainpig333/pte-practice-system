@@ -81,6 +81,7 @@
                     <option value="50">50 題</option>
                 </select>
                 <button class="btn btn-pri" onclick="startBankPractice('mixed')">🔀 綜合練習</button>
+                <button class="btn btn-sec" id="bbcBtn" onclick="fetchBBCArticles()">🌐 BBC 自動抓文</button>
                 <button class="btn btn-sec" id="genBtn" onclick="bulkGenerate()">🤖 AI 批量生題</button>
             </div>
         </div>
@@ -169,6 +170,30 @@
     function startBankPractice(type) {
         const count = document.getElementById('bankCount').value;
         location.href = `/practice?bank=${type}&count=${count}`;
+    }
+
+    async function fetchBBCArticles() {
+        const btn = document.getElementById('bbcBtn');
+        btn.disabled = true;
+        btn.textContent = '🌐 抓取中...';
+        try {
+            const r = await fetch('/api/bbc/fetch', { 
+                credentials: 'include',
+                method: 'POST', 
+                headers: {'Content-Type':'application/json'}, 
+                body: JSON.stringify({ password: 'PTE2026', count: 3 }) 
+            });
+            const d = await r.json();
+            if (d.success) {
+                btn.textContent = `✅ 已抓取 ${d.count} 篇`;
+                loadArticles();
+            } else {
+                btn.textContent = `❌ ${d.error || '失敗'}`;
+            }
+            setTimeout(() => { btn.disabled = false; btn.textContent = '🌐 BBC 自動抓文'; }, 5000);
+        } catch(e) {
+            btn.textContent = '❌ 錯誤';
+        }
     }
 
     async function bulkGenerate() {

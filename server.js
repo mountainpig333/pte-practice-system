@@ -89,7 +89,9 @@ app.post('/api/login', (req, res) => {
 });
 
 app.get('/api/logout', (req, res) => {
-    req.session.destroy();
+    req.session.destroy(err => {
+        if (err) console.error('Session destroy error:', err);
+    });
     res.redirect('/');
 });
 

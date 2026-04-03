@@ -243,27 +243,10 @@ async function fetchBBCWorldArticles() {
     return articles;
 }
 
-// 抓取單篇文章內容 (RSS 描述優先)
+// 抓取單篇文章內容 (強制抓網頁)
 async function fetchArticleContent(url, description = '') {
-    // 如果有 RSS 描述，直接使用（避免 fetch 個別網頁超時）
-    if (description && description.length > 30) {
-        let title = '';
-        try {
-            const urlParts = new URL(url);
-            const pathParts = urlParts.pathname.split('/').filter(p => p);
-            const lastPart = pathParts[pathParts.length - 1] || 'News';
-            title = lastPart.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
-        } catch (e) { title = 'BBC News'; }
-        
-        const content = description
-            .replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, '$1')
-            .replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>')
-            .replace(/&quot;/g, '"').replace(/&nbsp;/g, ' ')
-            .trim();
-        
-        console.log(`使用 RSS 描述 (${content.length} 字): ${content.substring(0, 40)}...`);
-        return { title, content };
-    }
+    // 強制抓取網頁，不使用 RSS description (因為太短)
+    // 2026-04-03 修復：原本用 RSS description 只有幾十字，現在直接抓網頁
     
     // 沒有描述才嘗試抓網頁
     try {
